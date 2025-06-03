@@ -1,0 +1,44 @@
+<?php
+
+namespace BagistoPlus\VisualVelocity\Sections;
+
+use BagistoPlus\Visual\Sections\BladeSection;
+use BagistoPlus\Visual\Settings\Checkbox;
+use BagistoPlus\Visual\Settings\Link;
+use BagistoPlus\Visual\Settings\Text;
+
+use function BagistoPlus\VisualVelocity\_t;
+
+class TopBar extends BladeSection
+{
+    protected static string $view = 'shop::sections.top-bar';
+
+    public static function settings(): array
+    {
+        return [
+            Checkbox::make('show_announcement', _t('top-bar.settings.show_announcement_label'))
+                ->default(true),
+
+            Text::make('announcement', _t('top-bar.settings.announcement_label'))
+                ->default(_t('top-bar.settings.announcement_default')),
+
+            Link::make('announcement_link', _t('top-bar.settings.announcement_link_label'))
+                ->default('/'),
+
+            Text::make('announcement_link_text', _t('top-bar.settings.announcement_link_text_label'))
+                ->default(_t('top-bar.settings.announcement_link_text_default')),
+
+            Checkbox::make('show_currency_switcher', _t('top-bar.settings.show_currency_switcher_label'))
+                ->default(true),
+
+            Checkbox::make('show_locale_switcher', _t('top-bar.settings.show_locale_switcher_label'))
+                ->default(true),
+        ];
+    }
+
+    public static function blocks(): array
+    {
+        // section blocks
+        return [];
+    }
+}

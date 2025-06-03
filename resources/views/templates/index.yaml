@@ -1,0 +1,122 @@
+sections:
+  slideshow:
+    type: visual-velocity::slideshow
+  home-offer:
+    type: visual-velocity::promo-banner
+  categories:
+    type: visual-velocity::category-carousel
+  new-products:
+    type: visual-velocity::product-carousel
+  top-collection:
+    type: visual-velocity::collection-tiles
+    settings:
+      heading: The game with our new additions!
+    blocks:
+      tile1:
+        type: tile
+        settings:
+          image: /themes/shop/visual-velocity/images/top-collection/1.webp
+      tile2:
+        type: tile
+        settings:
+          image: /themes/shop/visual-velocity/images/top-collection/2.webp
+      tile3:
+        type: tile
+        settings:
+          image: /themes/shop/visual-velocity/images/top-collection/3.webp
+      tile4:
+        type: tile
+        settings:
+          image: /themes/shop/visual-velocity/images/top-collection/4.webp
+      tile5:
+        type: tile
+        settings:
+          image: /themes/shop/visual-velocity/images/top-collection/5.webp
+      tile6:
+        type: tile
+        settings:
+          image: /themes/shop/visual-velocity/images/top-collection/6.webp
+    blocks_order:
+      - tile1
+      - tile2
+      - tile3
+      - tile4
+      - tile5
+      - tile6
+  bold-collection:
+    type: visual-velocity::text-with-image
+    settings:
+      image: themes/shop/visual-velocity/images/bold-collection/image1.webp
+    blocks:
+      heading:
+        type: heading
+        settings:
+          text: Get Ready for our new Bold Collections!
+      content:
+        type: body
+        settings:
+          content: Introducing Our New Bold Collections! Elevate your style with daring designs and vibrant statements. Explore striking patterns and bold colors that redefine your wardrobe. Get ready to embrace the extraordinary!
+      cta:
+        type: button
+        settings:
+          text: View Collections
+  featured-products:
+    type: visual-velocity::product-carousel
+    settings:
+      heading: Featured products
+      filter_featured: true
+  game-collection:
+    type: visual-velocity::collection-tiles
+    settings:
+      heading: The game with our new additions!
+      columns_mobile: 1
+      columns_desktop: 2
+      text_alignment_horizontal: start
+    blocks:
+      tile1:
+        type: tile
+        settings:
+          image: /themes/shop/visual-velocity/images/game-collection/1.webp
+      tile2:
+        type: tile
+        settings:
+          image: /themes/shop/visual-velocity/images/game-collection/2.webp
+  all-products:
+    type: visual-velocity::product-carousel
+    settings:
+      heading: All products
+      filter_new: false
+      filter_featured: false
+  bold-collection-2:
+    type: visual-velocity::text-with-image
+    settings:
+      image_position: right
+      image: themes/shop/visual-velocity/images/bold-collection/image2.webp
+    blocks:
+      heading:
+        type: heading
+        settings:
+          text: Get Ready for our new Bold Collections!
+      content:
+        type: body
+        settings:
+          content: Introducing Our New Bold Collections! Elevate your style with daring designs and vibrant statements. Explore striking patterns and bold colors that redefine your wardrobe. Get ready to embrace the extraordinary!
+      cta:
+        type: button
+        settings:
+          text: View Collections
+  feature-icons:
+    type: visual-velocity::feature-icons
+
+order:
+  - slideshow
+  - home-offer
+  - categories
+  - new-products
+  - top-collection
+  # - bold-collection
+  # - featured-products
+  # - game-collection
+  # - all-products
+  # - bold-collection-2
+  # - feature-icons

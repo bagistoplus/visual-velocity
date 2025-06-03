@@ -1,0 +1,5 @@
+{
+    "bladeFormatter.format.wrapAttributes": "force-expand-multiline",
+    "bladeFormatter.format.wrapAttributesMinAttrs": 3,
+    "bladeFormatter.format.wrapLineLength": 180,
+}
