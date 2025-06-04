@@ -14,6 +14,8 @@ class MobileHeader extends BladeSection
 
     protected static string $wrapper = 'header';
 
+    protected static array $disabledOn = ['*'];
+
     public static function settings(): array
     {
         return [

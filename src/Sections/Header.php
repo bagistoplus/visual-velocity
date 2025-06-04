@@ -18,6 +18,8 @@ class Header extends BladeSection
 {
     protected static string $view = 'shop::sections.header';
 
+    protected static array $disabledOn = ['*'];
+
     public static function blocks(): array
     {
         return [
