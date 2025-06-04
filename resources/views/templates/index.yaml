@@ -105,8 +105,6 @@ sections:
         type: button
         settings:
           text: View Collections
-  feature-icons:
-    type: visual-velocity::feature-icons
 
 order:
   - slideshow
@@ -114,9 +112,8 @@ order:
   - categories
   - new-products
   - top-collection
-  # - bold-collection
-  # - featured-products
-  # - game-collection
-  # - all-products
-  # - bold-collection-2
-  # - feature-icons
+  - bold-collection
+  - featured-products
+  - game-collection
+  - all-products
+  - bold-collection-2

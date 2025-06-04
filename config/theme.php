@@ -4,11 +4,11 @@ return [
     'code' => 'visual-velocity',
     'name' => 'Visual Velocity',
     'version' => '1.0.0',
-    'author' => 'Your Company Name',
+    'author' => 'Bagisto Plus',
     'assets_path' => 'public/themes/shop/visual-velocity',
     'views_path' => 'resources/themes/visual-velocity/views',
     'preview_image' => 'themes/shop/visual-velocity/images/theme-preview.png',
-    'documentation_url' => 'https://yourdomain.com/docs/themes/visual-velocity',
+    'documentation_url' => 'https://github.com/bagistoplus/visual-velocity',
 
     'vite' => [
         'hot_file' => 'themes/shop/visual-velocity/visual-velocity-vite.hot',
