@@ -1,9 +1,9 @@
 <v-shimmer-image {{ $attributes }}>
-  <div {{ $attributes->merge(['class' => 'shimmer']) }}></div>
+    <div {{ $attributes->merge(['class' => 'shimmer']) }}></div>
 </v-shimmer-image>
 
 @pushOnce('scripts')
-  <script
+    <script
         type="text/x-template"
         id="v-shimmer-image-template"
     >
@@ -34,60 +34,60 @@
         >
     </script>
 
-  <script type="module">
-    app.component('v-shimmer-image', {
-      template: '#v-shimmer-image-template',
+    <script type="module">
+        app.component('v-shimmer-image', {
+            template: '#v-shimmer-image-template',
 
-      props: {
-        lazy: {
-          type: Boolean,
-          default: true,
-        },
+            props: {
+                lazy: {
+                    type: Boolean,
+                    default: true,
+                },
 
-        src: {
-          type: String,
-          default: '',
-        },
-      },
+                src: {
+                    type: String,
+                    default: '',
+                },
+            },
 
-      data() {
-        return {
-          isLoading: true,
-        };
-      },
+            data() {
+                return {
+                    isLoading: true,
+                };
+            },
 
-      mounted() {
-        let self = this;
+            mounted() {
+                let self = this;
 
-        if (!this.lazy) {
-          return;
-        }
+                if (!this.lazy) {
+                    return;
+                }
 
-        let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
-          entries.forEach(function(entry) {
-            if (entry.isIntersecting) {
-              let lazyImage = document.getElementById('image-' + self.$.uid);
+                let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            let lazyImage = document.getElementById('image-' + self.$.uid);
 
-              lazyImage.src = lazyImage.dataset.src;
+                            lazyImage.src = lazyImage.dataset.src;
 
-              lazyImageObserver.unobserve(lazyImage);
-            }
-          });
+                            lazyImageObserver.unobserve(lazyImage);
+                        }
+                    });
+                });
+
+                this.$nextTick(() => {
+                    const img = document.getElementById('image-shimmer-' + this.$.uid);
+                    if (img) {
+                        lazyImageObserver.observe(img);
+                    }
+                });
+            },
+
+            methods: {
+                onLoad() {
+                    this.isLoading = false;
+                },
+            },
         });
-        this.$nextTick(() => {
-          const img = document.getElementById('image-shimmer-' + this.$.uid);
-          if (img) {
-            lazyImageObserver.observe(img);
-          }
-
-        });
-      },
-
-      methods: {
-        onLoad() {
-          this.isLoading = false;
-        },
-      },
-    });
-  </script>
+    </script>
 @endPushOnce

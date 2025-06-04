@@ -2,7 +2,7 @@
 </v-product-card>
 
 @pushOnce('scripts')
-  <script
+    <script
         type="text/x-template"
         id="v-product-card-template"
     >
@@ -331,161 +331,161 @@
         </div>
     </script>
 
-  <script type="module">
-    app.component('v-product-card', {
-      template: '#v-product-card-template',
+    <script type="module">
+        app.component('v-product-card', {
+            template: '#v-product-card-template',
 
-      props: ['mode', 'product'],
+            props: ['mode', 'product'],
 
-      data() {
-        return {
-          isCustomer: '{{ auth()->guard('customer')->check() }}',
+            data() {
+                return {
+                    isCustomer: '{{ auth()->guard('customer')->check() }}',
 
-          isAddingToCart: false,
-        }
-      },
-
-      computed: {
-        productUrl() {
-          const url = new URL("{{ route('shop.product_or_category.index', '') }}");
-          url.pathname = this.product.url_key;
-          return url.href;
-        }
-      },
-
-      methods: {
-        addToWishlist() {
-          if (this.isCustomer) {
-            this.$axios.post(`{{ route('shop.api.customers.account.wishlist.store') }}`, {
-                product_id: this.product.id
-              })
-              .then(response => {
-                this.product.is_wishlist = !this.product.is_wishlist;
-
-                this.$emitter.emit('add-flash', {
-                  type: 'success',
-                  message: response.data.data.message
-                });
-              })
-              .catch(error => {});
-          } else {
-            window.location.href = "{{ route('shop.customer.session.index') }}";
-          }
-        },
-
-        addToCompare(productId) {
-          /**
-           * This will handle for customers.
-           */
-          if (this.isCustomer) {
-            this.$axios.post('{{ route('shop.api.compare.store') }}', {
-                'product_id': productId
-              })
-              .then(response => {
-                this.$emitter.emit('add-flash', {
-                  type: 'success',
-                  message: response.data.data.message
-                });
-              })
-              .catch(error => {
-                if ([400, 422].includes(error.response.status)) {
-                  this.$emitter.emit('add-flash', {
-                    type: 'warning',
-                    message: error.response.data.data.message
-                  });
-
-                  return;
+                    isAddingToCart: false,
                 }
+            },
 
-                this.$emitter.emit('add-flash', {
-                  type: 'error',
-                  message: error.response.data.message
-                });
-              });
+            computed: {
+                productUrl() {
+                    const url = new URL("{{ route('shop.product_or_category.index', '') }}");
+                    url.pathname = this.product.url_key;
+                    return url.href;
+                }
+            },
 
-            return;
-          }
+            methods: {
+                addToWishlist() {
+                    if (this.isCustomer) {
+                        this.$axios.post(`{{ route('shop.api.customers.account.wishlist.store') }}`, {
+                                product_id: this.product.id
+                            })
+                            .then(response => {
+                                this.product.is_wishlist = !this.product.is_wishlist;
 
-          /**
-           * This will handle for guests.
-           */
-          let items = this.getStorageValue() ?? [];
+                                this.$emitter.emit('add-flash', {
+                                    type: 'success',
+                                    message: response.data.data.message
+                                });
+                            })
+                            .catch(error => {});
+                    } else {
+                        window.location.href = "{{ route('shop.customer.session.index') }}";
+                    }
+                },
 
-          if (items.length) {
-            if (!items.includes(productId)) {
-              items.push(productId);
+                addToCompare(productId) {
+                    /**
+                     * This will handle for customers.
+                     */
+                    if (this.isCustomer) {
+                        this.$axios.post('{{ route('shop.api.compare.store') }}', {
+                                'product_id': productId
+                            })
+                            .then(response => {
+                                this.$emitter.emit('add-flash', {
+                                    type: 'success',
+                                    message: response.data.data.message
+                                });
+                            })
+                            .catch(error => {
+                                if ([400, 422].includes(error.response.status)) {
+                                    this.$emitter.emit('add-flash', {
+                                        type: 'warning',
+                                        message: error.response.data.data.message
+                                    });
 
-              localStorage.setItem('compare_items', JSON.stringify(items));
+                                    return;
+                                }
 
-              this.$emitter.emit('add-flash', {
-                type: 'success',
-                message: "@lang('shop::app.components.products.card.add-to-compare-success')"
-              });
-            } else {
-              this.$emitter.emit('add-flash', {
-                type: 'warning',
-                message: "@lang('shop::app.components.products.card.already-in-compare')"
-              });
-            }
-          } else {
-            localStorage.setItem('compare_items', JSON.stringify([productId]));
+                                this.$emitter.emit('add-flash', {
+                                    type: 'error',
+                                    message: error.response.data.message
+                                });
+                            });
 
-            this.$emitter.emit('add-flash', {
-              type: 'success',
-              message: "@lang('shop::app.components.products.card.add-to-compare-success')"
-            });
+                        return;
+                    }
 
-          }
-        },
+                    /**
+                     * This will handle for guests.
+                     */
+                    let items = this.getStorageValue() ?? [];
 
-        getStorageValue(key) {
-          let value = localStorage.getItem('compare_items');
+                    if (items.length) {
+                        if (!items.includes(productId)) {
+                            items.push(productId);
 
-          if (!value) {
-            return [];
-          }
+                            localStorage.setItem('compare_items', JSON.stringify(items));
 
-          return JSON.parse(value);
-        },
+                            this.$emitter.emit('add-flash', {
+                                type: 'success',
+                                message: "@lang('shop::app.components.products.card.add-to-compare-success')"
+                            });
+                        } else {
+                            this.$emitter.emit('add-flash', {
+                                type: 'warning',
+                                message: "@lang('shop::app.components.products.card.already-in-compare')"
+                            });
+                        }
+                    } else {
+                        localStorage.setItem('compare_items', JSON.stringify([productId]));
 
-        addToCart() {
-          this.isAddingToCart = true;
+                        this.$emitter.emit('add-flash', {
+                            type: 'success',
+                            message: "@lang('shop::app.components.products.card.add-to-compare-success')"
+                        });
 
-          this.$axios.post('{{ route('shop.api.checkout.cart.store') }}', {
-              'quantity': 1,
-              'product_id': this.product.id,
-            })
-            .then(response => {
-              if (response.data.message) {
-                this.$emitter.emit('update-mini-cart', response.data.data);
+                    }
+                },
 
-                this.$emitter.emit('add-flash', {
-                  type: 'success',
-                  message: response.data.message
-                });
-              } else {
-                this.$emitter.emit('add-flash', {
-                  type: 'warning',
-                  message: response.data.data.message
-                });
-              }
+                getStorageValue(key) {
+                    let value = localStorage.getItem('compare_items');
 
-              this.isAddingToCart = false;
-            })
-            .catch(error => {
-              this.$emitter.emit('add-flash', {
-                type: 'error',
-                message: error.response.data.message
-              });
+                    if (!value) {
+                        return [];
+                    }
 
-              if (error.response.data.redirect_uri) {
-                window.location.href = error.response.data.redirect_uri;
-              }
+                    return JSON.parse(value);
+                },
 
-              this.isAddingToCart = false;
-            });
-        },
-      },
-    });
-  </script>
+                addToCart() {
+                    this.isAddingToCart = true;
+
+                    this.$axios.post('{{ route('shop.api.checkout.cart.store') }}', {
+                            'quantity': 1,
+                            'product_id': this.product.id,
+                        })
+                        .then(response => {
+                            if (response.data.message) {
+                                this.$emitter.emit('update-mini-cart', response.data.data);
+
+                                this.$emitter.emit('add-flash', {
+                                    type: 'success',
+                                    message: response.data.message
+                                });
+                            } else {
+                                this.$emitter.emit('add-flash', {
+                                    type: 'warning',
+                                    message: response.data.data.message
+                                });
+                            }
+
+                            this.isAddingToCart = false;
+                        })
+                        .catch(error => {
+                            this.$emitter.emit('add-flash', {
+                                type: 'error',
+                                message: error.response.data.message
+                            });
+
+                            if (error.response.data.redirect_uri) {
+                                window.location.href = error.response.data.redirect_uri;
+                            }
+
+                            this.isAddingToCart = false;
+                        });
+                },
+            },
+        });
+    </script>
 @endpushOnce

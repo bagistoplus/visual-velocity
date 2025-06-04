@@ -1,5 +1,8 @@
 {
-    "bladeFormatter.format.wrapAttributes": "force-expand-multiline",
-    "bladeFormatter.format.wrapAttributesMinAttrs": 3,
-    "bladeFormatter.format.wrapLineLength": 180,
+  "bladeFormatter.format.wrapAttributes": "force-expand-multiline",
+  "bladeFormatter.format.wrapAttributesMinAttrs": 3,
+  "bladeFormatter.format.wrapLineLength": 180,
+  "bladeFormatter.format.indentSize": 4,
+  "bladeFormatter.format.indentInnerHtml": true,
+  "bladeFormatter.format.sortHtmlAttributes": "vuejs"
 }

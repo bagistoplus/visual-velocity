@@ -1,14 +1,14 @@
 <!-- Mini Cart Vue Component -->
 <v-mini-cart>
-  <span
-    class="icon-cart flex cursor-pointer text-2xl"
-    role="button"
-    aria-label="@lang('shop::app.checkout.cart.mini-cart.shopping-cart')"
-  ></span>
+    <span
+        class="icon-cart cursor-pointer text-2xl"
+        role="button"
+        aria-label="@lang('shop::app.checkout.cart.mini-cart.shopping-cart')"
+    ></span>
 </v-mini-cart>
 
 @pushOnce('scripts')
-  <script
+    <script
         type="text/x-template"
         id="v-mini-cart-template"
     >
@@ -22,7 +22,7 @@
 
                     <span class="relative">
                         <span
-                            class="icon-cart cursor-pointer text-2xl flex"
+                            class="icon-cart cursor-pointer text-2xl"
                             role="button"
                             aria-label="@lang('shop::app.checkout.cart.mini-cart.shopping-cart')"
                             tabindex="0"
@@ -373,100 +373,89 @@
         {!! view_render_event('bagisto.shop.checkout.mini-cart.drawer.after') !!}
     </script>
 
-  <script type="module">
-    app.component("v-mini-cart", {
-      template: '#v-mini-cart-template',
+    <script type="module">
+        app.component("v-mini-cart", {
+            template: '#v-mini-cart-template',
 
-      data() {
-        return {
-          cart: null,
+            data() {
+                return  {
+                    cart: null,
 
-          isLoading: false,
+                    isLoading:false,
 
-          displayTax: {
-            prices: "{{ core()->getConfigData('sales.taxes.shopping_cart.display_prices') }}",
-            subtotal: "{{ core()->getConfigData('sales.taxes.shopping_cart.display_subtotal') }}",
-          },
-        }
-      },
+                    displayTax: {
+                        prices: "{{ core()->getConfigData('sales.taxes.shopping_cart.display_prices') }}",
+                        subtotal: "{{ core()->getConfigData('sales.taxes.shopping_cart.display_subtotal') }}",
+                    },
+                }
+            },
 
-      mounted() {
-        this.getCart();
+            mounted() {
+                this.getCart();
 
-        /**
-         * To Do: Implement this.
-         *
-         * Action.
-         */
-        this.$emitter.on('update-mini-cart', (cart) => {
-          this.cart = cart;
+                /**
+                 * To Do: Implement this.
+                 *
+                 * Action.
+                 */
+                this.$emitter.on('update-mini-cart', (cart) => {
+                    this.cart = cart;
+                });
+            },
+
+            methods: {
+                getCart() {
+                    this.$axios.get('{{ route('shop.api.checkout.cart.index') }}')
+                        .then(response => {
+                            this.cart = response.data.data;
+                        })
+                        .catch(error => {});
+                },
+
+                updateItem(quantity, item) {
+                    this.isLoading = true;
+
+                    let qty = {};
+
+                    qty[item.id] = quantity;
+
+                    this.$axios.put('{{ route('shop.api.checkout.cart.update') }}', { qty })
+                        .then(response => {
+                            if (response.data.message) {
+                                this.cart = response.data.data;
+                            } else {
+                                this.$emitter.emit('add-flash', { type: 'warning', message: response.data.data.message });
+                            }
+
+                            this.isLoading = false;
+                        }).catch(error => this.isLoading = false);
+                },
+
+                removeItem(itemId) {
+                    this.$emitter.emit('open-confirm-modal', {
+                        agree: () => {
+                            this.isLoading = true;
+
+                            this.$axios.post('{{ route('shop.api.checkout.cart.destroy') }}', {
+                                '_method': 'DELETE',
+                                'cart_item_id': itemId,
+                            })
+                            .then(response => {
+                                this.cart = response.data.data;
+
+                                this.$emitter.emit('add-flash', { type: 'success', message: response.data.message });
+
+                                this.isLoading = false;
+                            })
+                            .catch(error => {
+                                this.$emitter.emit('add-flash', { type: 'error', message: response.data.message });
+
+                                this.isLoading = false;
+                            });
+                        }
+                    });
+                },
+            },
         });
-      },
-
-      methods: {
-        getCart() {
-          this.$axios.get('{{ route('shop.api.checkout.cart.index') }}')
-            .then(response => {
-              this.cart = response.data.data;
-            })
-            .catch(error => {});
-        },
-
-        updateItem(quantity, item) {
-          this.isLoading = true;
-
-          let qty = {};
-
-          qty[item.id] = quantity;
-
-          this.$axios.put('{{ route('shop.api.checkout.cart.update') }}', {
-              qty
-            })
-            .then(response => {
-              if (response.data.message) {
-                this.cart = response.data.data;
-              } else {
-                this.$emitter.emit('add-flash', {
-                  type: 'warning',
-                  message: response.data.data.message
-                });
-              }
-
-              this.isLoading = false;
-            }).catch(error => this.isLoading = false);
-        },
-
-        removeItem(itemId) {
-          this.$emitter.emit('open-confirm-modal', {
-            agree: () => {
-              this.isLoading = true;
-
-              this.$axios.post('{{ route('shop.api.checkout.cart.destroy') }}', {
-                  '_method': 'DELETE',
-                  'cart_item_id': itemId,
-                })
-                .then(response => {
-                  this.cart = response.data.data;
-
-                  this.$emitter.emit('add-flash', {
-                    type: 'success',
-                    message: response.data.message
-                  });
-
-                  this.isLoading = false;
-                })
-                .catch(error => {
-                  this.$emitter.emit('add-flash', {
-                    type: 'error',
-                    message: response.data.message
-                  });
-
-                  this.isLoading = false;
-                });
-            }
-          });
-        },
-      },
-    });
-  </script>
+    </script>
 @endpushOnce

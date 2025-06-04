@@ -1,63 +1,63 @@
 <!-- SEO Meta Content -->
 @push('meta')
-  <meta name="description"
-    content="{{ trim($category->meta_description) != '' ? $category->meta_description : \Illuminate\Support\Str::limit(strip_tags($category->description), 120, '') }}"
-  />
+    <meta name="description"
+        content="{{ trim($category->meta_description) != '' ? $category->meta_description : \Illuminate\Support\Str::limit(strip_tags($category->description), 120, '') }}"
+    />
 
-  <meta name="keywords" content="{{ $category->meta_keywords }}" />
+    <meta name="keywords" content="{{ $category->meta_keywords }}" />
 
-  @if (core()->getConfigData('catalog.rich_snippets.categories.enable'))
-    <script type="application/ld+json">
-            {!! app('Webkul\Product\Helpers\SEO')->getCategoryJsonLd($category) !!}
-        </script>
-  @endif
+    @if (core()->getConfigData('catalog.rich_snippets.categories.enable'))
+        <script type="application/ld+json">
+        {!! app('Webkul\Product\Helpers\SEO')->getCategoryJsonLd($category) !!}
+    </script>
+    @endif
 @endPush
 
 <x-shop::layouts>
-  <!-- Page Title -->
-  <x-slot:title>
-    {{ trim($category->meta_title) != '' ? $category->meta_title : $category->name }}
-  </x-slot>
+    <!-- Page Title -->
+    <x-slot:title>
+        {{ trim($category->meta_title) != '' ? $category->meta_title : $category->name }}
+    </x-slot>
 
-  {!! view_render_event('bagisto.shop.categories.view.banner_path.before') !!}
+    {!! view_render_event('bagisto.shop.categories.view.banner_path.before') !!}
 
-  <!-- Hero Image -->
-  @if ($category->banner_path)
-    <div class="container mt-8 px-[60px] max-lg:px-8 max-md:mt-4 max-md:px-4">
-      <x-shop::media.images.lazy
-        class="aspect-[4/1] max-h-full max-w-full rounded-xl"
-        src="{{ $category->banner_url }}"
-        alt="{{ $category->name }}"
-        width="1320"
-        height="300"
-      />
-    </div>
-  @endif
-
-  {!! view_render_event('bagisto.shop.categories.view.banner_path.after') !!}
-
-  {!! view_render_event('bagisto.shop.categories.view.description.before') !!}
-
-  @if (in_array($category->display_mode, [null, 'description_only', 'products_and_description']))
-    @if ($category->description)
-      <div class="container mt-[34px] px-[60px] max-lg:px-8 max-md:mt-4 max-md:px-4 max-md:text-sm max-sm:text-xs">
-        {!! $category->description !!}
-      </div>
+    <!-- Hero Image -->
+    @if ($category->banner_path)
+        <div class="container mt-8 px-[60px] max-lg:px-8 max-md:mt-4 max-md:px-4">
+            <x-shop::media.images.lazy
+                class="aspect-[4/1] max-h-full max-w-full rounded-xl"
+                src="{{ $category->banner_url }}"
+                alt="{{ $category->name }}"
+                width="1320"
+                height="300"
+            />
+        </div>
     @endif
-  @endif
 
-  {!! view_render_event('bagisto.shop.categories.view.description.after') !!}
+    {!! view_render_event('bagisto.shop.categories.view.banner_path.after') !!}
 
-  @if (in_array($category->display_mode, [null, 'products_only', 'products_and_description']))
-    <!-- Category Vue Component -->
-    <v-category>
-      <!-- Category Shimmer Effect -->
-      <x-shop::shimmer.categories.view />
-    </v-category>
-  @endif
+    {!! view_render_event('bagisto.shop.categories.view.description.before') !!}
 
-  @pushOnce('scripts')
-    <script
+    @if (in_array($category->display_mode, [null, 'description_only', 'products_and_description']))
+        @if ($category->description)
+            <div class="container mt-[34px] px-[60px] max-lg:px-8 max-md:mt-4 max-md:px-4 max-md:text-sm max-sm:text-xs">
+                {!! $category->description !!}
+            </div>
+        @endif
+    @endif
+
+    {!! view_render_event('bagisto.shop.categories.view.description.after') !!}
+
+    @if (in_array($category->display_mode, [null, 'products_only', 'products_and_description']))
+        <!-- Category Vue Component -->
+        <v-category>
+            <!-- Category Shimmer Effect -->
+            <x-shop::shimmer.categories.view />
+        </v-category>
+    @endif
+
+    @pushOnce('scripts')
+        <script
             type="text/x-template"
             id="v-category-template"
         >
@@ -189,138 +189,138 @@
             </div>
         </script>
 
-    <script type="module">
-      app.component('v-category', {
-        template: '#v-category-template',
+        <script type="module">
+            app.component('v-category', {
+                template: '#v-category-template',
 
-        data() {
-          return {
-            isMobile: window.innerWidth <= 767,
+                data() {
+                    return {
+                        isMobile: window.innerWidth <= 767,
 
-            isLoading: true,
+                        isLoading: true,
 
-            isDrawerActive: {
-              toolbar: false,
+                        isDrawerActive: {
+                            toolbar: false,
 
-              filter: false,
-            },
+                            filter: false,
+                        },
 
-            filters: {
-              toolbar: {
-                default: {},
+                        filters: {
+                            toolbar: {
+                                default: {},
 
-                applied: {},
-              },
+                                applied: {},
+                            },
 
-              filter: {},
-            },
+                            filter: {},
+                        },
 
-            products: [],
+                        products: [],
 
-            links: {},
+                        links: {},
 
-            loader: false,
-          }
-        },
+                        loader: false,
+                    }
+                },
 
-        computed: {
-          queryParams() {
-            let queryParams = Object.assign({}, this.filters.filter, this.filters.toolbar.applied);
+                computed: {
+                    queryParams() {
+                        let queryParams = Object.assign({}, this.filters.filter, this.filters.toolbar.applied);
 
-            return this.removeJsonEmptyValues(queryParams);
-          },
+                        return this.removeJsonEmptyValues(queryParams);
+                    },
 
-          queryString() {
-            return this.jsonToQueryString(this.queryParams);
-          },
-        },
+                    queryString() {
+                        return this.jsonToQueryString(this.queryParams);
+                    },
+                },
 
-        watch: {
-          queryParams() {
-            this.getProducts();
-          },
+                watch: {
+                    queryParams() {
+                        this.getProducts();
+                    },
 
-          queryString() {
-            window.history.pushState({}, '', '?' + this.queryString);
-          },
-        },
+                    queryString() {
+                        window.history.pushState({}, '', '?' + this.queryString);
+                    },
+                },
 
-        methods: {
-          setFilters(type, filters) {
-            this.filters[type] = filters;
-          },
+                methods: {
+                    setFilters(type, filters) {
+                        this.filters[type] = filters;
+                    },
 
-          clearFilters(type, filters) {
-            this.filters[type] = {};
-          },
+                    clearFilters(type, filters) {
+                        this.filters[type] = {};
+                    },
 
-          getProducts() {
-            this.isDrawerActive = {
-              toolbar: false,
+                    getProducts() {
+                        this.isDrawerActive = {
+                            toolbar: false,
 
-              filter: false,
-            };
+                            filter: false,
+                        };
 
-            document.body.style.overflow = 'scroll';
+                        document.body.style.overflow = 'scroll';
 
-            this.$axios.get("{{ route('shop.api.products.index', ['category_id' => $category->id]) }}", {
-                params: this.queryParams
-              })
-              .then(response => {
-                this.isLoading = false;
+                        this.$axios.get("{{ route('shop.api.products.index', ['category_id' => $category->id]) }}", {
+                                params: this.queryParams
+                            })
+                            .then(response => {
+                                this.isLoading = false;
 
-                this.products = response.data.data;
+                                this.products = response.data.data;
 
-                this.links = response.data.links;
-              }).catch(error => {
-                console.log(error);
-              });
-          },
+                                this.links = response.data.links;
+                            }).catch(error => {
+                                console.log(error);
+                            });
+                    },
 
-          loadMoreProducts() {
-            if (!this.links.next) {
-              return;
-            }
+                    loadMoreProducts() {
+                        if (!this.links.next) {
+                            return;
+                        }
 
-            this.loader = true;
+                        this.loader = true;
 
-            this.$axios.get(this.links.next)
-              .then(response => {
-                this.loader = false;
+                        this.$axios.get(this.links.next)
+                            .then(response => {
+                                this.loader = false;
 
-                this.products = [...this.products, ...response.data.data];
+                                this.products = [...this.products, ...response.data.data];
 
-                this.links = response.data.links;
-              }).catch(error => {
-                console.log(error);
-              });
-          },
+                                this.links = response.data.links;
+                            }).catch(error => {
+                                console.log(error);
+                            });
+                    },
 
-          removeJsonEmptyValues(params) {
-            Object.keys(params).forEach(function(key) {
-              if ((!params[key] && params[key] !== undefined)) {
-                delete params[key];
-              }
+                    removeJsonEmptyValues(params) {
+                        Object.keys(params).forEach(function(key) {
+                            if ((!params[key] && params[key] !== undefined)) {
+                                delete params[key];
+                            }
 
-              if (Array.isArray(params[key])) {
-                params[key] = params[key].join(',');
-              }
+                            if (Array.isArray(params[key])) {
+                                params[key] = params[key].join(',');
+                            }
+                        });
+
+                        return params;
+                    },
+
+                    jsonToQueryString(params) {
+                        let parameters = new URLSearchParams();
+
+                        for (const key in params) {
+                            parameters.append(key, params[key]);
+                        }
+
+                        return parameters.toString();
+                    }
+                },
             });
-
-            return params;
-          },
-
-          jsonToQueryString(params) {
-            let parameters = new URLSearchParams();
-
-            for (const key in params) {
-              parameters.append(key, params[key]);
-            }
-
-            return parameters.toString();
-          }
-        },
-      });
-    </script>
-  @endPushOnce
+        </script>
+    @endPushOnce
 </x-shop::layouts>

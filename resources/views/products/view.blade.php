@@ -2,239 +2,239 @@
 @inject ('productViewHelper', 'Webkul\Product\Helpers\View')
 
 @php
-  $avgRatings = $reviewHelper->getAverageRating($product);
+    $avgRatings = $reviewHelper->getAverageRating($product);
 
-  $percentageRatings = $reviewHelper->getPercentageRating($product);
+    $percentageRatings = $reviewHelper->getPercentageRating($product);
 
-  $customAttributeValues = $productViewHelper->getAdditionalData($product);
+    $customAttributeValues = $productViewHelper->getAdditionalData($product);
 
-  $attributeData = collect($customAttributeValues)->filter(fn($item) => !empty($item['value']));
+    $attributeData = collect($customAttributeValues)->filter(fn($item) => !empty($item['value']));
 @endphp
 
 <!-- SEO Meta Content -->
 @push('meta')
-  <meta name="description"
-    content="{{ trim($product->meta_description) != '' ? $product->meta_description : \Illuminate\Support\Str::limit(strip_tags($product->description), 120, '') }}"
-  />
+    <meta name="description"
+        content="{{ trim($product->meta_description) != '' ? $product->meta_description : \Illuminate\Support\Str::limit(strip_tags($product->description), 120, '') }}"
+    />
 
-  <meta name="keywords" content="{{ $product->meta_keywords }}" />
+    <meta name="keywords" content="{{ $product->meta_keywords }}" />
 
-  @if (core()->getConfigData('catalog.rich_snippets.products.enable'))
-    <script type="application/ld+json">
+    @if (core()->getConfigData('catalog.rich_snippets.products.enable'))
+        <script type="application/ld+json">
             {!! app('Webkul\Product\Helpers\SEO')->getProductJsonLd($product) !!}
         </script>
-  @endif
+    @endif
 
-  <?php $productBaseImage = product_image()->getProductBaseImage($product); ?>
+    <?php $productBaseImage = product_image()->getProductBaseImage($product); ?>
 
-  <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:card" content="summary_large_image" />
 
-  <meta name="twitter:title" content="{{ $product->name }}" />
+    <meta name="twitter:title" content="{{ $product->name }}" />
 
-  <meta name="twitter:description" content="{!! htmlspecialchars(trim(strip_tags($product->description))) !!}" />
+    <meta name="twitter:description" content="{!! htmlspecialchars(trim(strip_tags($product->description))) !!}" />
 
-  <meta name="twitter:image:alt" content="" />
+    <meta name="twitter:image:alt" content="" />
 
-  <meta name="twitter:image" content="{{ $productBaseImage['medium_image_url'] }}" />
+    <meta name="twitter:image" content="{{ $productBaseImage['medium_image_url'] }}" />
 
-  <meta property="og:type" content="og:product" />
+    <meta property="og:type" content="og:product" />
 
-  <meta property="og:title" content="{{ $product->name }}" />
+    <meta property="og:title" content="{{ $product->name }}" />
 
-  <meta property="og:image" content="{{ $productBaseImage['medium_image_url'] }}" />
+    <meta property="og:image" content="{{ $productBaseImage['medium_image_url'] }}" />
 
-  <meta property="og:description" content="{!! htmlspecialchars(trim(strip_tags($product->description))) !!}" />
+    <meta property="og:description" content="{!! htmlspecialchars(trim(strip_tags($product->description))) !!}" />
 
-  <meta property="og:url" content="{{ route('shop.product_or_category.index', $product->url_key) }}" />
+    <meta property="og:url" content="{{ route('shop.product_or_category.index', $product->url_key) }}" />
 @endPush
 
 <!-- Page Layout -->
 <x-shop::layouts>
-  <!-- Page Title -->
-  <x-slot:title>
-    {{ trim($product->meta_title) != '' ? $product->meta_title : $product->name }}
-  </x-slot>
+    <!-- Page Title -->
+    <x-slot:title>
+        {{ trim($product->meta_title) != '' ? $product->meta_title : $product->name }}
+    </x-slot>
 
-  {!! view_render_event('bagisto.shop.products.view.before', ['product' => $product]) !!}
+    {!! view_render_event('bagisto.shop.products.view.before', ['product' => $product]) !!}
 
-  <!-- Breadcrumbs -->
-  @if (core()->getConfigData('general.general.breadcrumbs.shop'))
-    <div class="flex justify-center px-7 max-lg:hidden">
-      <x-shop::breadcrumbs name="product" :entity="$product" />
-    </div>
-  @endif
-
-  <!-- Product Information Vue Component -->
-  <v-product>
-    <x-shop::shimmer.products.view />
-  </v-product>
-
-  <!-- Information Section -->
-  <div class="1180:mt-20">
-    <div class="max-1180:hidden">
-      <x-shop::tabs ref="productTabs" position="center">
-        <!-- Description Tab -->
-        {!! view_render_event('bagisto.shop.products.view.description.before', ['product' => $product]) !!}
-
-        <x-shop::tabs.item
-          id="descritpion-tab"
-          class="container mt-[60px] !p-0"
-          :title="trans('shop::app.products.view.description')"
-          :is-selected="true"
-        >
-          <div class="container mt-[60px] max-1180:px-5">
-            <div class="text-lg text-zinc-500 max-1180:text-sm">
-              {!! $product->description !!}
-            </div>
-          </div>
-        </x-shop::tabs.item>
-
-        {!! view_render_event('bagisto.shop.products.view.description.after', ['product' => $product]) !!}
-
-        <!-- Additional Information Tab -->
-        @if (count($attributeData))
-          <x-shop::tabs.item
-            id="information-tab"
-            class="container mt-[60px] !p-0"
-            :title="trans('shop::app.products.view.additional-information')"
-            :is-selected="false"
-          >
-            <div class="container mt-[60px] max-1180:px-5">
-              <div class="mt-8 grid max-w-max grid-cols-[auto_1fr] gap-4">
-                @foreach ($customAttributeValues as $customAttributeValue)
-                  @if (!empty($customAttributeValue['value']))
-                    <div class="grid">
-                      <p class="text-base text-black">
-                        {!! $customAttributeValue['label'] !!}
-                      </p>
-                    </div>
-
-                    @if ($customAttributeValue['type'] == 'file')
-                      <a href="{{ Storage::url($product[$customAttributeValue['code']]) }}" download="{{ $customAttributeValue['label'] }}">
-                        <span class="icon-download text-2xl"></span>
-                      </a>
-                    @elseif ($customAttributeValue['type'] == 'image')
-                      <a href="{{ Storage::url($product[$customAttributeValue['code']]) }}" download="{{ $customAttributeValue['label'] }}">
-                        <img class="h-5 min-h-5 w-5 min-w-5" src="{{ Storage::url($customAttributeValue['value']) }}" />
-                      </a>
-                    @else
-                      <div class="grid">
-                        <p class="text-base text-zinc-500">
-                          {!! $customAttributeValue['value'] !!}
-                        </p>
-                      </div>
-                    @endif
-                  @endif
-                @endforeach
-              </div>
-            </div>
-          </x-shop::tabs.item>
-        @endif
-
-        <!-- Reviews Tab -->
-        <x-shop::tabs.item
-          id="review-tab"
-          class="container mt-[60px] !p-0"
-          :title="trans('shop::app.products.view.review')"
-          :is-selected="false"
-        >
-          @include('shop::products.view.reviews')
-        </x-shop::tabs.item>
-      </x-shop::tabs>
-    </div>
-  </div>
-
-  <!-- Information Section -->
-  <div class="container mt-6 grid gap-3 !p-0 max-1180:px-5 1180:hidden">
-    <!-- Description Accordion -->
-    <x-shop::accordion class="max-md:border-none" :is-active="true">
-      <x-slot:header class="bg-gray-100 max-md:!py-3 max-sm:!py-2">
-        <p class="text-base font-medium 1180:hidden">
-          @lang('shop::app.products.view.description')
-        </p>
-      </x-slot>
-
-      <x-slot:content class="max-sm:px-0">
-        <div class="mb-5 text-lg text-zinc-500 max-1180:text-sm max-md:mb-1 max-md:px-4">
-          {!! $product->description !!}
+    <!-- Breadcrumbs -->
+    @if (core()->getConfigData('general.general.breadcrumbs.shop'))
+        <div class="flex justify-center px-7 max-lg:hidden">
+            <x-shop::breadcrumbs name="product" :entity="$product" />
         </div>
-      </x-slot>
-    </x-shop::accordion>
-
-    <!-- Additional Information Accordion -->
-    @if (count($attributeData))
-      <x-shop::accordion class="max-md:border-none" :is-active="false">
-        <x-slot:header class="bg-gray-100 max-md:!py-3 max-sm:!py-2">
-          <p class="text-base font-medium 1180:hidden">
-            @lang('shop::app.products.view.additional-information')
-          </p>
-        </x-slot>
-
-        <x-slot:content class="max-sm:px-0">
-          <div class="container max-1180:px-5">
-            <div class="grid max-w-max grid-cols-[auto_1fr] gap-4 text-lg text-zinc-500 max-1180:text-sm">
-              @foreach ($customAttributeValues as $customAttributeValue)
-                @if (!empty($customAttributeValue['value']))
-                  <div class="grid">
-                    <p class="text-base text-black">
-                      {{ $customAttributeValue['label'] }}
-                    </p>
-                  </div>
-
-                  @if ($customAttributeValue['type'] == 'file')
-                    <a href="{{ Storage::url($product[$customAttributeValue['code']]) }}" download="{{ $customAttributeValue['label'] }}">
-                      <span class="icon-download text-2xl"></span>
-                    </a>
-                  @elseif ($customAttributeValue['type'] == 'image')
-                    <a href="{{ Storage::url($product[$customAttributeValue['code']]) }}" download="{{ $customAttributeValue['label'] }}">
-                      <img
-                        class="h-5 min-h-5 w-5 min-w-5"
-                        src="{{ Storage::url($customAttributeValue['value']) }}"
-                        alt="Product Image"
-                      />
-                    </a>
-                  @else
-                    <div class="grid">
-                      <p class="text-base text-zinc-500">
-                        {{ $customAttributeValue['value'] ?? '-' }}
-                      </p>
-                    </div>
-                  @endif
-                @endif
-              @endforeach
-            </div>
-          </div>
-        </x-slot>
-      </x-shop::accordion>
     @endif
 
-    <!-- Reviews Accordion -->
-    <x-shop::accordion class="max-md:border-none" :is-active="false">
-      <x-slot:header
-        id="review-accordian-button"
-        class="bg-gray-100 max-md:!py-3 max-sm:!py-2"
-      >
-        <p class="text-base font-medium">
-          @lang('shop::app.products.view.review')
-        </p>
-      </x-slot>
+    <!-- Product Information Vue Component -->
+    <v-product>
+        <x-shop::shimmer.products.view />
+    </v-product>
 
-      <x-slot:content>
-        @include('shop::products.view.reviews')
-      </x-slot>
-    </x-shop::accordion>
-  </div>
+    <!-- Information Section -->
+    <div class="1180:mt-20">
+        <div class="max-1180:hidden">
+            <x-shop::tabs ref="productTabs" position="center">
+                <!-- Description Tab -->
+                {!! view_render_event('bagisto.shop.products.view.description.before', ['product' => $product]) !!}
 
-  <!-- Featured Products -->
-  <x-shop::products.carousel :title="trans('shop::app.products.view.related-product-title')" :src="route('shop.api.products.related.index', ['id' => $product->id])" />
+                <x-shop::tabs.item
+                    id="descritpion-tab"
+                    class="container mt-[60px] !p-0"
+                    :title="trans('shop::app.products.view.description')"
+                    :is-selected="true"
+                >
+                    <div class="container mt-[60px] max-1180:px-5">
+                        <div class="text-lg text-zinc-500 max-1180:text-sm">
+                            {!! $product->description !!}
+                        </div>
+                    </div>
+                </x-shop::tabs.item>
 
-  <!-- Up-sell Products -->
-  <x-shop::products.carousel :title="trans('shop::app.products.view.up-sell-title')" :src="route('shop.api.products.up-sell.index', ['id' => $product->id])" />
+                {!! view_render_event('bagisto.shop.products.view.description.after', ['product' => $product]) !!}
 
-  {!! view_render_event('bagisto.shop.products.view.after', ['product' => $product]) !!}
+                <!-- Additional Information Tab -->
+                @if (count($attributeData))
+                    <x-shop::tabs.item
+                        id="information-tab"
+                        class="container mt-[60px] !p-0"
+                        :title="trans('shop::app.products.view.additional-information')"
+                        :is-selected="false"
+                    >
+                        <div class="container mt-[60px] max-1180:px-5">
+                            <div class="mt-8 grid max-w-max grid-cols-[auto_1fr] gap-4">
+                                @foreach ($customAttributeValues as $customAttributeValue)
+                                    @if (!empty($customAttributeValue['value']))
+                                        <div class="grid">
+                                            <div class="text-base text-black">
+                                                {!! $customAttributeValue['label'] !!}
+                                            </div>
+                                        </div>
 
-  @pushOnce('scripts')
-    <script
+                                        @if ($customAttributeValue['type'] == 'file')
+                                            <a href="{{ Storage::url($product[$customAttributeValue['code']]) }}" download="{{ $customAttributeValue['label'] }}">
+                                                <span class="icon-download text-2xl"></span>
+                                            </a>
+                                        @elseif ($customAttributeValue['type'] == 'image')
+                                            <a href="{{ Storage::url($product[$customAttributeValue['code']]) }}" download="{{ $customAttributeValue['label'] }}">
+                                                <img class="h-5 min-h-5 w-5 min-w-5" src="{{ Storage::url($customAttributeValue['value']) }}" />
+                                            </a>
+                                        @else
+                                            <div class="grid">
+                                                <div class="text-base text-zinc-500">
+                                                    {!! $customAttributeValue['value'] !!}
+                                                </div>
+                                            </div>
+                                        @endif
+                                    @endif
+                                @endforeach
+                            </div>
+                        </div>
+                    </x-shop::tabs.item>
+                @endif
+
+                <!-- Reviews Tab -->
+                <x-shop::tabs.item
+                    id="review-tab"
+                    class="container mt-[60px] !p-0"
+                    :title="trans('shop::app.products.view.review')"
+                    :is-selected="false"
+                >
+                    @include('shop::products.view.reviews')
+                </x-shop::tabs.item>
+            </x-shop::tabs>
+        </div>
+    </div>
+
+    <!-- Information Section -->
+    <div class="container mt-6 grid gap-3 !p-0 max-1180:px-5 1180:hidden">
+        <!-- Description Accordion -->
+        <x-shop::accordion class="max-md:border-none" :is-active="true">
+            <x-slot:header class="bg-gray-100 max-md:!py-3 max-sm:!py-2">
+                <p class="text-base font-medium 1180:hidden">
+                    @lang('shop::app.products.view.description')
+                </p>
+            </x-slot>
+
+            <x-slot:content class="max-sm:px-0">
+                <div class="mb-5 text-lg text-zinc-500 max-1180:text-sm max-md:mb-1 max-md:px-4">
+                    {!! $product->description !!}
+                </div>
+            </x-slot>
+        </x-shop::accordion>
+
+        <!-- Additional Information Accordion -->
+        @if (count($attributeData))
+            <x-shop::accordion class="max-md:border-none" :is-active="false">
+                <x-slot:header class="bg-gray-100 max-md:!py-3 max-sm:!py-2">
+                    <p class="text-base font-medium 1180:hidden">
+                        @lang('shop::app.products.view.additional-information')
+                    </p>
+                </x-slot>
+
+                <x-slot:content class="max-sm:px-0">
+                    <div class="container max-1180:px-5">
+                        <div class="grid max-w-max grid-cols-[auto_1fr] gap-4 text-lg text-zinc-500 max-1180:text-sm">
+                            @foreach ($customAttributeValues as $customAttributeValue)
+                                @if (!empty($customAttributeValue['value']))
+                                    <div class="grid">
+                                        <p class="text-base text-black">
+                                            {{ $customAttributeValue['label'] }}
+                                        </p>
+                                    </div>
+
+                                    @if ($customAttributeValue['type'] == 'file')
+                                        <a href="{{ Storage::url($product[$customAttributeValue['code']]) }}" download="{{ $customAttributeValue['label'] }}">
+                                            <span class="icon-download text-2xl"></span>
+                                        </a>
+                                    @elseif ($customAttributeValue['type'] == 'image')
+                                        <a href="{{ Storage::url($product[$customAttributeValue['code']]) }}" download="{{ $customAttributeValue['label'] }}">
+                                            <img
+                                                class="h-5 min-h-5 w-5 min-w-5"
+                                                src="{{ Storage::url($customAttributeValue['value']) }}"
+                                                alt="Product Image"
+                                            />
+                                        </a>
+                                    @else
+                                        <div class="grid">
+                                            <p class="text-base text-zinc-500">
+                                                {{ $customAttributeValue['value'] ?? '-' }}
+                                            </p>
+                                        </div>
+                                    @endif
+                                @endif
+                            @endforeach
+                        </div>
+                    </div>
+                </x-slot>
+            </x-shop::accordion>
+        @endif
+
+        <!-- Reviews Accordion -->
+        <x-shop::accordion class="max-md:border-none" :is-active="false">
+            <x-slot:header
+                id="review-accordian-button"
+                class="bg-gray-100 max-md:!py-3 max-sm:!py-2"
+            >
+                <p class="text-base font-medium">
+                    @lang('shop::app.products.view.review')
+                </p>
+            </x-slot>
+
+            <x-slot:content>
+                @include('shop::products.view.reviews')
+            </x-slot>
+        </x-shop::accordion>
+    </div>
+
+    <!-- Featured Products -->
+    <x-shop::products.carousel :title="trans('shop::app.products.view.related-product-title')" :src="route('shop.api.products.related.index', ['id' => $product->id])" />
+
+    <!-- Up-sell Products -->
+    <x-shop::products.carousel :title="trans('shop::app.products.view.up-sell-title')" :src="route('shop.api.products.up-sell.index', ['id' => $product->id])" />
+
+    {!! view_render_event('bagisto.shop.products.view.after', ['product' => $product]) !!}
+
+    @pushOnce('scripts')
+        <script
             type="text/x-template"
             id="v-product-template"
         >
@@ -442,227 +442,228 @@
             </x-shop::form>
         </script>
 
-    <script type="module">
-      app.component('v-product', {
-        template: '#v-product-template',
+        <script type="module">
+            app.component('v-product', {
+                template: '#v-product-template',
 
-        data() {
-          return {
-            isWishlist: Boolean(
-              "{{ (bool) auth()->guard()->user()?->wishlist_items->where('channel_id', core()->getCurrentChannel()->id)->where('product_id', $product->id)->count() }}"),
+                data() {
+                    return {
+                        isWishlist: Boolean(
+                            "{{ (bool) auth()->guard()->user()?->wishlist_items->where('channel_id', core()->getCurrentChannel()->id)->where('product_id', $product->id)->count() }}"
+                        ),
 
-            isCustomer: '{{ auth()->guard('customer')->check() }}',
+                        isCustomer: '{{ auth()->guard('customer')->check() }}',
 
-            is_buy_now: 0,
+                        is_buy_now: 0,
 
-            isStoring: {
-              addToCart: false,
+                        isStoring: {
+                            addToCart: false,
 
-              buyNow: false,
-            },
-          }
-        },
+                            buyNow: false,
+                        },
+                    }
+                },
 
-        methods: {
-          addToCart(params) {
-            const operation = this.is_buy_now ? 'buyNow' : 'addToCart';
+                methods: {
+                    addToCart(params) {
+                        const operation = this.is_buy_now ? 'buyNow' : 'addToCart';
 
-            this.isStoring[operation] = true;
+                        this.isStoring[operation] = true;
 
-            let formData = new FormData(this.$refs.formData);
+                        let formData = new FormData(this.$refs.formData);
 
-            this.ensureQuantity(formData);
+                        this.ensureQuantity(formData);
 
-            this.$axios.post('{{ route('shop.api.checkout.cart.store') }}', formData, {
-                headers: {
-                  'Content-Type': 'multipart/form-data'
-                }
-              })
-              .then(response => {
-                if (response.data.message) {
-                  this.$emitter.emit('update-mini-cart', response.data.data);
+                        this.$axios.post('{{ route('shop.api.checkout.cart.store') }}', formData, {
+                                headers: {
+                                    'Content-Type': 'multipart/form-data'
+                                }
+                            })
+                            .then(response => {
+                                if (response.data.message) {
+                                    this.$emitter.emit('update-mini-cart', response.data.data);
 
-                  this.$emitter.emit('add-flash', {
-                    type: 'success',
-                    message: response.data.message
-                  });
+                                    this.$emitter.emit('add-flash', {
+                                        type: 'success',
+                                        message: response.data.message
+                                    });
 
-                  if (response.data.redirect) {
-                    window.location.href = response.data.redirect;
-                  }
-                } else {
-                  this.$emitter.emit('add-flash', {
-                    type: 'warning',
-                    message: response.data.data.message
-                  });
-                }
+                                    if (response.data.redirect) {
+                                        window.location.href = response.data.redirect;
+                                    }
+                                } else {
+                                    this.$emitter.emit('add-flash', {
+                                        type: 'warning',
+                                        message: response.data.data.message
+                                    });
+                                }
 
-                this.isStoring[operation] = false;
-              })
-              .catch(error => {
-                this.isStoring[operation] = false;
+                                this.isStoring[operation] = false;
+                            })
+                            .catch(error => {
+                                this.isStoring[operation] = false;
 
-                this.$emitter.emit('add-flash', {
-                  type: 'warning',
-                  message: error.response.data.message
-                });
-              });
-          },
+                                this.$emitter.emit('add-flash', {
+                                    type: 'warning',
+                                    message: error.response.data.message
+                                });
+                            });
+                    },
 
-          addToWishlist() {
-            if (this.isCustomer) {
-              this.$axios.post('{{ route('shop.api.customers.account.wishlist.store') }}', {
-                  product_id: "{{ $product->id }}"
-                })
-                .then(response => {
-                  this.isWishlist = !this.isWishlist;
+                    addToWishlist() {
+                        if (this.isCustomer) {
+                            this.$axios.post('{{ route('shop.api.customers.account.wishlist.store') }}', {
+                                    product_id: "{{ $product->id }}"
+                                })
+                                .then(response => {
+                                    this.isWishlist = !this.isWishlist;
 
-                  this.$emitter.emit('add-flash', {
-                    type: 'success',
-                    message: response.data.data.message
-                  });
-                })
-                .catch(error => {});
-            } else {
-              window.location.href = "{{ route('shop.customer.session.index') }}";
-            }
-          },
+                                    this.$emitter.emit('add-flash', {
+                                        type: 'success',
+                                        message: response.data.data.message
+                                    });
+                                })
+                                .catch(error => {});
+                        } else {
+                            window.location.href = "{{ route('shop.customer.session.index') }}";
+                        }
+                    },
 
-          addToCompare(productId) {
-            /**
-             * This will handle for customers.
-             */
-            if (this.isCustomer) {
-              this.$axios.post('{{ route('shop.api.compare.store') }}', {
-                  'product_id': productId
-                })
-                .then(response => {
-                  this.$emitter.emit('add-flash', {
-                    type: 'success',
-                    message: response.data.data.message
-                  });
-                })
-                .catch(error => {
-                  if ([400, 422].includes(error.response.status)) {
-                    this.$emitter.emit('add-flash', {
-                      type: 'warning',
-                      message: error.response.data.data.message
-                    });
+                    addToCompare(productId) {
+                        /**
+                         * This will handle for customers.
+                         */
+                        if (this.isCustomer) {
+                            this.$axios.post('{{ route('shop.api.compare.store') }}', {
+                                    'product_id': productId
+                                })
+                                .then(response => {
+                                    this.$emitter.emit('add-flash', {
+                                        type: 'success',
+                                        message: response.data.data.message
+                                    });
+                                })
+                                .catch(error => {
+                                    if ([400, 422].includes(error.response.status)) {
+                                        this.$emitter.emit('add-flash', {
+                                            type: 'warning',
+                                            message: error.response.data.data.message
+                                        });
 
-                    return;
-                  }
+                                        return;
+                                    }
 
-                  this.$emitter.emit('add-flash', {
-                    type: 'error',
-                    message: error.response.data.message
-                  });
-                });
+                                    this.$emitter.emit('add-flash', {
+                                        type: 'error',
+                                        message: error.response.data.message
+                                    });
+                                });
 
-              return;
-            }
+                            return;
+                        }
 
-            /**
-             * This will handle for guests.
-             */
-            let existingItems = this.getStorageValue(this.getCompareItemsStorageKey()) ?? [];
+                        /**
+                         * This will handle for guests.
+                         */
+                        let existingItems = this.getStorageValue(this.getCompareItemsStorageKey()) ?? [];
 
-            if (existingItems.length) {
-              if (!existingItems.includes(productId)) {
-                existingItems.push(productId);
+                        if (existingItems.length) {
+                            if (!existingItems.includes(productId)) {
+                                existingItems.push(productId);
 
-                this.setStorageValue(this.getCompareItemsStorageKey(), existingItems);
+                                this.setStorageValue(this.getCompareItemsStorageKey(), existingItems);
 
-                this.$emitter.emit('add-flash', {
-                  type: 'success',
-                  message: "@lang('shop::app.products.view.add-to-compare')"
-                });
-              } else {
-                this.$emitter.emit('add-flash', {
-                  type: 'warning',
-                  message: "@lang('shop::app.products.view.already-in-compare')"
-                });
-              }
-            } else {
-              this.setStorageValue(this.getCompareItemsStorageKey(), [productId]);
+                                this.$emitter.emit('add-flash', {
+                                    type: 'success',
+                                    message: "@lang('shop::app.products.view.add-to-compare')"
+                                });
+                            } else {
+                                this.$emitter.emit('add-flash', {
+                                    type: 'warning',
+                                    message: "@lang('shop::app.products.view.already-in-compare')"
+                                });
+                            }
+                        } else {
+                            this.setStorageValue(this.getCompareItemsStorageKey(), [productId]);
 
-              this.$emitter.emit('add-flash', {
-                type: 'success',
-                message: "@lang('shop::app.products.view.add-to-compare')"
-              });
-            }
-          },
+                            this.$emitter.emit('add-flash', {
+                                type: 'success',
+                                message: "@lang('shop::app.products.view.add-to-compare')"
+                            });
+                        }
+                    },
 
-          updateQty(quantity, id) {
-            this.isLoading = true;
+                    updateQty(quantity, id) {
+                        this.isLoading = true;
 
-            let qty = {};
+                        let qty = {};
 
-            qty[id] = quantity;
+                        qty[id] = quantity;
 
-            this.$axios.put('{{ route('shop.api.checkout.cart.update') }}', {
-                qty
-              })
-              .then(response => {
-                if (response.data.message) {
-                  this.cart = response.data.data;
-                } else {
-                  this.$emitter.emit('add-flash', {
-                    type: 'warning',
-                    message: response.data.data.message
-                  });
-                }
+                        this.$axios.put('{{ route('shop.api.checkout.cart.update') }}', {
+                                qty
+                            })
+                            .then(response => {
+                                if (response.data.message) {
+                                    this.cart = response.data.data;
+                                } else {
+                                    this.$emitter.emit('add-flash', {
+                                        type: 'warning',
+                                        message: response.data.data.message
+                                    });
+                                }
 
-                this.isLoading = false;
-              }).catch(error => this.isLoading = false);
-          },
+                                this.isLoading = false;
+                            }).catch(error => this.isLoading = false);
+                    },
 
-          getCompareItemsStorageKey() {
-            return 'compare_items';
-          },
+                    getCompareItemsStorageKey() {
+                        return 'compare_items';
+                    },
 
-          setStorageValue(key, value) {
-            localStorage.setItem(key, JSON.stringify(value));
-          },
+                    setStorageValue(key, value) {
+                        localStorage.setItem(key, JSON.stringify(value));
+                    },
 
-          getStorageValue(key) {
-            let value = localStorage.getItem(key);
+                    getStorageValue(key) {
+                        let value = localStorage.getItem(key);
 
-            if (value) {
-              value = JSON.parse(value);
-            }
+                        if (value) {
+                            value = JSON.parse(value);
+                        }
 
-            return value;
-          },
+                        return value;
+                    },
 
-          scrollToReview() {
-            let accordianElement = document.querySelector('#review-accordian-button');
+                    scrollToReview() {
+                        let accordianElement = document.querySelector('#review-accordian-button');
 
-            if (accordianElement) {
-              accordianElement.click();
+                        if (accordianElement) {
+                            accordianElement.click();
 
-              accordianElement.scrollIntoView({
-                behavior: 'smooth'
-              });
-            }
+                            accordianElement.scrollIntoView({
+                                behavior: 'smooth'
+                            });
+                        }
 
-            let tabElement = document.querySelector('#review-tab-button');
+                        let tabElement = document.querySelector('#review-tab-button');
 
-            if (tabElement) {
-              tabElement.click();
+                        if (tabElement) {
+                            tabElement.click();
 
-              tabElement.scrollIntoView({
-                behavior: 'smooth'
-              });
-            }
-          },
+                            tabElement.scrollIntoView({
+                                behavior: 'smooth'
+                            });
+                        }
+                    },
 
-          ensureQuantity(formData) {
-            if (!formData.has('quantity')) {
-              formData.append('quantity', 1);
-            }
-          },
-        },
-      });
-    </script>
-  @endPushOnce
+                    ensureQuantity(formData) {
+                        if (!formData.has('quantity')) {
+                            formData.append('quantity', 1);
+                        }
+                    },
+                },
+            });
+        </script>
+    @endPushOnce
 </x-shop::layouts>

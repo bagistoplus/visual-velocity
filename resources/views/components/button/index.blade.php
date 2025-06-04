@@ -2,7 +2,7 @@
 <v-button {{ $attributes }} {{ $rawAttributes }}></v-button>
 
 @pushOnce('scripts')
-  <script type="text/x-template" id="v-button-template">
+    <script type="text/x-template" id="v-button-template">
     <button v-if="! loading" :class="[buttonClass, '']">
       @{{ title }}
     </button>
@@ -39,16 +39,16 @@
     </button>
   </script>
 
-  <script type="module">
-    app.component('v-button', {
-      template: '#v-button-template',
+    <script type="module">
+        app.component('v-button', {
+            template: '#v-button-template',
 
-      props: {
-        loading: Boolean,
-        buttonType: String,
-        title: String,
-        buttonClass: String,
-      }
-    });
-  </script>
+            props: {
+                loading: Boolean,
+                buttonType: String,
+                title: String,
+                buttonClass: String,
+            }
+        });
+    </script>
 @endPushOnce
