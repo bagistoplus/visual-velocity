@@ -120,7 +120,7 @@
                             <a
                                 href="{{ route('shop.compare.index') }}"
                                 aria-label="@lang('shop::app.components.layouts.header.desktop.bottom.compare')"
-                                class="cursor-pointer"
+                                class="flex cursor-pointer"
                             >
                                 @if ($block->settings->icon)
                                     {{ $block->settings->icon->render('h-5 w-5') }}

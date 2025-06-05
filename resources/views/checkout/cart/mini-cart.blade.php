@@ -15,18 +15,22 @@
         {!! view_render_event('bagisto.shop.checkout.mini-cart.drawer.before') !!}
 
         @if (core()->getConfigData('sales.checkout.mini_cart.display_mini_cart'))
-            <x-shop::drawer>
+            <x-shop::drawer ref="drawer">
                 <!-- Drawer Toggler -->
                 <x-slot:toggle>
                     {!! view_render_event('bagisto.shop.checkout.mini-cart.drawer.toggle.before') !!}
 
-                    <span class="relative">
+                    <span class="relative flex">
+                        @if($block->settings->icon)
+                            {{ $block->settings->icon->render('h-5 w-5') }}
+                        @else
                         <span
                             class="icon-cart cursor-pointer text-2xl"
                             role="button"
                             aria-label="@lang('shop::app.checkout.cart.mini-cart.shopping-cart')"
                             tabindex="0"
                         ></span>
+                        @endif
 
                         @if (core()->getConfigData('sales.checkout.my_cart.summary') == 'display_item_quantity')
                             <span
@@ -53,14 +57,14 @@
                     {!! view_render_event('bagisto.shop.checkout.mini-cart.drawer.header.before') !!}
 
                     <div class="flex items-center justify-between">
-                        <p class="text-2xl font-medium max-md:text-xl max-sm:text-xl">
-                            @lang('shop::app.checkout.cart.mini-cart.shopping-cart')
+                        <p class="text-2xl font-medium max-md:text-xl max-sm:text-xl" {{ $block->liveUpdate()->text('heading') }}>
+                            {{ $block->settings->heading }}
                         </p>
                     </div>
 
-                    <p class="text-base max-md:text-on-background/60 max-sm:text-xs">
-                        {{ core()->getConfigData('sales.checkout.mini_cart.offer_info')}}
-                    </p>
+                    <div class="text-base max-md:text-on-background/60 max-sm:text-xs" {{ $block->liveUpdate()->html('description') }}>
+                        {!! $block->settings->description !!}
+                    </div>
 
                     {!! view_render_event('bagisto.shop.checkout.mini-cart.drawer.header.after') !!}
                 </x-slot>

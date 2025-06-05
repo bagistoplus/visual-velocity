@@ -13,6 +13,8 @@ class TopBar extends BladeSection
 {
     protected static string $view = 'shop::sections.top-bar';
 
+    protected static array $disabledOn = ['*'];
+
     public static function settings(): array
     {
         return [

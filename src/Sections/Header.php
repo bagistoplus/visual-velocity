@@ -57,14 +57,12 @@ class Header extends BladeSection
                 ->limit(1)
                 ->settings([
                     Icon::make('icon', _t('header.blocks.compare.settings.icon_label'))
-                        ->default('lucide-arrow-left-right')
                 ]),
 
             Block::make('minicart', _t('header.blocks.minicart.name'))
                 ->limit(1)
                 ->settings([
-                    Icon::make('icon', _t('header.blocks.minicart.settings.icon_label'))
-                        ->default('lucide-shopping-cart'),
+                    Icon::make('icon', _t('header.blocks.minicart.settings.icon_label')),
 
                     Text::make('heading', _t('header.blocks.minicart.settings.heading_label'))
                         ->default(__('shop::app.checkout.cart.mini-cart.shopping-cart')),
@@ -76,8 +74,7 @@ class Header extends BladeSection
             Block::make('user', _t('header.blocks.user.name'))
                 ->limit(1)
                 ->settings([
-                    Icon::make('icon', _t('header.blocks.user.settings.icon_label'))
-                        ->default('lucide-user'),
+                    Icon::make('icon', _t('header.blocks.user.settings.icon_label')),
 
                     Text::make('guest_heading', _t('header.blocks.user.settings.guest_heading_label'))
                         ->default(trans('shop::app.components.layouts.header.desktop.bottom.welcome-guest')),
