@@ -22,7 +22,15 @@
 
                     <span class="relative flex">
                         @if($block->settings->icon)
+                            @visual_design_mode
+                            <span {{ $block->liveUpdate()->html('icon')}} class="[&_svg]:h-5 [&_svg]:w-5">
+                            @end_visual_design_mode
+
                             {{ $block->settings->icon->render('h-5 w-5') }}
+
+                            @visual_design_mode
+                            </span>
+                            @end_visual_design_mode
                         @else
                         <span
                             class="icon-cart cursor-pointer text-2xl"
