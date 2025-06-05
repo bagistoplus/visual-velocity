@@ -119,7 +119,7 @@
              * called in the last.
              */
             window.addEventListener("load", function(event) {
-                window.app.mount('#app');
+                window.setupApp();
             });
         </script>
 

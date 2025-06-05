@@ -164,4 +164,12 @@ document.addEventListener('visual:page:load', () => {
   mountComponent(document.querySelector('#app'));
 });
 
-createMainApp();
+const app = createMainApp();
+
+window.setupApp = () => {
+  if (window.Visual?.inDesignMode) {
+    app.config.compilerOptions.comments = true;
+  }
+
+  app.mount('#app');
+};
