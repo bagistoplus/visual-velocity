@@ -15,7 +15,7 @@ It preserves the core design and structure of the original Velocity theme while 
 
 ## 🌐 Live Demo
 
-Coming soon.
+Check out the theme in action: [https://visual-debut-demo.bagistoplus.com](https://visual-debut-demo.bagistoplus.com?_previewMode=visual-velocity)
 
 ## 🚀 Getting Started
 
