@@ -4,7 +4,7 @@
 
 {!! view_render_event('bagisto.shop.categories.view.toolbar.after') !!}
 
-@inject('toolbar' , 'Webkul\Product\Helpers\Toolbar')
+@inject('toolbar', 'Webkul\Product\Helpers\Toolbar')
 
 @pushOnce('scripts')
     <script
@@ -23,7 +23,7 @@
                 >
                     <x-slot:toggle>
                         <!-- Dropdown Toggler -->
-                        <button class="flex w-full max-w-[200px] cursor-pointer items-center justify-between gap-4 rounded-lg border border-zinc-200 bg-white p-3.5 text-base transition-all hover:border-gray-400 focus:border-gray-400 max-md:w-[110px] max-md:border-0 max-md:pl-2.5 max-md:pr-2.5">
+                        <button class="flex w-full max-w-[200px] cursor-pointer items-center justify-between gap-4 rounded-lg border border-on-background/8 bg-background p-3.5 text-base transition-all hover:border-on-background/10 focus:border-on-background/10 max-md:w-[110px] max-md:border-0 max-md:pl-2.5 max-md:pr-2.5">
                             @{{ sortLabel ?? "@lang('shop::app.products.sort-by.title')" }}
 
                             <span
@@ -37,7 +37,7 @@
                     <x-slot:menu>
                         <x-shop::dropdown.menu.item
                             v-for="(sort, key) in filters.available.sort"
-                            ::class="{'bg-gray-100': sort.value == filters.applied.sort}"
+                            ::class="{'bg-surface': sort.value == filters.applied.sort}"
                             @click="apply('sort', sort.value)"
                         >
                             @{{ sort.title }}
@@ -55,7 +55,7 @@
                     <x-shop::dropdown position="bottom-right">
                         <x-slot:toggle>
                             <!-- Dropdown Toggler -->
-                            <button class="flex w-full max-w-[200px] cursor-pointer items-center justify-between gap-4 rounded-lg border border-zinc-200 bg-white p-3.5 text-base transition-all hover:border-gray-400 focus:border-gray-400 max-md:w-[110px] max-md:border-0 max-md:pl-2.5 max-md:pr-2.5">
+                            <button class="flex w-full max-w-[200px] cursor-pointer items-center justify-between gap-4 rounded-lg border border-on-background/8 bg-background p-3.5 text-base transition-all hover:border-on-background/10 focus:border-background/10 max-md:w-[110px] max-md:border-0 max-md:pl-2.5 max-md:pr-2.5">
                                 @{{ filters.applied.limit ?? "@lang('shop::app.categories.toolbar.show')" }}
 
                                 <span
@@ -69,7 +69,7 @@
                         <x-slot:menu>
                             <x-shop::dropdown.menu.item
                                 v-for="(limit, key) in filters.available.limit"
-                                ::class="{'bg-gray-100': limit == filters.applied.limit}"
+                                ::class="{'bg-surface': limit == filters.applied.limit}"
                                 @click="apply('limit', limit)"
                             >
                                 @{{ limit }}
@@ -109,7 +109,7 @@
                 <ul>
                     <li
                         class="px-4 py-2.5"
-                        :class="{'bg-gray-100': sort.value == filters.applied.sort}"
+                        :class="{'bg-surface': sort.value == filters.applied.sort}"
                         v-for="(sort, key) in filters.available.sort"
                         @click="apply('sort', sort.value)"
                     >

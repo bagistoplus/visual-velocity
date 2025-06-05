@@ -1,14 +1,8 @@
 <!-- SEO Meta Content -->
 @push('meta')
-    <meta
-        name="description"
-        content="@lang('shop::app.customers.signup-form.page-title')"
-    />
+    <meta name="description" content="@lang('shop::app.customers.signup-form.page-title')" />
 
-    <meta
-        name="keywords"
-        content="@lang('shop::app.customers.signup-form.page-title')"
-    />
+    <meta name="keywords" content="@lang('shop::app.customers.signup-form.page-title')" />
 @endPush
 
 <x-shop::layouts
@@ -21,7 +15,7 @@
         @lang('shop::app.customers.signup-form.page-title')
     </x-slot>
 
-	<div class="container mt-20 max-1180:px-5 max-md:mt-12">
+    <div class="container mt-20 max-1180:px-5 max-md:mt-12">
         {!! view_render_event('bagisto.shop.customers.sign-up.logo.before') !!}
 
         <!-- Company Logo -->
@@ -43,12 +37,12 @@
         {!! view_render_event('bagisto.shop.customers.sign-up.logo.before') !!}
 
         <!-- Form Container -->
-		<div class="m-auto w-full max-w-[870px] rounded-xl border border-zinc-200 p-16 px-[90px] max-md:px-8 max-md:py-8 max-sm:border-none max-sm:p-0">
-			<h1 class="font-dmserif text-4xl max-md:text-3xl max-sm:text-xl">
+        <div class="m-auto w-full max-w-[870px] rounded-xl border p-16 px-[90px] max-md:px-8 max-md:py-8 max-sm:border-none max-sm:p-0">
+            <h1 class="font-dmserif text-4xl max-md:text-3xl max-sm:text-xl">
                 @lang('shop::app.customers.signup-form.page-title')
             </h1>
 
-			<p class="mt-4 text-xl text-zinc-500 max-sm:mt-0 max-sm:text-sm">
+            <p class="mt-4 text-xl text-on-background/60 max-sm:mt-0 max-sm:text-sm">
                 @lang('shop::app.customers.signup-form.form-signup-text')
             </p>
 
@@ -132,6 +126,7 @@
                         </x-shop::form.control-group.label>
 
                         <x-shop::form.control-group.control
+                            ref="password"
                             type="password"
                             class="px-6 py-4 max-md:py-3 max-sm:py-2"
                             name="password"
@@ -139,7 +134,6 @@
                             :value="old('password')"
                             :label="trans('shop::app.customers.signup-form.password')"
                             :placeholder="trans('shop::app.customers.signup-form.password')"
-                            ref="password"
                             :aria-label="trans('shop::app.customers.signup-form.password')"
                             aria-required="true"
                         />
@@ -182,21 +176,15 @@
                     @if (core()->getConfigData('customer.settings.create_new_account_options.news_letter'))
                         <div class="mb-5 flex select-none items-center gap-1.5">
                             <input
+                                id="is-subscribed"
                                 type="checkbox"
                                 name="is_subscribed"
-                                id="is-subscribed"
                                 class="peer hidden"
                             />
 
-                            <label
-                                class="icon-uncheck peer-checked:icon-check-box cursor-pointer text-2xl text-navyBlue peer-checked:text-navyBlue"
-                                for="is-subscribed"
-                            ></label>
+                            <label class="icon-uncheck peer-checked:icon-check-box cursor-pointer text-2xl text-navyBlue peer-checked:text-navyBlue" for="is-subscribed"></label>
 
-                            <label
-                                class="cursor-pointer select-none text-base text-zinc-500 max-sm:text-sm ltr:pl-0 rtl:pr-0"
-                                for="is-subscribed"
-                            >
+                            <label class="cursor-pointer select-none text-base text-on-background/60 max-sm:text-sm ltr:pl-0 rtl:pr-0" for="is-subscribed">
                                 @lang('shop::app.customers.signup-form.subscribe-to-newsletter')
                             </label>
                         </div>
@@ -204,32 +192,23 @@
 
                     {!! view_render_event('bagisto.shop.customers.signup_form.newsletter_subscription.after') !!}
 
-                    @if(
-                        core()->getConfigData('general.gdpr.settings.enabled')
-                        && core()->getConfigData('general.gdpr.agreement.enabled')
-                    )
+                    @if (core()->getConfigData('general.gdpr.settings.enabled') && core()->getConfigData('general.gdpr.agreement.enabled'))
                         <div class="mb-2 flex select-none items-center gap-1.5">
                             <x-shop::form.control-group.control
+                                id="agreement"
                                 type="checkbox"
                                 name="agreement"
-                                id="agreement"
                                 value="0"
                                 rules="required"
                                 for="agreement"
                             />
 
-                            <label
-                                class="cursor-pointer select-none text-base text-zinc-500 max-sm:text-sm"
-                                for="agreement"
-                            >
+                            <label class="cursor-pointer select-none text-base text-on-background/60 max-sm:text-sm" for="agreement">
                                 {{ core()->getConfigData('general.gdpr.agreement.agreement_label') }}
                             </label>
 
                             @if (core()->getConfigData('general.gdpr.agreement.agreement_content'))
-                                <span
-                                    class="cursor-pointer text-base text-navyBlue max-sm:text-sm"
-                                    @click="$refs.termsModal.open()"
-                                >
+                                <span class="cursor-pointer text-base text-navyBlue max-sm:text-sm" @click="$refs.termsModal.open()">
                                     @lang('shop::app.customers.signup-form.click-here')
                                 </span>
                             @endif
@@ -257,21 +236,19 @@
                 </x-shop::form>
             </div>
 
-			<p class="mt-5 font-medium text-zinc-500 max-sm:text-center max-sm:text-sm">
+            <p class="mt-5 font-medium text-on-background/60 max-sm:text-center max-sm:text-sm">
                 @lang('shop::app.customers.signup-form.account-exists')
 
-                <a class="text-navyBlue"
-                    href="{{ route('shop.customer.session.index') }}"
-                >
+                <a class="text-navyBlue" href="{{ route('shop.customer.session.index') }}">
                     @lang('shop::app.customers.signup-form.sign-in-button')
                 </a>
             </p>
-		</div>
+        </div>
 
-        <p class="mb-4 mt-8 text-center text-xs text-zinc-500">
-            @lang('shop::app.customers.signup-form.footer', ['current_year'=> date('Y') ])
+        <p class="mb-4 mt-8 text-center text-xs text-on-background">
+            @lang('shop::app.customers.signup-form.footer', ['current_year' => date('Y')])
         </p>
-	</div>
+    </div>
 
     @push('scripts')
         {!! \Webkul\Customer\Facades\Captcha::renderJS() !!}
@@ -290,5 +267,5 @@
                 {!! core()->getConfigData('general.gdpr.agreement.agreement_content') !!}
             </div>
         </x-slot>
-    </x-admin::modal>
+        </x-admin::modal>
 </x-shop::layouts>

@@ -1,8 +1,8 @@
 <!-- SEO Meta Content -->
 @push('meta')
-    <meta name="description" content="@lang('shop::app.checkout.onepage.index.checkout')"/>
+    <meta name="description" content="@lang('shop::app.checkout.onepage.index.checkout')" />
 
-    <meta name="keywords" content="@lang('shop::app.checkout.onepage.index.checkout')"/>
+    <meta name="keywords" content="@lang('shop::app.checkout.onepage.index.checkout')" />
 @endPush
 
 <x-shop::layouts
@@ -49,7 +49,7 @@
         {!! view_render_event('bagisto.shop.checkout.onepage.breadcrumbs.before') !!}
 
         <!-- Breadcrumbs -->
-        @if ((core()->getConfigData('general.general.breadcrumbs.shop')))
+        @if (core()->getConfigData('general.general.breadcrumbs.shop'))
             <x-shop::breadcrumbs name="checkout" />
         @endif
 
@@ -146,7 +146,7 @@
                             prices: "{{ core()->getConfigData('sales.taxes.shopping_cart.display_prices') }}",
 
                             subtotal: "{{ core()->getConfigData('sales.taxes.shopping_cart.display_subtotal') }}",
-                            
+
                             shipping: "{{ core()->getConfigData('sales.taxes.shopping_cart.display_shipping_amount') }}",
                         },
 
@@ -208,7 +208,7 @@
                     scrollToCurrentStep() {
                         let container = document.getElementById('steps-container');
 
-                        if (! container) {
+                        if (!container) {
                             return;
                         }
 
@@ -234,7 +234,10 @@
                             .catch(error => {
                                 this.isPlacingOrder = false
 
-                                this.$emitter.emit('add-flash', { type: 'error', message: error.response.data.message });
+                                this.$emitter.emit('add-flash', {
+                                    type: 'error',
+                                    message: error.response.data.message
+                                });
                             });
                     }
                 },

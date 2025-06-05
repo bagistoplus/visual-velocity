@@ -5,7 +5,7 @@
     </x-slot>
 
     <!-- Breadcrumbs -->
-    @if ((core()->getConfigData('general.general.breadcrumbs.shop')))
+    @if (core()->getConfigData('general.general.breadcrumbs.shop'))
         @section('breadcrumbs')
             <x-shop::breadcrumbs name="profile.edit" />
         @endSection
@@ -18,10 +18,7 @@
     <div class="mx-4 flex-auto max-md:mx-6 max-sm:mx-4">
         <div class="mb-8 flex items-center max-md:mb-5">
             <!-- Back Button -->
-            <a
-                class="grid md:hidden"
-                href="{{ route('shop.customers.account.profile.index') }}"
-            >
+            <a class="grid md:hidden" href="{{ route('shop.customers.account.profile.index') }}">
                 <span class="icon-arrow-left rtl:icon-arrow-right text-2xl"></span>
             </a>
 
@@ -29,21 +26,18 @@
                 @lang('shop::app.customers.account.profile.edit.edit-profile')
             </h2>
         </div>
-    
+
         {!! view_render_event('bagisto.shop.customers.account.profile.edit.before', ['customer' => $customer]) !!}
 
         <!-- Profile Edit Form -->
-        <x-shop::form
-            :action="route('shop.customers.account.profile.update')"
-            enctype="multipart/form-data"
-        >
+        <x-shop::form :action="route('shop.customers.account.profile.update')" enctype="multipart/form-data">
             {!! view_render_event('bagisto.shop.customers.account.profile.edit_form_controls.before', ['customer' => $customer]) !!}
-    
+
             <!-- Image -->
             <x-shop::form.control-group class="mt-4">
                 <x-shop::form.control-group.control
                     type="image"
-                    class="max-md:[&>*]:[&>*]:rounded-full mb-0 rounded-xl !p-0 text-gray-700 max-md:grid max-md:justify-center"
+                    class="mb-0 rounded-xl !p-0 max-md:grid max-md:justify-center max-md:[&>*]:[&>*]:rounded-full"
                     name="image[]"
                     :label="trans('Image')"
                     :is-multiple="false"
@@ -248,30 +242,21 @@
 
             <div class="mb-4 flex select-none items-center gap-1.5">
                 <input
+                    id="is-subscribed"
                     type="checkbox"
                     name="subscribed_to_news_letter"
-                    id="is-subscribed"
                     class="peer hidden"
                     @checked($customer->subscribed_to_news_letter)
                 />
 
-                <label
-                    class="icon-uncheck peer-checked:icon-check-box cursor-pointer text-2xl text-navyBlue peer-checked:text-navyBlue"
-                    for="is-subscribed"
-                ></label>
+                <label class="icon-uncheck peer-checked:icon-check-box cursor-pointer text-2xl text-navyBlue peer-checked:text-navyBlue" for="is-subscribed"></label>
 
-                <label
-                    class="cursor-pointer select-none text-base text-zinc-500 max-md:text-sm ltr:pl-0 rtl:pr-0"
-                    for="is-subscribed"
-                >
+                <label class="cursor-pointer select-none text-base text-on-background/60 max-md:text-sm ltr:pl-0 rtl:pr-0" for="is-subscribed">
                     @lang('shop::app.customers.account.profile.edit.subscribe-to-newsletter')
                 </label>
             </div>
 
-            <button
-                type="submit"
-                class="primary-button m-0 block rounded-2xl px-11 py-3 text-center text-base max-md:w-full max-md:max-w-full max-md:rounded-lg max-md:py-1.5"
-            >
+            <button type="submit" class="primary-button m-0 block rounded-2xl px-11 py-3 text-center text-base max-md:w-full max-md:max-w-full max-md:rounded-lg max-md:py-1.5">
                 @lang('shop::app.customers.account.profile.edit.save')
             </button>
 

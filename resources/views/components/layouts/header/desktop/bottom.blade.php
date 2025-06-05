@@ -9,10 +9,7 @@
     <div class="flex items-center gap-x-10 max-[1180px]:gap-x-5">
         {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.logo.before') !!}
 
-        <a
-            href="{{ route('shop.home.index') }}"
-            aria-label="@lang('shop::app.components.layouts.header.desktop.bottom.bagisto')"
-        >
+        <a href="{{ route('shop.home.index') }}" aria-label="@lang('shop::app.components.layouts.header.desktop.bottom.bagisto')">
             <img
                 src="{{ core()->getCurrentChannel()->logo_url ?? bagisto_asset('images/logo.svg') }}"
                 width="131"
@@ -27,20 +24,11 @@
 
         <v-desktop-category>
             <div class="flex items-center gap-5">
-                <span
-                    class="shimmer h-6 w-20 rounded"
-                    role="presentation"
-                ></span>
+                <span class="shimmer h-6 w-20 rounded" role="presentation"></span>
 
-                <span
-                    class="shimmer h-6 w-20 rounded"
-                    role="presentation"
-                ></span>
+                <span class="shimmer h-6 w-20 rounded" role="presentation"></span>
 
-                <span
-                    class="shimmer h-6 w-20 rounded"
-                    role="presentation"
-                ></span>
+                <span class="shimmer h-6 w-20 rounded" role="presentation"></span>
             </div>
         </v-desktop-category>
 
@@ -59,10 +47,7 @@
                 class="flex max-w-[445px] items-center"
                 role="search"
             >
-                <label
-                    for="organic-search"
-                    class="sr-only"
-                >
+                <label for="organic-search" class="sr-only">
                     @lang('shop::app.components.layouts.header.desktop.bottom.search')
                 </label>
 
@@ -72,7 +57,7 @@
                     type="text"
                     name="query"
                     value="{{ request('query') }}"
-                    class="block w-full rounded-lg border border-transparent bg-zinc-100 px-11 py-3 text-xs font-medium text-gray-900 transition-all hover:border-gray-400 focus:border-gray-400"
+                    class="block w-full rounded-lg border border-transparent bg-surface px-11 py-3 text-xs font-medium text-gray-900 transition-all hover:border-gray-400 focus:border-gray-400"
                     minlength="{{ core()->getConfigData('catalog.products.search.min_query_length') }}"
                     maxlength="{{ core()->getConfigData('catalog.products.search.max_query_length') }}"
                     placeholder="@lang('shop::app.components.layouts.header.desktop.bottom.search-text')"
@@ -103,15 +88,9 @@
             {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.compare.before') !!}
 
             <!-- Compare -->
-            @if(core()->getConfigData('catalog.products.settings.compare_option'))
-                <a
-                    href="{{ route('shop.compare.index') }}"
-                    aria-label="@lang('shop::app.components.layouts.header.desktop.bottom.compare')"
-                >
-                    <span
-                        class="icon-compare inline-block cursor-pointer text-2xl"
-                        role="presentation"
-                    ></span>
+            @if (core()->getConfigData('catalog.products.settings.compare_option'))
+                <a href="{{ route('shop.compare.index') }}" aria-label="@lang('shop::app.components.layouts.header.desktop.bottom.compare')">
+                    <span class="icon-compare inline-block cursor-pointer text-2xl" role="presentation"></span>
                 </a>
             @endif
 
@@ -120,7 +99,7 @@
             {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.mini_cart.before') !!}
 
             <!-- Mini cart -->
-            @if(core()->getConfigData('sales.checkout.shopping_cart.cart_page'))
+            @if (core()->getConfigData('sales.checkout.shopping_cart.cart_page'))
                 @include('shop::checkout.cart.mini-cart')
             @endif
 
@@ -152,22 +131,20 @@
                             </p>
                         </div>
 
-                        <p class="mt-3 w-full border border-zinc-200"></p>
+                        <p class="mt-3 w-full border"></p>
 
                         {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.customers_action.before') !!}
 
                         <div class="mt-6 flex gap-4">
                             {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.sign_in_button.before') !!}
 
-                            <a
-                                href="{{ route('shop.customer.session.create') }}"
+                            <a href="{{ route('shop.customer.session.create') }}"
                                 class="primary-button m-0 mx-auto block w-max rounded-2xl px-7 text-center text-base max-md:rounded-lg ltr:ml-0 rtl:mr-0"
                             >
                                 @lang('shop::app.components.layouts.header.desktop.bottom.sign-in')
                             </a>
 
-                            <a
-                                href="{{ route('shop.customers.register.index') }}"
+                            <a href="{{ route('shop.customers.register.index') }}"
                                 class="secondary-button m-0 mx-auto block w-max rounded-2xl border-2 px-7 text-center text-base max-md:rounded-lg max-md:py-3 ltr:ml-0 rtl:mr-0"
                             >
                                 @lang('shop::app.components.layouts.header.desktop.bottom.sign-up')
@@ -194,30 +171,21 @@
                             </p>
                         </div>
 
-                        <p class="mt-3 w-full border border-zinc-200"></p>
+                        <p class="mt-3 w-full border"></p>
 
                         <div class="mt-2.5 grid gap-1 pb-2.5">
                             {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.profile_dropdown.links.before') !!}
 
-                            <a
-                                class="cursor-pointer px-5 py-2 text-base hover:bg-gray-100"
-                                href="{{ route('shop.customers.account.profile.index') }}"
-                            >
+                            <a class="cursor-pointer px-5 py-2 text-base hover:bg-surface" href="{{ route('shop.customers.account.profile.index') }}">
                                 @lang('shop::app.components.layouts.header.desktop.bottom.profile')
                             </a>
 
-                            <a
-                                class="cursor-pointer px-5 py-2 text-base hover:bg-gray-100"
-                                href="{{ route('shop.customers.account.orders.index') }}"
-                            >
+                            <a class="cursor-pointer px-5 py-2 text-base hover:bg-surface" href="{{ route('shop.customers.account.orders.index') }}">
                                 @lang('shop::app.components.layouts.header.desktop.bottom.orders')
                             </a>
 
                             @if (core()->getConfigData('customer.settings.wishlist.wishlist_option'))
-                                <a
-                                    class="cursor-pointer px-5 py-2 text-base hover:bg-gray-100"
-                                    href="{{ route('shop.customers.account.wishlist.index') }}"
-                                >
+                                <a class="cursor-pointer px-5 py-2 text-base hover:bg-surface" href="{{ route('shop.customers.account.wishlist.index') }}">
                                     @lang('shop::app.components.layouts.header.desktop.bottom.wishlist')
                                 </a>
                             @endif
@@ -225,13 +193,13 @@
                             <!--Customers logout-->
                             @auth('customer')
                                 <x-shop::form
+                                    id="customerLogout"
                                     method="DELETE"
                                     action="{{ route('shop.customer.session.destroy') }}"
-                                    id="customerLogout"
                                 />
 
                                 <a
-                                    class="cursor-pointer px-5 py-2 text-base hover:bg-gray-100"
+                                    class="cursor-pointer px-5 py-2 text-base hover:bg-surface"
                                     href="{{ route('shop.customer.session.destroy') }}"
                                     onclick="event.preventDefault(); document.getElementById('customerLogout').submit();"
                                 >
@@ -295,7 +263,7 @@
                 </span>
 
                 <div
-                    class="pointer-events-none absolute top-[78px] z-[1] max-h-[580px] w-max max-w-[1260px] translate-y-1 overflow-auto overflow-x-auto border border-b-0 border-l-0 border-r-0 border-t border-[#F3F3F3] bg-white p-9 opacity-0 shadow-[0_6px_6px_1px_rgba(0,0,0,.3)] transition duration-300 ease-out group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-hover:duration-200 group-hover:ease-in ltr:-left-9 rtl:-right-9"
+                    class="pointer-events-none absolute top-[78px] z-[1] max-h-[580px] w-max max-w-[1260px] translate-y-1 overflow-auto overflow-x-auto border border-b-0 border-l-0 border-r-0 border-t  bg-background p-9 opacity-0 shadow-[0_6px_6px_1px_rgba(0,0,0,.3)] transition duration-300 ease-out group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-hover:duration-200 group-hover:ease-in ltr:-left-9 rtl:-right-9"
                     v-if="category.children && category.children.length"
                 >
                     <div class="flex justify-between gap-x-[70px]">
@@ -315,7 +283,7 @@
                                     v-if="secondLevelCategory.children && secondLevelCategory.children.length"
                                 >
                                     <li
-                                        class="text-sm font-medium text-zinc-500"
+                                        class="text-sm font-medium text-on-background/60"
                                         v-for="thirdLevelCategory in secondLevelCategory.children"
                                     >
                                         <a :href="thirdLevelCategory.url">
@@ -362,7 +330,7 @@
 
                     <!-- Dropdown for each category -->
                     <div
-                        class="pointer-events-none absolute top-[78px] z-[1] max-h-[580px] w-max max-w-[1260px] translate-y-1 overflow-auto overflow-x-auto border border-b-0 border-l-0 border-r-0 border-t border-[#F3F3F3] bg-white p-9 opacity-0 shadow-[0_6px_6px_1px_rgba(0,0,0,.3)] transition duration-300 ease-out group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-hover:duration-200 group-hover:ease-in ltr:-left-9 rtl:-right-9"
+                        class="pointer-events-none absolute top-[78px] z-[1] max-h-[580px] w-max max-w-[1260px] translate-y-1 overflow-auto overflow-x-auto border border-b-0 border-l-0 border-r-0 border-t  bg-background p-9 opacity-0 shadow-[0_6px_6px_1px_rgba(0,0,0,.3)] transition duration-300 ease-out group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-hover:duration-200 group-hover:ease-in ltr:-left-9 rtl:-right-9"
                         v-if="category.children && category.children.length"
                     >
                         <div class="flex justify-between gap-x-[70px]">
@@ -382,7 +350,7 @@
                                         v-if="secondLevelCategory.children && secondLevelCategory.children.length"
                                     >
                                         <li
-                                            class="text-sm font-medium text-zinc-500"
+                                            class="text-sm font-medium text-on-background/60"
                                             v-for="thirdLevelCategory in secondLevelCategory.children"
                                         >
                                             <a :href="thirdLevelCategory.url">
@@ -407,7 +375,7 @@
             >
                 <x-slot:toggle></x-slot>
 
-                <x-slot:header class="border-b border-gray-200">
+                <x-slot:header class="border-b">
                     <div class="flex w-full items-center justify-between">
                         <p class="text-xl font-medium">
                             @lang('shop::app.components.layouts.header.desktop.bottom.categories')
@@ -434,10 +402,10 @@
                                         :key="category.id"
                                         :class="{'mb-2': category.children && category.children.length}"
                                     >
-                                        <div class="flex cursor-pointer items-center justify-between px-6 py-2 transition-colors duration-200 hover:bg-gray-100">
+                                        <div class="flex cursor-pointer items-center justify-between px-6 py-2 transition-colors duration-200 hover:bg-surface">
                                             <a
                                                 :href="category.url"
-                                                class="text-base font-medium text-black"
+                                                class="text-base font-medium text-on-background"
                                             >
                                                 @{{ category.name }}
                                             </a>
@@ -450,7 +418,7 @@
                                                 :key="secondLevelCategory.id"
                                             >
                                                 <div
-                                                    class="flex cursor-pointer items-center justify-between px-6 py-2 transition-colors duration-200 hover:bg-gray-100"
+                                                    class="flex cursor-pointer items-center justify-between px-6 py-2 transition-colors duration-200 hover:bg-surface"
                                                     @click="showThirdLevel(secondLevelCategory, category, $event)"
                                                 >
                                                     <a
@@ -476,7 +444,7 @@
                                 class="h-full w-full flex-shrink-0"
                                 v-if="currentViewLevel === 'third'"
                             >
-                                <div class="border-b border-gray-200 px-6 py-4">
+                                <div class="border-b  px-6 py-4">
                                     <button
                                         @click="goBackToMainView"
                                         class="flex items-center justify-center gap-2 focus:outline-none"
@@ -484,7 +452,7 @@
                                     >
                                         <span class="icon-arrow-left rtl:icon-arrow-right text-lg"></span>
 
-                                        <p class="text-base font-medium text-black">
+                                        <p class="text-base font-medium text-on-background">
                                             @lang('shop::app.components.layouts.header.desktop.bottom.back-button')
                                         </p>
                                     </button>
@@ -499,7 +467,7 @@
                                     >
                                         <a
                                             :href="thirdLevelCategory.url"
-                                            class="block px-6 py-2 text-sm transition-colors duration-200 hover:bg-gray-100"
+                                            class="block px-6 py-2 text-sm transition-colors duration-200 hover:bg-surface"
                                         >
                                             @{{ thirdLevelCategory.name }}
                                         </a>
@@ -545,7 +513,7 @@
                 },
 
                 pairCategoryChildren(category) {
-                    if (! category.children) return [];
+                    if (!category.children) return [];
 
                     return category.children.reduce((result, value, index, array) => {
                         if (index % 2 === 0) {

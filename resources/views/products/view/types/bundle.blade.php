@@ -38,7 +38,7 @@
 
                         <template v-for="product in option.products">
                             <div
-                                class="text-zinc-500"
+                                class="text-on-background/60"
                                 :key="product.id"
                                 v-if="product.is_default"
                             >
@@ -54,7 +54,7 @@
             type="text/x-template"
             id="v-product-bundle-option-item-template"
         >
-            <div class="mt-8 border-b border-zinc-200 pb-4 max-sm:mt-4 max-sm:pb-0">
+            <div class="mt-8 border-b  pb-4 max-sm:mt-4 max-sm:pb-0">
                 <x-shop::form.control-group>
                     <!-- Dropdown Options Container -->
                     <x-shop::form.control-group.label
@@ -89,17 +89,17 @@
                                     class="flex gap-2.5"
                                     v-if="product.price.regular.price != product.price.final.price"
                                 >
-                                    <span class="text-black">+</span>
+                                    <span class="text-on-background">+</span>
 
-                                    <span class="text-zinc-500 line-through max-sm:text-sm">
+                                    <span class="text-on-background/60 line-through max-sm:text-sm">
                                         (@{{ product.price.regular.formatted_price }})
                                     </span>
 
-                                    <span class="text-black">@{{ product.price.final.formatted_price }}</span>
+                                    <span class="text-on-background">@{{ product.price.final.formatted_price }}</span>
                                 </div>
 
                                 <span
-                                    class="text-black"
+                                    class="text-on-background"
                                     v-else
                                 >
                                     @{{ '+ ' + product.price.final.formatted_price }}
@@ -107,7 +107,7 @@
                             </option>
                         </x-shop::form.control-group.control>
                     </template>
-                    
+
                     <template v-if="option.type == 'radio'">
                         <div class="grid gap-2 max-sm:gap-1">
                             <!-- None radio option if option is not required -->
@@ -127,7 +127,7 @@
                                 />
 
                                 <label
-                                    class="cursor-pointer text-zinc-500 max-sm:text-sm"
+                                    class="cursor-pointer text-on-background/60 max-sm:text-sm"
                                     :for="'bundle_options[' + option.id + '][' + index + ']'"
                                 >
                                     @lang('shop::app.products.view.type.bundle.none')
@@ -151,7 +151,7 @@
                                 />
 
                                 <label
-                                    class="flex cursor-pointer gap-2 text-zinc-500 max-sm:text-sm"
+                                    class="flex cursor-pointer gap-2 text-on-background/60 max-sm:text-sm"
                                     :for="'bundle_options[' + option.id + '][' + index + ']'"
                                 >
                                     @{{ product.name }}
@@ -160,17 +160,17 @@
                                         class="flex gap-2.5"
                                         v-if="product.price.regular.price != product.price.final.price"
                                     >
-                                        <span class="text-black">+</span>
+                                        <span class="text-on-background">+</span>
 
-                                        <span class="text-zinc-500 line-through max-sm:text-sm">
+                                        <span class="text-on-background/60 line-through max-sm:text-sm">
                                             @{{ product.price.regular.formatted_price }}
                                         </span>
-    
-                                        <span class="text-black">@{{ product.price.final.formatted_price }}</span>
+
+                                        <span class="text-on-background">@{{ product.price.final.formatted_price }}</span>
                                     </div>
 
                                     <span
-                                        class="text-black"
+                                        class="text-on-background"
                                         v-else
                                     >
                                         @{{ '+ ' + product.price.final.formatted_price }}
@@ -206,17 +206,17 @@
                                     class="flex gap-2.5"
                                     v-if="product.price.regular.price != product.price.final.price"
                                 >
-                                    <span class="text-black">+</span>
+                                    <span class="text-on-background">+</span>
 
-                                    <span class="text-zinc-500 line-through max-sm:text-sm">
+                                    <span class="text-on-background/60 line-through max-sm:text-sm">
                                         (@{{ product.price.regular.formatted_price }})
                                     </span>
 
-                                    <span class="text-black">@{{ product.price.final.formatted_price }}</span>
+                                    <span class="text-on-background">@{{ product.price.final.formatted_price }}</span>
                                 </div>
 
                                 <span
-                                    class="text-black"
+                                    class="text-on-background"
                                     v-else
                                 >
                                     @{{ '+ ' + product.price.final.formatted_price }}
@@ -244,7 +244,7 @@
                                 />
 
                                 <label
-                                    class="flex cursor-pointer gap-2 text-zinc-500 max-sm:text-sm"
+                                    class="flex cursor-pointer gap-2 text-on-background/60 max-sm:text-sm"
                                     :for="'bundle_options[' + option.id + '][' + index + ']'"
                                 >
                                     @{{ product.name }}
@@ -253,17 +253,17 @@
                                         class="flex gap-2"
                                         v-if="product.price.regular.price != product.price.final.price"
                                     >
-                                        <span class="text-black">+</span>
+                                        <span class="text-on-background">+</span>
 
-                                        <span class="text-zinc-500 line-through max-sm:text-sm">
+                                        <span class="text-on-background/60 line-through max-sm:text-sm">
                                             (@{{ product.price.regular.formatted_price }})
                                         </span>
 
-                                        <span class="text-black">@{{ product.price.final.formatted_price }}</span>
+                                        <span class="text-on-background">@{{ product.price.final.formatted_price }}</span>
                                     </span>
 
                                     <span
-                                        class="text-black"
+                                        class="text-on-background"
                                         v-else
                                     >
                                         @{{ '+ ' + product.price.final.formatted_price }}
@@ -280,7 +280,7 @@
                     <x-shop::quantity-changer
                         ::name="'bundle_option_qty[' + option?.id + ']'"
                         ::value="productQty"
-                        class="mt-5 w-max gap-x-4 rounded-xl !border-zinc-200 px-4 py-1.5 max-sm:my-4"
+                        class="mt-5 w-max gap-x-4 rounded-xl !border-surface-alt px-4 py-1.5 max-sm:my-4"
                         @change="qtyUpdated($event)"
                     />
                 </template>
@@ -308,7 +308,7 @@
 
                         for (var key in this.options) {
                             for (var key1 in this.options[key].products) {
-                                if (! this.options[key].products[key1].is_default)
+                                if (!this.options[key].products[key1].is_default)
                                     continue;
 
                                 total += this.options[key].products[key1].qty * this.options[key].products[key1].price.final.price;
@@ -343,7 +343,7 @@
 
                 data: function() {
                     return {
-                        selectedProduct: (this.option.type == 'checkbox' || this.option.type == 'multiselect')  ? [] : null,
+                        selectedProduct: (this.option.type == 'checkbox' || this.option.type == 'multiselect') ? [] : null,
                     };
                 },
 
@@ -353,7 +353,7 @@
 
                         this.option.products.forEach((product, key) => {
                             if (this.selectedProduct == product.id) {
-                                qty =  this.option.products[key].qty;
+                                qty = this.option.products[key].qty;
                             }
                         });
 
@@ -362,14 +362,14 @@
                 },
 
                 watch: {
-                    selectedProduct: function (value) {
+                    selectedProduct: function(value) {
                         this.$emit('onProductSelected', value);
                     }
                 },
 
                 created: function() {
                     for (var key in this.option.products) {
-                        if (! this.option.products[key].is_default)
+                        if (!this.option.products[key].is_default)
                             continue;
 
                         if (this.option.type == 'checkbox' || this.option.type == 'multiselect') {
@@ -382,7 +382,7 @@
 
                 methods: {
                     qtyUpdated: function(qty) {
-                        if (! this.option.products.find(data => data.id == this.selectedProduct)) {
+                        if (!this.option.products.find(data => data.id == this.selectedProduct)) {
                             return;
                         }
 

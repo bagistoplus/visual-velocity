@@ -51,7 +51,7 @@
                 leave-to-class="scale-95 transform opacity-0"
             >
                 <div
-                    class="absolute z-20 w-max rounded-[20px] bg-white shadow-[0px_10px_84px_rgba(0,0,0,0.1)] max-md:rounded-lg"
+                    class="absolute z-20 w-max rounded-[20px] bg-background shadow-[0px_10px_84px_rgba(0,0,0,0.1)] max-md:rounded-lg"
                     :style="positionStyles"
                     v-show="isActive"
                 >
@@ -158,11 +158,11 @@
                         this.toggleBlockHeight = this.$refs.toggleBlock.clientHeight;
                     }
 
-                    this.isActive = ! this.isActive;
+                    this.isActive = !this.isActive;
                 },
 
                 handleFocusOut(e) {
-                    if (! this.$el.contains(e.target) || (this.closeOnClick && this.$el.children[1].contains(e.target))) {
+                    if (!this.$el.contains(e.target) || (this.closeOnClick && this.$el.children[1].contains(e.target))) {
                         this.isActive = false;
                     }
                 },

@@ -1,39 +1,39 @@
 {!! view_render_event('bagisto.shop.components.layouts.header.desktop.top.before') !!}
 
 <v-topbar class="max-lg:hidden">
-  <!-- Shimmer Effect -->
-  <div class="flex items-center justify-between border border-b border-l-0 border-r-0 border-t-0 px-16">
-    <!-- Currencies -->
-    <div class="flex w-20 items-center justify-between gap-2.5 py-3">
-      <div class="shimmer h-6 w-12 rounded" role="presentation">
-      </div>
+    <!-- Shimmer Effect -->
+    <div class="flex items-center justify-between border border-b border-l-0 border-r-0 border-t-0 px-16">
+        <!-- Currencies -->
+        <div class="flex w-20 items-center justify-between gap-2.5 py-3">
+            <div class="shimmer h-6 w-12 rounded" role="presentation">
+            </div>
 
-      <div class="shimmer h-6 w-6 rounded" role="presentation">
-      </div>
+            <div class="shimmer h-6 w-6 rounded" role="presentation">
+            </div>
+        </div>
+
+        <!-- Offers -->
+        <div class="shimmer h-6 w-72 rounded py-3" role="presentation">
+        </div>
+
+        <!-- Locales -->
+        <div class="flex w-32 items-center justify-between gap-2.5 py-3">
+            <div class="shimmer h-6 w-6" role="presentation">
+            </div>
+
+            <div class="shimmer h-6 w-14 rounded" role="presentation">
+            </div>
+
+            <div class="shimmer h-6 w-6" role="presentation">
+            </div>
+        </div>
     </div>
-
-    <!-- Offers -->
-    <div class="shimmer h-6 w-72 rounded py-3" role="presentation">
-    </div>
-
-    <!-- Locales -->
-    <div class="flex w-32 items-center justify-between gap-2.5 py-3">
-      <div class="shimmer h-6 w-6" role="presentation">
-      </div>
-
-      <div class="shimmer h-6 w-14 rounded" role="presentation">
-      </div>
-
-      <div class="shimmer h-6 w-6" role="presentation">
-      </div>
-    </div>
-  </div>
 </v-topbar>
 
 {!! view_render_event('bagisto.shop.components.layouts.header.desktop.top.after') !!}
 
 @pushOnce('scripts')
-  <script type="text/x-template" id="v-topbar-template">
+    <script type="text/x-template" id="v-topbar-template">
     <div class="flex w-full items-center justify-between border border-b border-l-0 border-r-0 border-t-0 px-16">
         {!! view_render_event('bagisto.shop.components.layouts.header.desktop.top.currency_switcher.before') !!}
 
@@ -135,12 +135,12 @@
     </div>
  </script>
 
-  <script type="text/x-template" id="v-currency-switcher-template">
+    <script type="text/x-template" id="v-currency-switcher-template">
     <div class="my-2.5 grid gap-1 overflow-auto max-md:my-0 sm:max-h-[500px]">
         <span
             v-for="currency in currencies"
-            class="cursor-pointer px-5 py-2 text-base hover:bg-gray-100"
-            :class="{ 'bg-gray-100': currency.code == '{{ core()->getCurrentCurrencyCode() }}' }"
+            class="cursor-pointer px-5 py-2 text-base hover:bg-surface"
+            :class="{ 'bg-surface': currency.code == '{{ core()->getCurrentCurrencyCode() }}' }"
             @click="change(currency)"
         >
             @{{ currency.symbol + ' ' + currency.code }}
@@ -148,12 +148,12 @@
     </div>
   </script>
 
-  <script type="text/x-template" id="v-locale-switcher-template">
+    <script type="text/x-template" id="v-locale-switcher-template">
     <div class="my-2.5 grid gap-1 overflow-auto max-md:my-0 sm:max-h-[500px]">
         <span
             v-for="locale in locales"
-            class="flex cursor-pointer items-center gap-2.5 px-5 py-2 text-base hover:bg-gray-100"
-            :class="{ 'bg-gray-100': locale.code == '{{ app()->getLocale() }}' }"
+            class="flex cursor-pointer items-center gap-2.5 px-5 py-2 text-base hover:bg-surface"
+            :class="{ 'bg-surface': locale.code == '{{ app()->getLocale() }}' }"
             @click="change(locale)"
         >
             <img
@@ -167,57 +167,57 @@
     </div>
   </script>
 
-  <script type="module">
-    app.component('v-topbar', {
-      template: '#v-topbar-template',
+    <script type="module">
+        app.component('v-topbar', {
+            template: '#v-topbar-template',
 
-      data() {
-        return {
-          localeToggler: '',
+            data() {
+                return {
+                    localeToggler: '',
 
-          currencyToggler: '',
-        };
-      },
-    });
+                    currencyToggler: '',
+                };
+            },
+        });
 
-    app.component('v-currency-switcher', {
-      template: '#v-currency-switcher-template',
+        app.component('v-currency-switcher', {
+            template: '#v-currency-switcher-template',
 
-      data() {
-        return {
-          currencies: @json(core()->getCurrentChannel()->currencies),
-        };
-      },
+            data() {
+                return {
+                    currencies: @json(core()->getCurrentChannel()->currencies),
+                };
+            },
 
-      methods: {
-        change(currency) {
-          let url = new URL(window.location.href);
+            methods: {
+                change(currency) {
+                    let url = new URL(window.location.href);
 
-          url.searchParams.set('currency', currency.code);
+                    url.searchParams.set('currency', currency.code);
 
-          window.location.href = url.href;
-        }
-      },
-    });
+                    window.location.href = url.href;
+                }
+            },
+        });
 
-    app.component('v-locale-switcher', {
-      template: '#v-locale-switcher-template',
+        app.component('v-locale-switcher', {
+            template: '#v-locale-switcher-template',
 
-      data() {
-        return {
-          locales: @json(core()->getCurrentChannel()->locales()->orderBy('name')->get()),
-        };
-      },
+            data() {
+                return {
+                    locales: @json(core()->getCurrentChannel()->locales()->orderBy('name')->get()),
+                };
+            },
 
-      methods: {
-        change(locale) {
-          let url = new URL(window.location.href);
+            methods: {
+                change(locale) {
+                    let url = new URL(window.location.href);
 
-          url.searchParams.set('locale', locale.code);
+                    url.searchParams.set('locale', locale.code);
 
-          window.location.href = url.href;
-        }
-      }
-    });
-  </script>
+                    window.location.href = url.href;
+                }
+            }
+        });
+    </script>
 @endPushOnce

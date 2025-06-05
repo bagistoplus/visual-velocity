@@ -5,44 +5,26 @@
     <div class="flex items-center justify-between border border-b border-l-0 border-r-0 border-t-0 px-16">
         <!-- Currencies -->
         <div class="flex w-20 items-center justify-between gap-2.5 py-3">
-            <div
-                class="shimmer h-6 w-12 rounded"
-                role="presentation"
-            >
+            <div class="shimmer h-6 w-12 rounded" role="presentation">
             </div>
 
-            <div
-                class="shimmer h-6 w-6 rounded"
-                role="presentation"
-            >
+            <div class="shimmer h-6 w-6 rounded" role="presentation">
             </div>
         </div>
 
         <!-- Offers -->
-        <div
-            class="shimmer h-6 w-72 rounded py-3"
-            role="presentation"
-        >
+        <div class="shimmer h-6 w-72 rounded py-3" role="presentation">
         </div>
 
         <!-- Locales -->
         <div class="flex w-32 items-center justify-between gap-2.5 py-3">
-            <div
-                class="shimmer h-6 w-6"
-                role="presentation"
-            >
+            <div class="shimmer h-6 w-6" role="presentation">
             </div>
 
-            <div
-                class="shimmer h-6 w-14 rounded"
-                role="presentation"
-            >
+            <div class="shimmer h-6 w-14 rounded" role="presentation">
             </div>
 
-            <div
-                class="shimmer h-6 w-6"
-                role="presentation"
-            >
+            <div class="shimmer h-6 w-6" role="presentation">
             </div>
         </div>
     </div>
@@ -90,9 +72,9 @@
 
             <p class="py-3 text-xs font-medium">
                 {{ core()->getConfigData('general.content.header_offer.title') }}
-                
-                <a 
-                    href="{{ core()->getConfigData('general.content.header_offer.redirection_link') }}" 
+
+                <a
+                    href="{{ core()->getConfigData('general.content.header_offer.redirection_link') }}"
                     class="underline"
                     role="button"
                 >
@@ -122,7 +104,7 @@
                             width="24"
                             height="16"
                         />
-                        
+
                         <span>
                             {{ core()->getCurrentChannel()->locales()->orderBy('name')->where('code', app()->getLocale())->value('name') }}
                         </span>
@@ -134,7 +116,7 @@
                         ></span>
                     </div>
                 </x-slot>
-            
+
                 <!-- Dropdown Content -->
                 <x-slot:content class="journal-scroll max-h-[500px] !p-0">
                     <v-locale-switcher></v-locale-switcher>
@@ -151,9 +133,9 @@
     >
         <div class="my-2.5 grid gap-1 overflow-auto max-md:my-0 sm:max-h-[500px]">
             <span
-                class="cursor-pointer px-5 py-2 text-base hover:bg-gray-100"
+                class="cursor-pointer px-5 py-2 text-base hover:bg-surface"
                 v-for="currency in currencies"
-                :class="{'bg-gray-100': currency.code == '{{ core()->getCurrentCurrencyCode() }}'}"
+                :class="{'bg-surface': currency.code == '{{ core()->getCurrentCurrencyCode() }}'}"
                 @click="change(currency)"
             >
                 @{{ currency.symbol + ' ' + currency.code }}
@@ -167,10 +149,10 @@
     >
         <div class="my-2.5 grid gap-1 overflow-auto max-md:my-0 sm:max-h-[500px]">
             <span
-                class="flex cursor-pointer items-center gap-2.5 px-5 py-2 text-base hover:bg-gray-100"
-                :class="{'bg-gray-100': locale.code == '{{ app()->getLocale() }}'}"
+                class="flex cursor-pointer items-center gap-2.5 px-5 py-2 text-base hover:bg-surface"
+                :class="{'bg-surface': locale.code == '{{ app()->getLocale() }}'}"
                 v-for="locale in locales"
-                @click="change(locale)"                  
+                @click="change(locale)"
             >
                 <img
                     :src="locale.logo_url || '{{ bagisto_asset('images/default-language.svg') }}'"

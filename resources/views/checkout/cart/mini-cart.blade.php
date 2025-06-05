@@ -30,14 +30,14 @@
 
                         @if (core()->getConfigData('sales.checkout.my_cart.summary') == 'display_item_quantity')
                             <span
-                                class="absolute -top-4 rounded-[44px] bg-navyBlue px-2 py-1.5 text-xs font-semibold leading-[9px] text-white ltr:left-5 rtl:right-5 max-md:ltr:left-4 max-md:rtl:right-4"
+                                class="absolute -top-4 rounded-[44px] bg-primary px-2 py-1.5 text-xs font-semibold leading-[9px] text-on-primary ltr:left-5 rtl:right-5 max-md:ltr:left-4 max-md:rtl:right-4"
                                 v-if="cart?.items_qty"
                             >
                                 @{{ cart.items_qty }}
                             </span>
                         @else
                             <span
-                                class="absolute -top-4 rounded-[44px] bg-navyBlue px-2 py-1.5 text-xs font-semibold leading-[9px] text-white ltr:left-5 rtl:right-5 max-md:px-2 max-md:py-1.5 max-md:ltr:left-4 max-md:rtl:right-4"
+                                class="absolute -top-4 rounded-[44px] bg-primary px-2 py-1.5 text-xs font-semibold leading-[9px] text-on-primary ltr:left-5 rtl:right-5 max-md:px-2 max-md:py-1.5 max-md:ltr:left-4 max-md:rtl:right-4"
                                 v-if="cart?.items_count"
                             >
                                 @{{ cart.items_count }}
@@ -58,7 +58,7 @@
                         </p>
                     </div>
 
-                    <p class="text-base max-md:text-zinc-500 max-sm:text-xs">
+                    <p class="text-base max-md:text-on-background/60 max-sm:text-xs">
                         {{ core()->getConfigData('sales.checkout.mini_cart.offer_info')}}
                     </p>
 
@@ -121,10 +121,10 @@
                                         <p class="flex flex-col text-lg max-md:font-semibold max-sm:text-sm">
                                             @{{ item.formatted_price_incl_tax }}
 
-                                            <span class="text-xs font-normal text-zinc-500">
+                                            <span class="text-xs font-normal text-on-background/60">
                                                 @lang('shop::app.checkout.cart.mini-cart.excl-tax')
 
-                                                <span class="font-medium text-black">@{{ item.formatted_price }}</span>
+                                                <span class="font-medium text-background">@{{ item.formatted_price }}</span>
                                             </span>
                                         </p>
                                     </template>
@@ -168,7 +168,7 @@
                                     >
                                         <template v-for="attribute in item.options">
                                             <div class="max-md:grid max-md:gap-0.5">
-                                                <p class="text-sm font-medium text-zinc-500 max-md:font-normal max-sm:text-xs">
+                                                <p class="text-sm font-medium text-on-background/60 max-md:font-normal max-sm:text-xs">
                                                     @{{ attribute.attribute_name + ':' }}
                                                 </p>
 
@@ -176,7 +176,7 @@
                                                     <template v-if="attribute?.attribute_type === 'file'">
                                                         <a
                                                             :href="attribute.file_url"
-                                                            class="text-blue-700"
+                                                            class="text-info"
                                                             target="_blank"
                                                             :download="attribute.file_name"
                                                         >
@@ -213,7 +213,7 @@
                                 <!-- Cart Item Remove Button -->
                                 <button
                                     type="button"
-                                    class="text-blue-700 max-md:text-sm"
+                                    class="text-info max-md:text-sm"
                                     @click="removeItem(item.id)"
                                 >
                                     @lang('shop::app.checkout.cart.mini-cart.remove')
@@ -255,13 +255,13 @@
                     class="grid-col-1 grid gap-5 max-md:gap-2.5"
                 >
                     <div
-                        class="my-8 flex items-center justify-between border-b border-zinc-200 px-6 pb-2 max-md:my-0 max-md:border-t max-md:px-5 max-md:py-2"
+                        class="my-8 flex items-center justify-between border-b  px-6 pb-2 max-md:my-0 max-md:border-t max-md:px-5 max-md:py-2"
                         :class="{'!justify-end': isLoading}"
                     >
                         {!! view_render_event('bagisto.shop.checkout.mini-cart.subtotal.before') !!}
 
                         <template v-if="! isLoading">
-                            <p class="text-sm font-medium text-zinc-500">
+                            <p class="text-sm font-medium text-on-background/60">
                                 @lang('shop::app.checkout.cart.mini-cart.subtotal')
                             </p>
 
@@ -275,10 +275,10 @@
                             <p class="flex flex-col text-3xl font-semibold max-md:text-sm max-sm:text-right">
                                 @{{ cart.formatted_sub_total_incl_tax }}
 
-                                <span class="text-sm font-normal text-zinc-500 max-sm:text-xs">
+                                <span class="text-sm font-normal text-on-background/60 max-sm:text-xs">
                                     @lang('shop::app.checkout.cart.mini-cart.excl-tax')
 
-                                    <span class="font-medium text-black">@{{ cart.formatted_sub_total }}</span>
+                                    <span class="font-medium text-on-background">@{{ cart.formatted_sub_total }}</span>
                                 </span>
                             </p>
                         </template>
@@ -327,7 +327,7 @@
 
                         <a
                             href="{{ route('shop.checkout.onepage.index') }}"
-                            class="mx-auto block w-full cursor-pointer rounded-2xl bg-navyBlue px-11 py-4 text-center text-base font-medium text-white max-md:rounded-lg max-md:px-5 max-md:py-2"
+                            class="mx-auto block w-full cursor-pointer rounded-2xl bg-primary px-11 py-4 text-center text-base font-medium text-on-primary max-md:rounded-lg max-md:px-5 max-md:py-2"
                         >
                             @lang('shop::app.checkout.cart.mini-cart.continue-to-checkout')
                         </a>
@@ -359,7 +359,7 @@
                         ></span>
 
                         <span
-                            class="absolute -top-4 rounded-[44px] bg-navyBlue px-2 py-1.5 text-xs font-semibold leading-[9px] text-white ltr:left-5 rtl:right-5 max-md:px-2 max-md:py-1.5 max-md:ltr:left-4 max-md:rtl:right-4"
+                            class="absolute -top-4 rounded-[44px] bg-primary px-2 py-1.5 text-xs font-semibold leading-[9px] text-on-primary ltr:left-5 rtl:right-5 max-md:px-2 max-md:py-1.5 max-md:ltr:left-4 max-md:rtl:right-4"
                             v-if="cart?.items_qty"
                         >
                             @{{ cart.items_qty }}
@@ -378,10 +378,10 @@
             template: '#v-mini-cart-template',
 
             data() {
-                return  {
+                return {
                     cart: null,
 
-                    isLoading:false,
+                    isLoading: false,
 
                     displayTax: {
                         prices: "{{ core()->getConfigData('sales.taxes.shopping_cart.display_prices') }}",
@@ -419,12 +419,17 @@
 
                     qty[item.id] = quantity;
 
-                    this.$axios.put('{{ route('shop.api.checkout.cart.update') }}', { qty })
+                    this.$axios.put('{{ route('shop.api.checkout.cart.update') }}', {
+                            qty
+                        })
                         .then(response => {
                             if (response.data.message) {
                                 this.cart = response.data.data;
                             } else {
-                                this.$emitter.emit('add-flash', { type: 'warning', message: response.data.data.message });
+                                this.$emitter.emit('add-flash', {
+                                    type: 'warning',
+                                    message: response.data.data.message
+                                });
                             }
 
                             this.isLoading = false;
@@ -437,21 +442,27 @@
                             this.isLoading = true;
 
                             this.$axios.post('{{ route('shop.api.checkout.cart.destroy') }}', {
-                                '_method': 'DELETE',
-                                'cart_item_id': itemId,
-                            })
-                            .then(response => {
-                                this.cart = response.data.data;
+                                    '_method': 'DELETE',
+                                    'cart_item_id': itemId,
+                                })
+                                .then(response => {
+                                    this.cart = response.data.data;
 
-                                this.$emitter.emit('add-flash', { type: 'success', message: response.data.message });
+                                    this.$emitter.emit('add-flash', {
+                                        type: 'success',
+                                        message: response.data.message
+                                    });
 
-                                this.isLoading = false;
-                            })
-                            .catch(error => {
-                                this.$emitter.emit('add-flash', { type: 'error', message: response.data.message });
+                                    this.isLoading = false;
+                                })
+                                .catch(error => {
+                                    this.$emitter.emit('add-flash', {
+                                        type: 'error',
+                                        message: response.data.message
+                                    });
 
-                                this.isLoading = false;
-                            });
+                                    this.isLoading = false;
+                                });
                         }
                     });
                 },

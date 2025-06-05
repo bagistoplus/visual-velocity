@@ -1,27 +1,30 @@
 <div class="flex flex-col max-md:hidden">
-    <p class="font-semibold leading-6 text-gray-800">
+    <p class="font-semibold leading-6 text-on-background/90">
         {{ $address->company_name ?? '' }}
     </p>
 
-    <p class="font-semibold leading-6 text-gray-800">
+    <p class="font-semibold leading-6 text-on-background/90">
         {{ $address->name }}
     </p>
-    
-    <p class="!leading-6 text-gray-600">
+
+    <p class="!leading-6 text-on-background/50">
         {{ $address->address }}<br>
 
         {{ $address->city }}<br>
 
         {{ $address->state }}<br>
 
-        {{ core()->country_name($address->country) }} @if ($address->postcode) ({{ $address->postcode }}) @endif<br>
+        {{ core()->country_name($address->country) }} @if ($address->postcode)
+            ({{ $address->postcode }})
+        @endif
+        <br>
 
         {{ __('shop::app.customers.account.orders.view.contact') }} : {{ $address->phone }}
     </p>
 </div>
 
 <!-- For Mobile View -->
-<div class="text-gray-800 md:hidden">
+<div class="text-on-background/90 md:hidden">
     <p class="font-semibold">
         {{ $address->company_name ?? '' }}
     </p>
@@ -35,7 +38,9 @@
 
         {{ $address->state }}
 
-        {{ core()->country_name($address->country) }} @if ($address->postcode) ({{ $address->postcode }}) @endif <br>
+        {{ core()->country_name($address->country) }} @if ($address->postcode)
+            ({{ $address->postcode }})
+        @endif <br>
 
         <span class="no-underline">
             {{ __('shop::app.customers.account.orders.view.contact') }} : {{ $address->phone }}

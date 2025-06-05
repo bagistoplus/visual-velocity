@@ -42,11 +42,8 @@
             <div class="flex items-center gap-x-5 max-md:gap-x-4">
                 {!! view_render_event('bagisto.shop.components.layouts.header.mobile.compare.before') !!}
 
-                @if($showCompare)
-                    <a
-                        href="{{ route('shop.compare.index') }}"
-                        aria-label="@lang('shop::app.components.layouts.header.mobile.compare')"
-                    >
+                @if ($showCompare)
+                    <a href="{{ route('shop.compare.index') }}" aria-label="@lang('shop::app.components.layouts.header.mobile.compare')">
                         <span class="icon-compare cursor-pointer text-2xl"></span>
                     </a>
                 @endif
@@ -55,7 +52,7 @@
 
                 {!! view_render_event('bagisto.shop.components.layouts.header.mobile.mini_cart.before') !!}
 
-                @if(core()->getConfigData('sales.checkout.shopping_cart.cart_page'))
+                @if (core()->getConfigData('sales.checkout.shopping_cart.cart_page'))
                     @include('shop::checkout.cart.mini-cart')
                 @endif
 
@@ -81,23 +78,21 @@
                                     </p>
                                 </div>
 
-                                <p class="mt-3 w-full border border-zinc-200"></p>
+                                <p class="mt-3 w-full border"></p>
 
                                 {!! view_render_event('bagisto.shop.components.layouts.header.mobile.index.customers_action.before') !!}
 
                                 <div class="mt-6 flex gap-4">
                                     {!! view_render_event('bagisto.shop.components.layouts.header.mobile.index.sign_in_button.before') !!}
 
-                                    <a
-                                        href="{{ route('shop.customer.session.create') }}"
-                                        class="m-0 mx-auto block w-max cursor-pointer rounded-2xl bg-navyBlue px-7 py-4 text-center text-base font-medium text-white ltr:ml-0 rtl:mr-0"
+                                    <a href="{{ route('shop.customer.session.create') }}"
+                                        class="m-0 mx-auto block w-max cursor-pointer rounded-2xl bg-primary px-7 py-4 text-center text-base font-medium text-on-primary ltr:ml-0 rtl:mr-0"
                                     >
                                         @lang('shop::app.components.layouts.header.mobile.sign-in')
                                     </a>
 
-                                    <a
-                                        href="{{ route('shop.customers.register.index') }}"
-                                        class="m-0 mx-auto block w-max cursor-pointer rounded-2xl border-2 border-navyBlue bg-white px-7 py-3.5 text-center text-base font-medium text-navyBlue ltr:ml-0 rtl:mr-0"
+                                    <a href="{{ route('shop.customers.register.index') }}"
+                                        class="m-0 mx-auto block w-max cursor-pointer rounded-2xl border-2 border-primary bg-background px-7 py-3.5 text-center text-base font-medium text-primary ltr:ml-0 rtl:mr-0"
                                     >
                                         @lang('shop::app.components.layouts.header.mobile.sign-up')
                                     </a>
@@ -123,30 +118,21 @@
                                     </p>
                                 </div>
 
-                                <p class="mt-3 w-full border border-zinc-200"></p>
+                                <p class="mt-3 w-full border"></p>
 
                                 <div class="mt-2.5 grid gap-1 pb-2.5">
                                     {!! view_render_event('bagisto.shop.components.layouts.header.mobile.index.profile_dropdown.links.before') !!}
 
-                                    <a
-                                        class="cursor-pointer px-5 py-2 text-base"
-                                        href="{{ route('shop.customers.account.profile.index') }}"
-                                    >
+                                    <a class="cursor-pointer px-5 py-2 text-base" href="{{ route('shop.customers.account.profile.index') }}">
                                         @lang('shop::app.components.layouts.header.mobile.profile')
                                     </a>
 
-                                    <a
-                                        class="cursor-pointer px-5 py-2 text-base"
-                                        href="{{ route('shop.customers.account.orders.index') }}"
-                                    >
+                                    <a class="cursor-pointer px-5 py-2 text-base" href="{{ route('shop.customers.account.orders.index') }}">
                                         @lang('shop::app.components.layouts.header.mobile.orders')
                                     </a>
 
                                     @if ($showWishlist)
-                                        <a
-                                            class="cursor-pointer px-5 py-2 text-base"
-                                            href="{{ route('shop.customers.account.wishlist.index') }}"
-                                        >
+                                        <a class="cursor-pointer px-5 py-2 text-base" href="{{ route('shop.customers.account.wishlist.index') }}">
                                             @lang('shop::app.components.layouts.header.mobile.wishlist')
                                         </a>
                                     @endif
@@ -154,9 +140,9 @@
                                     <!--Customers logout-->
                                     @auth('customer')
                                         <x-shop::form
+                                            id="customerLogout"
                                             method="DELETE"
                                             action="{{ route('shop.customer.session.destroy') }}"
-                                            id="customerLogout"
                                         />
 
                                         <a
@@ -178,20 +164,14 @@
                 <!-- For Medium and small screen -->
                 <div class="md:hidden">
                     @guest('customer')
-                        <a
-                            href="{{ route('shop.customer.session.create') }}"
-                            aria-label="@lang('shop::app.components.layouts.header.mobile.account')"
-                        >
+                        <a href="{{ route('shop.customer.session.create') }}" aria-label="@lang('shop::app.components.layouts.header.mobile.account')">
                             <span class="icon-users cursor-pointer text-2xl"></span>
                         </a>
                     @endguest
 
                     <!-- Customers Dropdown -->
                     @auth('customer')
-                        <a
-                            href="{{ route('shop.customers.account.index') }}"
-                            aria-label="@lang('shop::app.components.layouts.header.mobile.account')"
-                        >
+                        <a href="{{ route('shop.customers.account.index') }}" aria-label="@lang('shop::app.components.layouts.header.mobile.account')">
                             <span class="icon-users cursor-pointer text-2xl"></span>
                         </a>
                     @endauth
@@ -204,10 +184,7 @@
 
     <!-- Serach Catalog Form -->
     <form action="{{ route('shop.search.index') }}" class="flex w-full items-center">
-        <label
-            for="organic-search"
-            class="sr-only"
-        >
+        <label for="organic-search" class="sr-only">
             @lang('shop::app.components.layouts.header.mobile.search')
         </label>
 
@@ -258,8 +235,8 @@
 
             <x-slot:content class="!p-0">
                 <!-- Account Profile Hero Section -->
-                <div class="border-b border-zinc-200 p-4">
-                    <div class="grid grid-cols-[auto_1fr] items-center gap-4 rounded-xl border border-zinc-200 p-2.5">
+                <div class="border-b border-surface-alt p-4">
+                    <div class="grid grid-cols-[auto_1fr] items-center gap-4 rounded-xl border  p-2.5">
                         <div>
                             <img
                                 src="{{ auth()->user()?->image_url ??  bagisto_asset('images/user-placeholder.png') }}"
@@ -282,7 +259,7 @@
                             <div class="flex flex-col justify-between gap-2.5 max-md:gap-0">
                                 <p class="font-mediums break-all text-2xl max-md:text-xl">Hello! {{ auth()->user()?->first_name }}</p>
 
-                                <p class="text-zinc-500 no-underline max-md:text-sm">{{ auth()->user()?->email }}</p>
+                                <p class="text-on-background/60 no-underline max-md:text-sm">{{ auth()->user()?->email }}</p>
                             </div>
                         @endauth
                     </div>
@@ -299,7 +276,7 @@
             <x-slot:footer>
                 <!-- Localization & Currency Section -->
                 @if(core()->getCurrentChannel()->locales()->count() > 1 || core()->getCurrentChannel()->currencies()->count() > 1 )
-                    <div class="fixed bottom-0 z-10 grid w-full max-w-full grid-cols-[1fr_auto_1fr] items-center justify-items-center border-t border-zinc-200 bg-white px-5 ltr:left-0 rtl:right-0">
+                    <div class="fixed bottom-0 z-10 grid w-full max-w-full grid-cols-[1fr_auto_1fr] items-center justify-items-center border-t bg-background px-5 ltr:left-0 rtl:right-0">
                         <!-- Filter Drawer -->
                         <x-shop::drawer
                             position="bottom"
@@ -336,7 +313,7 @@
                         </x-shop::drawer>
 
                         <!-- Seperator -->
-                        <span class="h-5 w-0.5 bg-zinc-200"></span>
+                        <span class="h-5 w-0.5"></span>
 
                         <!-- Sort Drawer -->
                         <x-shop::drawer
@@ -412,7 +389,7 @@
                             :class="{'mb-2': category.children && category.children.length}"
                         >
                             <div class="flex cursor-pointer items-center justify-between py-2 transition-colors duration-200">
-                                <a :href="category.url" class="text-base font-medium text-black">
+                                <a :href="category.url" class="text-base font-medium text-on-background">
                                     @{{ category.name }}
                                 </a>
                             </div>
@@ -447,14 +424,14 @@
                     class="h-full w-full flex-shrink-0"
                     v-if="currentViewLevel === 'third'"
                 >
-                    <div class="border-b border-gray-200 px-6 py-4">
+                    <div class="border-b  px-6 py-4">
                         <button
                             @click="goBackToMainView"
                             class="flex items-center justify-center gap-2 focus:outline-none"
                             aria-label="Go back"
                         >
                             <span class="icon-arrow-left rtl:icon-arrow-right text-lg"></span>
-                            <div class="text-base font-medium text-black">
+                            <div class="text-base font-medium text-on-background">
                                 @lang('shop::app.components.layouts.header.mobile.back-button')
                             </div>
                         </button>
@@ -485,7 +462,7 @@
             template: '#v-mobile-category-template',
 
             data() {
-                return  {
+                return {
                     categories: [],
                     currentViewLevel: 'main',
                     currentSecondLevelCategory: null,

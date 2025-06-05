@@ -5,7 +5,7 @@
     </x-slot>
 
     <!-- Breadcrumbs -->
-    @if ((core()->getConfigData('general.general.breadcrumbs.shop')))
+    @if (core()->getConfigData('general.general.breadcrumbs.shop'))
         @section('breadcrumbs')
             <x-shop::breadcrumbs name="orders" />
         @endSection
@@ -15,20 +15,20 @@
         <x-shop::layouts.account.navigation />
     </div>
 
-    <span class="mb-5 mt-2 w-full border-t border-zinc-300"></span>
+    <span class="mb-5 mt-2 w-full border-t border-on-background/15"></span>
 
     <!--Customers logout-->
     @auth('customer')
         <div class="mx-4">
             <div class="mx-auto w-[400px] rounded-lg border border-navyBlue py-2.5 text-center max-sm:w-full max-sm:py-1.5">
                 <x-shop::form
+                    id="customerLogout"
                     method="DELETE"
                     action="{{ route('shop.customer.session.destroy') }}"
-                    id="customerLogout"
                 />
 
                 <a
-                    class="flex items-center justify-center gap-1.5 text-base hover:bg-gray-100"
+                    class="flex items-center justify-center gap-1.5 text-base hover:bg-surface"
                     href="{{ route('shop.customer.session.destroy') }}"
                     onclick="event.preventDefault(); document.getElementById('customerLogout').submit();"
                 >
@@ -38,4 +38,4 @@
         </div>
     @endauth
 
-</x-shop::layouts.accounts>
+    </x-shop::layouts.accounts>

@@ -5,7 +5,7 @@
     </x-slot>
 
     <!-- Breadcrumbs -->
-    @if ((core()->getConfigData('general.general.breadcrumbs.shop')))
+    @if (core()->getConfigData('general.general.breadcrumbs.shop'))
         @section('breadcrumbs')
             <x-shop::breadcrumbs name="wishlist" />
         @endSection
@@ -56,7 +56,7 @@
                         {!! view_render_event('bagisto.shop.customers.account.wishlist.delete_all.before') !!}
 
                         <div
-                            class="secondary-button border-zinc-200 px-5 py-3 font-normal max-md:rounded-lg max-md:py-2 max-sm:py-1.5 max-sm:text-sm"
+                            class="secondary-button border-surface-alt px-5 py-3 font-normal max-md:rounded-lg max-md:py-2 max-sm:py-1.5 max-sm:text-sm"
                             @click="removeAll"
                             v-if="wishlistItems.length"
                         >
@@ -109,7 +109,7 @@
                 <div class="grid flex-1 gap-8 max-md:flex-none">
                     <div class="grid gap-y-6 max-md:gap-y-0">
                         <!-- Wishlist item -->
-                        <div class="flex justify-between gap-x-2.5 border-b border-zinc-200 pb-5">
+                        <div class="flex justify-between gap-x-2.5 border-b  pb-5">
                             <div class="flex gap-x-5 max-md:w-full max-md:gap-x-5">
                                 <div>
                                     {!! view_render_event('bagisto.shop.customers.account.wishlist.image.before') !!}
@@ -174,7 +174,7 @@
                                                         <template v-if="option?.attribute_type === 'file'">
                                                             <a
                                                                 :href="option.file_url"
-                                                                class="text-blue-700"
+                                                                class="text-info"
                                                                 target="_blank"
                                                                 :download="option.file_name"
                                                             >
@@ -201,7 +201,7 @@
 
                                         <!--Wishlist Item removed button-->
                                         <a
-                                            class="flex cursor-pointer justify-end text-base text-blue-700 max-md:hidden"
+                                            class="flex cursor-pointer justify-end text-base text-info max-md:hidden"
                                             @click="remove"
                                         >
                                             @lang('shop::app.customers.account.wishlist.remove')
@@ -244,7 +244,7 @@
                                 </p>
 
                                 <a
-                                    class="flex cursor-pointer justify-end text-base text-blue-700"
+                                    class="flex cursor-pointer justify-end text-base text-info"
                                     @click="remove"
                                 >
                                     @lang('shop::app.customers.account.wishlist.remove')
@@ -292,7 +292,10 @@
                                     .then(response => {
                                         this.wishlistItems = [];
 
-                                        this.$emitter.emit('add-flash', { type: 'success', message: response.data.data.message });
+                                        this.$emitter.emit('add-flash', {
+                                            type: 'success',
+                                            message: response.data.data.message
+                                        });
                                     })
                                     .catch(error => {});
                             },
@@ -323,7 +326,10 @@
                                     .then(response => {
                                         this.$emit('wishlist-items', response.data.data);
 
-                                        this.$emitter.emit('add-flash', { type: 'success', message: response.data.message });
+                                        this.$emitter.emit('add-flash', {
+                                            type: 'success',
+                                            message: response.data.message
+                                        });
                                     })
                                     .catch(error => {});
                             },
@@ -341,7 +347,10 @@
                             })
                             .then(response => {
                                 if (response.data?.redirect) {
-                                    this.$emitter.emit('add-flash', { type: 'warning', message: response.data.message });
+                                    this.$emitter.emit('add-flash', {
+                                        type: 'warning',
+                                        message: response.data.message
+                                    });
 
                                     window.location.href = response.data.data;
 
@@ -352,14 +361,20 @@
 
                                 this.$emitter.emit('update-mini-cart', response.data.data.cart);
 
-                                this.$emitter.emit('add-flash', { type: 'success', message: response.data.message });
+                                this.$emitter.emit('add-flash', {
+                                    type: 'success',
+                                    message: response.data.message
+                                });
 
                                 this.movingToCart = false;
                             })
                             .catch(error => {
                                 this.movingToCart = false;
 
-                                this.$emitter.emit('add-flash', { type: 'warning', message: error.response.data.message });
+                                this.$emitter.emit('add-flash', {
+                                    type: 'warning',
+                                    message: error.response.data.message
+                                });
                             });
                     },
                 },

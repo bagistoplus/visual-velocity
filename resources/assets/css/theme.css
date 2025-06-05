@@ -402,7 +402,7 @@ img.lazy {
   .label-info,
   .label-completed,
   .label-active {
-    @apply text-[12px] text-white font-semibold py-px px-1.5 max-w-max rounded-[35px];
+    @apply text-[12px] text-on-background font-semibold py-px px-1.5 max-w-max rounded-[35px];
   }
 
   .label-pending {
@@ -431,11 +431,11 @@ img.lazy {
   }
 
   .primary-button {
-    @apply flex gap-x-1.5 items-center place-content-center font-medium rounded-xl text-white bg-navyBlue border border-navyBlue px-8 py-4 max-w-max cursor-pointer transition-all hover:opacity-[0.9];
+    @apply flex gap-x-1.5 items-center place-content-center font-medium rounded-xl text-on-primary bg-primary border border-navyBlue px-8 py-4 max-w-max cursor-pointer transition-all hover:opacity-[0.9];
   }
 
   .secondary-button {
-    @apply flex gap-x-1.5 items-center place-content-center font-medium rounded-xl bg-white text-navyBlue border border-navyBlue px-8 py-4 max-w-max cursor-pointer transition-all hover:bg-[#050e3a0d];
+    @apply flex gap-x-1.5 items-center place-content-center font-medium rounded-xl bg-background text-primary border border-primary px-8 py-4 max-w-max cursor-pointer transition-all hover:bg-primary/5;
   }
 
   .shimmer {
@@ -444,7 +444,12 @@ img.lazy {
     animation-iteration-count: infinite;
     animation-name: skeleton;
     animation-timing-function: linear;
-    background: linear-gradient(to right, #f6f6f6 8%, #f0f0f0 18%, #f6f6f6 33%);
+    background: linear-gradient(
+      to right,
+      rgb(var(--color-surface-alt)) 8%,
+      rgb(var(--color-surface)) 18%,
+      rgb(var(--color-surface-alt)) 33%
+    );
     background-size: 1250px 100%;
   }
 
@@ -519,7 +524,7 @@ img.lazy {
   }
 
   .skip-to-main-content-link {
-    @apply absolute ltr:left-[-9999px] rtl:right-[-9999px] z-[999] p-[1em] bg-black text-white opacity-0;
+    @apply absolute ltr:left-[-9999px] rtl:right-[-9999px] z-[999] p-[1em] bg-on-background text-background opacity-0;
   }
 
   .skip-to-main-content-link:focus {
@@ -532,7 +537,8 @@ img.lazy {
     text-align: center;
     font-size: 22px;
     /* font-family: 'DM Serif Display'; */
-    background-color: #e8edfe;
+    /* background-color: #e8edfe; */
+    @apply bg-primary/15;
     padding-top: 20px;
     padding-bottom: 20px;
   }

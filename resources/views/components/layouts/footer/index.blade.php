@@ -14,8 +14,8 @@
     $channel = core()->getCurrentChannel();
 
     $customization = $themeCustomizationRepository->findOneWhere([
-        'type'       => 'footer_links',
-        'status'     => 1,
+        'type' => 'footer_links',
+        'status' => 1,
         'theme_code' => $channel->theme,
         'channel_id' => $channel->id,
     ]);
@@ -47,10 +47,7 @@
         </div>
 
         <!-- For Mobile view -->
-        <x-shop::accordion
-            :is-active="false"
-            class="hidden !w-full rounded-xl !border-2 !border-[#e9decc] max-1060:block max-sm:rounded-lg"
-        >
+        <x-shop::accordion :is-active="false" class="hidden !w-full rounded-xl !border-2 !border-[#e9decc] max-1060:block max-sm:rounded-lg">
             <x-slot:header class="rounded-t-lg bg-[#F1EADF] font-medium max-md:p-2.5 max-sm:px-3 max-sm:py-2 max-sm:text-sm">
                 @lang('shop::app.components.layouts.footer.footer-content')
             </x-slot>
@@ -67,9 +64,7 @@
 
                             @foreach ($footerLinkSection as $link)
                                 <li>
-                                    <a
-                                        href="{{ $link['url'] }}"
-                                        class="text-sm font-medium max-sm:text-xs">
+                                    <a href="{{ $link['url'] }}" class="text-sm font-medium max-sm:text-xs">
                                         {{ $link['title'] }}
                                     </a>
                                 </li>
@@ -98,10 +93,7 @@
                 </p>
 
                 <div>
-                    <x-shop::form
-                        :action="route('shop.subscription.store')"
-                        class="mt-2.5 rounded max-sm:mt-0"
-                    >
+                    <x-shop::form :action="route('shop.subscription.store')" class="mt-2.5 rounded max-sm:mt-0">
                         <div class="relative w-full">
                             <x-shop::form.control-group.control
                                 type="email"
@@ -112,12 +104,11 @@
                                 :aria-label="trans('shop::app.components.layouts.footer.email')"
                                 placeholder="email@example.com"
                             />
-    
+
                             <x-shop::form.control-group.error control-name="email" />
-    
-                            <button
-                                type="submit"
-                                class="absolute top-1.5 flex w-max items-center rounded-xl bg-white px-7 py-2.5 font-medium hover:bg-zinc-100 max-md:top-1 max-md:px-5 max-md:text-xs max-sm:mt-0 max-sm:rounded-lg max-sm:px-4 max-sm:py-2 ltr:right-2 rtl:left-2"
+
+                            <button type="submit"
+                                class="absolute top-1.5 flex w-max items-center rounded-xl bg-background px-7 py-2.5 font-medium hover:bg-surface max-md:top-1 max-md:px-5 max-md:text-xs max-sm:mt-0 max-sm:rounded-lg max-sm:px-4 max-sm:py-2 ltr:right-2 rtl:left-2"
                             >
                                 @lang('shop::app.components.layouts.footer.subscribe')
                             </button>
@@ -134,7 +125,7 @@
         {!! view_render_event('bagisto.shop.layout.footer.footer_text.before') !!}
 
         <p class="text-sm text-zinc-600 max-md:text-center">
-            @lang('shop::app.components.layouts.footer.footer-text', ['current_year'=> date('Y') ])
+            @lang('shop::app.components.layouts.footer.footer-text', ['current_year' => date('Y')])
         </p>
 
         {!! view_render_event('bagisto.shop.layout.footer.footer_text.after') !!}

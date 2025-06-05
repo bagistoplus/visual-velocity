@@ -73,9 +73,24 @@ class Footer extends BladeSection
                 'group' => $group,
                 'links' => collect($links)
                     ->sortBy('sort_order')
-                    ->map(fn($link) => ['url' => $link['url'], 'text' => $link['title']])
+                    ->map(fn($link) => ['url' => $this->appendCurrentQueryString($link['url']), 'text' => $link['title']])
             ];
         });
+    }
+
+    private function appendCurrentQueryString(string $url): string
+    {
+        $currentQuery = request()->query();
+
+        $parsedUrl = parse_url($url);
+        parse_str($parsedUrl['query'] ?? '', $targetQuery);
+
+        $mergedQuery = array_merge($targetQuery, $currentQuery);
+
+        $base = strtok($url, '?');
+        $finalQuery = http_build_query($mergedQuery);
+
+        return $finalQuery ? $base . '?' . $finalQuery : $base;
     }
 
     public static function name(): string

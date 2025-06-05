@@ -8,7 +8,7 @@
     <div class="flex flex-col gap-6">
         <div class="flex flex-col items-center gap-2">
             <div class="shimmer h-12 w-16"></div>
-            
+
             <div class="flex items-center gap-0.5">
                 <span class="shimmer h-[30px] w-[30px]"></span>
                 <span class="shimmer h-[30px] w-[30px]"></span>

@@ -29,13 +29,13 @@
                         <h2 class="mb-4 text-xl max-sm:mb-1.5 max-sm:text-base max-sm:font-medium">
                             @{{ attribute.label }}
                         </h2>
-                        
+
                         <!-- Dropdown Options -->
                         <v-field
                             as="select"
                             :name="'super_attribute[' + attribute.id + ']'"
-                            class="custom-select mb-3 block w-full cursor-pointer rounded-lg border border-zinc-200 bg-white px-5 py-3 text-base text-zinc-500 focus:border-blue-500 focus:ring-blue-500"
-                            :class="[errors['super_attribute[' + attribute.id + ']'] ? 'border border-red-500' : '']"
+                            class="custom-select mb-3 block w-full cursor-pointer rounded-lg border  bg-background px-5 py-3 text-base text-on-background/60 focus:border-info focus:ring-info"
+                            :class="[errors['super_attribute[' + attribute.id + ']'] ? 'border border-danger' : '']"
                             :id="'attribute_' + attribute.id"
                             v-model="attribute.selectedValue"
                             rules="required"
@@ -93,16 +93,16 @@
                                         </v-field>
 
                                         <span
-                                            class="h-8 w-8 rounded-full border border-gray-200 max-sm:h-[25px] max-sm:w-[25px]"
+                                            class="h-8 w-8 rounded-full border  max-sm:h-[25px] max-sm:w-[25px]"
                                             tabindex="0"
                                             :style="{ 'background-color': option.swatch_value }"
                                         ></span>
                                     </label>
 
                                     <!-- Image Swatch Options -->
-                                    <label 
-                                        class="group relative flex h-[60px] w-[60px] cursor-pointer items-center justify-center overflow-hidden rounded-md border bg-white font-medium uppercase text-gray-900 hover:bg-gray-50 sm:py-6"
-                                        :class="{'border-navyBlue' : option.id == attribute.selectedValue }"
+                                    <label
+                                        class="group relative flex h-[60px] w-[60px] cursor-pointer items-center justify-center overflow-hidden rounded-md border bg-background font-medium uppercase text-on-background hover:bg-surface sm:py-6"
+                                        :class="{'border-primary' : option.id == attribute.selectedValue }"
                                         :title="option.label"
                                         v-if="attribute.swatch_type == 'image'"
                                     >
@@ -135,9 +135,9 @@
                                     </label>
 
                                     <!-- Text Swatch Options -->
-                                    <label 
-                                        class="group relative flex h-fit min-w-fit cursor-pointer items-center justify-center rounded-full border border-gray-300 bg-white px-5 py-3 font-medium uppercase text-gray-900 hover:bg-gray-50 max-sm:h-fit max-sm:w-fit max-sm:px-3.5 max-sm:py-2"
-                                        :class="{'border-transparent !bg-navyBlue text-white' : option.id == attribute.selectedValue }"
+                                    <label
+                                        class="group relative flex h-fit min-w-fit cursor-pointer items-center justify-center rounded-full border border-on-background/10 bg-background px-5 py-3 font-medium uppercase text-on-background hover:bg-surface max-sm:h-fit max-sm:w-fit max-sm:px-3.5 max-sm:py-2"
+                                        :class="{'border-transparent !bg-primary text-on-primary' : option.id == attribute.selectedValue }"
                                         :title="option.label"
                                         v-if="attribute.swatch_type == 'text'"
                                     >
@@ -177,7 +177,7 @@
                             </template>
 
                             <span
-                                class="text-sm text-gray-600 max-sm:text-xs"
+                                class="text-sm text-on-background/80 max-sm:text-xs"
                                 v-if="! attribute.options.length"
                             >
                                 @lang('shop::app.products.view.type.configurable.select-above-options')
@@ -189,7 +189,7 @@
                         :name="'super_attribute[' + attribute.id + ']'"
                         v-slot="{ message }"
                     >
-                        <p class="mt-1 text-xs italic text-red-500">
+                        <p class="mt-1 text-xs italic text-danger">
                             @{{ message }}
                         </p>
                     </v-error-message>
@@ -251,7 +251,7 @@
 
                         if (optionId) {
                             attribute.selectedValue = optionId;
-                            
+
                             if (attribute.nextAttribute) {
                                 attribute.nextAttribute.disabled = false;
 
@@ -272,7 +272,7 @@
                         }
 
                         this.reloadPrice();
-                        
+
                         this.reloadImages();
                     },
 
@@ -295,7 +295,7 @@
                             'products': []
                         }];
 
-                        if (! options) {
+                        if (!options) {
                             return;
                         }
 
@@ -325,19 +325,19 @@
                     },
 
                     resetChildAttributes(attribute) {
-                        if (! attribute.childAttributes) {
+                        if (!attribute.childAttributes) {
                             return;
                         }
 
-                        attribute.childAttributes.forEach(function (set) {
+                        attribute.childAttributes.forEach(function(set) {
                             set.selectedValue = null;
 
                             set.disabled = true;
                         });
                     },
 
-                    clearAttributeSelection (attribute) {
-                        if (! attribute) {
+                    clearAttributeSelection(attribute) {
+                        if (!attribute) {
                             return;
                         }
 
@@ -346,7 +346,7 @@
                         this.selectedOptionVariant = null;
                     },
 
-                    reloadPrice () {
+                    reloadPrice() {
                         let selectedOptionCount = this.childAttributes.filter(attribute => attribute.selectedValue).length;
 
                         let finalPrice = document.querySelector('.final-price');
@@ -370,7 +370,7 @@
                                 regularPrice.style.display = 'none';
                             }
 
-                            this.$emitter.emit('configurable-variant-selected-event',this.possibleOptionVariant);
+                            this.$emitter.emit('configurable-variant-selected-event', this.possibleOptionVariant);
                         } else {
                             document.querySelector('.price-label').style.display = 'inline-block';
 
@@ -380,7 +380,7 @@
                         }
                     },
 
-                    reloadImages () {
+                    reloadImages() {
                         galleryImages.splice(0, galleryImages.length)
 
                         if (this.possibleOptionVariant) {
@@ -398,15 +398,13 @@
                         });
 
                         if (galleryImages.length) {
-                            this.$parent.$parent.$refs.gallery.media.images =  [...galleryImages];
+                            this.$parent.$parent.$refs.gallery.media.images = [...galleryImages];
                         }
 
                         this.$emitter.emit('configurable-variant-update-images-event', galleryImages);
                     },
                 }
             });
-
         </script>
     @endpush
-
 @endif

@@ -1,8 +1,8 @@
 <!-- SEO Meta Content -->
 @push('meta')
-    <meta name="description" content="@lang('shop::app.checkout.cart.index.cart')"/>
+    <meta name="description" content="@lang('shop::app.checkout.cart.index.cart')" />
 
-    <meta name="keywords" content="@lang('shop::app.checkout.cart.index.cart')"/>
+    <meta name="keywords" content="@lang('shop::app.checkout.cart.index.cart')" />
 @endPush
 
 <x-shop::layouts
@@ -53,7 +53,7 @@
             {!! view_render_event('bagisto.shop.checkout.cart.breadcrumbs.before') !!}
 
             <!-- Breadcrumbs -->
-            @if ((core()->getConfigData('general.general.breadcrumbs.shop')))
+            @if (core()->getConfigData('general.general.breadcrumbs.shop'))
                 <x-shop::breadcrumbs name="cart" />
             @endif
 
@@ -63,8 +63,8 @@
                 $errors = \Webkul\Checkout\Facades\Cart::getErrors();
             @endphp
 
-            @if (! empty($errors) && $errors['error_code'] === 'MINIMUM_ORDER_AMOUNT')
-                <div class="mt-5 w-full gap-12 rounded-lg bg-[#FFF3CD] px-5 py-3 text-[#383D41] max-sm:px-3 max-sm:py-2 max-sm:text-sm">
+            @if (!empty($errors) && $errors['error_code'] === 'MINIMUM_ORDER_AMOUNT')
+                <div class="mt-5 w-full gap-12 rounded-lg bg-warning px-5 py-3 text-on-warning max-sm:px-3 max-sm:py-2 max-sm:text-sm">
                     {{ $errors['message'] }}: {{ $errors['amount'] }}
                 </div>
             @endif
@@ -80,10 +80,7 @@
         {!! view_render_event('bagisto.shop.checkout.cart.cross_sell_carousel.before') !!}
 
         <!-- Cross-sell Product Carousal -->
-        <x-shop::products.carousel
-            :title="trans('shop::app.checkout.cart.index.cross-sell.title')"
-            :src="route('shop.api.checkout.cart.cross-sell.index')"
-        >
+        <x-shop::products.carousel :title="trans('shop::app.checkout.cart.index.cross-sell.title')" :src="route('shop.api.checkout.cart.cross-sell.index')">
         </x-shop::products.carousel>
 
         {!! view_render_event('bagisto.shop.checkout.cart.cross_sell_carousel.after') !!}
@@ -111,7 +108,7 @@
                             {!! view_render_event('bagisto.shop.checkout.cart.cart_mass_actions.before') !!}
 
                             <!-- Cart Mass Action Container -->
-                            <div class="flex items-center justify-between border-b border-zinc-200 pb-2.5 max-md:py-2.5">
+                            <div class="flex items-center justify-between border-b  pb-2.5 max-md:py-2.5">
                                 <div class="flex select-none items-center">
                                     <input
                                         type="checkbox"
@@ -141,7 +138,7 @@
 
                                 <div v-if="selectedItemsCount">
                                     <span
-                                        class="cursor-pointer text-base text-blue-700 max-sm:text-xs"
+                                        class="cursor-pointer text-base text-info max-sm:text-xs"
                                         role="button"
                                         tabindex="0"
                                         @click="removeSelectedItems"
@@ -150,10 +147,10 @@
                                     </span>
 
                                     @if (auth()->guard()->check())
-                                        <span class="mx-2.5 border-r-2 border-zinc-200"></span>
+                                        <span class="mx-2.5 border-r-2 "></span>
 
                                         <span
-                                            class="cursor-pointer text-base text-blue-700 max-sm:text-xs"
+                                            class="cursor-pointer text-base text-info max-sm:text-xs"
                                             role="button"
                                             tabindex="0"
                                             @click="moveToWishlistSelectedItems"
@@ -173,7 +170,7 @@
                                 class="grid gap-y-6"
                                 v-for="item in cart?.items"
                             >
-                                <div class="flex justify-between gap-x-2.5 border-b border-zinc-200 pb-5">
+                                <div class="flex justify-between gap-x-2.5 border-b pb-5">
                                     <div class="flex gap-x-5">
                                         <div class="mt-11 select-none max-md:mt-9 max-sm:mt-7">
                                             <input
@@ -185,7 +182,7 @@
                                             >
 
                                             <label
-                                                class="icon-uncheck peer-checked:icon-check-box cursor-pointer text-2xl text-navyBlue peer-checked:text-navyBlue"
+                                                class="icon-uncheck peer-checked:icon-check-box cursor-pointer text-2xl text-primary peer-checked:text-primary"
                                                 :for="'item_' + item.id"
                                                 tabindex="0"
                                                 aria-label="@lang('shop::app.checkout.cart.index.select-cart-item')"
@@ -251,7 +248,7 @@
                                                 >
                                                     <template v-for="attribute in item.options">
                                                         <div class="max-md:grid max-md:gap-0.5">
-                                                            <p class="text-sm font-medium text-zinc-500 max-md:font-normal max-sm:text-xs">
+                                                            <p class="text-sm font-medium text-on-background/70 max-md:font-normal max-sm:text-xs">
                                                                 @{{ attribute.attribute_name + ':' }}
                                                             </p>
 
@@ -259,7 +256,7 @@
                                                                 <template v-if="attribute?.attribute_type === 'file'">
                                                                     <a
                                                                         :href="attribute.file_url"
-                                                                        class="text-blue-700"
+                                                                        class="text-info"
                                                                         target="_blank"
                                                                         :download="attribute.file_name"
                                                                     >
@@ -302,7 +299,7 @@
                                                 </p>
 
                                                 <span
-                                                    class="cursor-pointer text-base text-blue-700 max-md:hidden"
+                                                    class="cursor-pointer text-base text-info max-md:hidden"
                                                     role="button"
                                                     tabindex="0"
                                                     @click="removeItem(item.id)"
@@ -325,7 +322,7 @@
 
                                                 <!-- For Mobile view Remove Button -->
                                                 <span
-                                                    class="hidden cursor-pointer text-sm text-blue-700 max-md:block"
+                                                    class="hidden cursor-pointer text-sm text-info max-md:block"
                                                     role="button"
                                                     tabindex="0"
                                                     @click="removeItem(item.id)"
@@ -371,7 +368,7 @@
 
                                         <!-- Cart Item Remove Button -->
                                         <span
-                                            class="cursor-pointer text-base text-blue-700"
+                                            class="cursor-pointer text-base text-info"
                                             role="button"
                                             tabindex="0"
                                             @click="removeItem(item.id)"
@@ -452,7 +449,7 @@
                 template: '#v-cart-template',
 
                 data() {
-                    return  {
+                    return {
                         cart: [],
 
                         allSelected: false,
@@ -494,7 +491,10 @@
                                 this.isLoading = false;
 
                                 if (response.data.message) {
-                                    this.$emitter.emit('add-flash', { type: 'info', message: response.data.message });
+                                    this.$emitter.emit('add-flash', {
+                                        type: 'info',
+                                        message: response.data.message
+                                    });
                                 }
                             })
                             .catch(error => {});
@@ -517,14 +517,22 @@
                     update() {
                         this.isStoring = true;
 
-                        this.$axios.put('{{ route('shop.api.checkout.cart.update') }}', { qty: this.applied.quantity })
+                        this.$axios.put('{{ route('shop.api.checkout.cart.update') }}', {
+                                qty: this.applied.quantity
+                            })
                             .then(response => {
                                 this.cart = response.data.data;
 
                                 if (response.data.message) {
-                                    this.$emitter.emit('add-flash', { type: 'success', message: response.data.message });
+                                    this.$emitter.emit('add-flash', {
+                                        type: 'success',
+                                        message: response.data.message
+                                    });
                                 } else {
-                                    this.$emitter.emit('add-flash', { type: 'warning', message: response.data.data.message });
+                                    this.$emitter.emit('add-flash', {
+                                        type: 'warning',
+                                        message: response.data.data.message
+                                    });
                                 }
 
                                 this.isStoring = false;
@@ -549,7 +557,10 @@
                                     .then(response => {
                                         this.cart = response.data.data;
 
-                                        this.$emitter.emit('add-flash', { type: 'success', message: response.data.message });
+                                        this.$emitter.emit('add-flash', {
+                                            type: 'success',
+                                            message: response.data.message
+                                        });
 
                                     })
                                     .catch(error => {});
@@ -569,9 +580,12 @@
                                     .then(response => {
                                         this.cart = response.data.data;
 
-                                        this.$emitter.emit('update-mini-cart', response.data.data );
+                                        this.$emitter.emit('update-mini-cart', response.data.data);
 
-                                        this.$emitter.emit('add-flash', { type: 'success', message: response.data.message });
+                                        this.$emitter.emit('add-flash', {
+                                            type: 'success',
+                                            message: response.data.message
+                                        });
 
                                     })
                                     .catch(error => {});
@@ -593,9 +607,12 @@
                                     .then(response => {
                                         this.cart = response.data.data;
 
-                                        this.$emitter.emit('update-mini-cart', response.data.data );
+                                        this.$emitter.emit('update-mini-cart', response.data.data);
 
-                                        this.$emitter.emit('add-flash', { type: 'success', message: response.data.message });
+                                        this.$emitter.emit('add-flash', {
+                                            type: 'success',
+                                            message: response.data.message
+                                        });
 
                                     })
                                     .catch(error => {});

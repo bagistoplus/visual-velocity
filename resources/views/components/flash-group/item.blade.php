@@ -55,35 +55,35 @@
 
                     typeStyles: {
                         success: {
-                            container: 'background: #D4EDDA',
+                            container: 'background: rgb(var(--color-on-success))',
 
-                            message: 'color: #155721',
+                            message: 'color: rgb(var(--color-success))',
 
-                            icon: 'color: #155721'
+                            icon: 'color: rgb(var(--color-success))'
                         },
 
                         error: {
-                            container: 'background: #F8D7DA',
+                            container: 'background: rgb(var(--color-on-danger))',
 
-                            message: 'color: #721C24',
+                            message: 'color: rgb(var(--color-danger))',
 
-                            icon: 'color: #721C24'
+                            icon: 'color: rgb(var(--color-danger))'
                         },
 
                         warning: {
-                            container: 'background: #FFF3CD',
+                            container: 'background: rgb(var(--color-on-waring))',
 
-                            message: 'color: #856404',
+                            message: 'color: rgb(var(--color-warning))',
 
-                            icon: 'color: #856404'
+                            icon: 'color: rgb(var(--color-warning))',
                         },
 
                         info: {
-                            container: 'background: #E2E3E5',
+                            container: 'background: rgb(var(--color-on-neutral))',
 
-                            message: 'color: #383D41',
+                            message: 'color: rgb(var(--color-neutral))',
 
-                            icon: 'color: #383D41'
+                            icon: 'color: rgb(var(--color-neutral))',
                         },
                     },
                 };

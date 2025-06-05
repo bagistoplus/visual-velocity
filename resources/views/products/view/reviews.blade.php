@@ -16,8 +16,8 @@
     >
         <div class="container max-1180:mt-3.5 max-1180:px-5 max-md:px-4 max-sm:px-3.5">
             <!-- Create Review Form Container -->
-            <div 
-                class="w-full" 
+            <div
+                class="w-full"
                 v-if="canReview"
             >
                 <x-shop::form
@@ -47,7 +47,7 @@
                                 />
                             </x-shop::form.control-group>
                         </div>
-                        
+
                         <div>
                             <x-shop::form.control-group>
                                 <x-shop::form.control-group.label class="required mt-0">
@@ -58,7 +58,7 @@
                                     class="icon-star-fill cursor-pointer text-2xl"
                                     role="presentation"
                                     v-for="rating in [1,2,3,4,5]"
-                                    :class="appliedRatings >= rating ? 'text-amber-500' : 'text-zinc-500'"
+                                    :class="appliedRatings >= rating ? 'text-accent' : 'text-on-background/20'"
                                     @click="appliedRatings = rating"
                                 >
                                 </span>
@@ -137,7 +137,7 @@
                                 >
                                     @lang('shop::app.products.view.reviews.submit-review')
                                 </button>
-                                
+
                                 <button
                                     type="button"
                                     class="secondary-button items-center rounded-2xl px-8 py-2.5 max-md:w-full max-md:max-w-full max-md:rounded-lg max-md:py-1.5"
@@ -166,23 +166,23 @@
 
                             ({{ $reviewHelper->getTotalReviews($product) }})
                         </h3>
-                        
+
                         <div class="flex gap-16 max-lg:flex-wrap max-sm:gap-5 max-sm:gap-x-0">
                             <!-- Left Section -->
                             <div class="sticky top-24 flex h-max flex-col gap-6 max-lg:relative max-lg:top-auto max-md:w-full">
-                                
-                                <div class="flex flex-col items-center gap-2 max-md:mt-3 max-md:gap-0 max-md:border-b max-md:border-zinc-200 max-md:pb-3">
+
+                                <div class="flex flex-col items-center gap-2 max-md:mt-3 max-md:gap-0 max-md:border-b max-md:border-surface-alt max-md:pb-3">
                                     <p class="text-5xl max-md:text-3xl">
                                         {{ $avgRatings }}
                                     </p>
-                                    
+
                                     <div class="flex items-center gap-0.5">
                                         @for ($i = 1; $i <= 5; $i++)
-                                            <span class="icon-star-fill text-3xl {{ $avgRatings >= $i ? 'text-amber-500' : 'text-zinc-500' }}"></span>
+                                            <span class="icon-star-fill text-3xl {{ $avgRatings >= $i ? 'text-accent' : 'text-on-background/60' }}"></span>
                                         @endfor
                                     </div>
 
-                                    <p class="text-base text-zinc-500 max-sm:text-sm">
+                                    <p class="text-base text-on-background/60 max-sm:text-sm">
                                         {{ $reviewHelper->getTotalFeedback($product) }}
 
                                         @lang('shop::app.products.view.reviews.ratings')
@@ -232,7 +232,7 @@
                                 ></v-product-review-item>
 
                                 <button
-                                    class="mx-auto block w-max rounded-2xl border border-navyBlue bg-white px-11 py-3 text-center text-base font-medium text-navyBlue"
+                                    class="mx-auto block w-max rounded-2xl border border-primary bg-background px-11 py-3 text-center text-base font-medium text-primary"
                                     v-if="links?.next"
                                     @click="get()"
                                 >
@@ -255,7 +255,7 @@
                             <p class="text-xl max-md:text-sm max-sm:text-xs">
                                 @lang('shop::app.products.view.reviews.empty-review')
                             </p>
-                        
+
                             @if(core()->getConfigData('catalog.products.review.customer_review'))
                                 @if (
                                     core()->getConfigData('catalog.products.review.guest_review')
@@ -283,7 +283,7 @@
         type="text/x-template"
         id="v-product-review-item-template"
     >
-        <div class="rounded-xl border border-zinc-200 p-6 max-md:hidden">
+        <div class="rounded-xl border  p-6 max-md:hidden">
             <div class="flex gap-5">
                 <template v-if="review.profile">
                     <img
@@ -296,20 +296,20 @@
 
                 <template v-else>
                     <div
-                        class="flex max-h-[100px] min-h-[100px] min-w-[100px] max-w-[100px] items-center justify-center rounded-xl bg-zinc-100"
+                        class="flex max-h-[100px] min-h-[100px] min-w-[100px] max-w-[100px] items-center justify-center rounded-xl bg-surface"
                         :title="review.name"
                     >
-                        <span class="text-2xl font-semibold text-zinc-500">
+                        <span class="text-2xl font-semibold text-on-background/60">
                             @{{ review.name.split(' ').map(name => name.charAt(0).toUpperCase()).join('') }}
                         </span>
                     </div>
                 </template>
-            
+
                 <div class="flex flex-col">
                     <p class="font x-md:text-lg text-xl">
                         @{{ review.name }}
                     </p>
-                    
+
                     <p class="mb-2 text-sm font-medium text-neutral-500">
                         @{{ review.created_at }}
                     </p>
@@ -318,7 +318,7 @@
                         <span
                             class="icon-star-fill text-3xl"
                             v-for="rating in [1,2,3,4,5]"
-                            :class="review.rating >= rating ? 'text-amber-500' : 'text-zinc-500'"
+                            :class="review.rating >= rating ? 'text-accent' : 'text-on-background/60'"
                         ></span>
                     </div>
                 </div>
@@ -350,12 +350,12 @@
 
                         <template v-else>
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" role="presentation"> <g clip-path="url(#clip0_3148_2242)"> <path fill-rule="evenodd" clip-rule="evenodd" d="M12.1484 9.31989L9.31995 12.1483L19.9265 22.7549L22.755 19.9265L12.1484 9.31989ZM12.1484 10.7341L10.7342 12.1483L13.5626 14.9767L14.9768 13.5625L12.1484 10.7341Z" fill="#060C3B"/> <path d="M11.0877 3.30949L13.5625 4.44748L16.0374 3.30949L14.8994 5.78436L16.0374 8.25924L13.5625 7.12124L11.0877 8.25924L12.2257 5.78436L11.0877 3.30949Z" fill="#060C3B"/> <path d="M2.39219 2.39217L5.78438 3.95197L9.17656 2.39217L7.61677 5.78436L9.17656 9.17655L5.78438 7.61676L2.39219 9.17655L3.95198 5.78436L2.39219 2.39217Z" fill="#060C3B"/> <path d="M3.30947 11.0877L5.78434 12.2257L8.25922 11.0877L7.12122 13.5626L8.25922 16.0374L5.78434 14.8994L3.30947 16.0374L4.44746 13.5626L3.30947 11.0877Z" fill="#060C3B"/> </g> <defs> <clipPath id="clip0_3148_2242"> <rect width="24" height="24" fill="white"/> </clipPath> </defs> </svg>
-                            
+
                             @lang('shop::app.products.view.reviews.translate')
                         </template>
                     </button>
                 @endif
-                
+
                 <!-- Review Attachments -->
                 <div
                     class="mt-3 flex flex-wrap gap-2"
@@ -376,7 +376,7 @@
                                 @click="isImageZooming = !isImageZooming; activeIndex = index"
                             >
                         </div>
-                        
+
                         <div
                             :href="file.url"
                             class="flex h-12 w-12"
@@ -396,9 +396,9 @@
                 </div>
 
                 <!-- Review Images zoomer -->
-                <x-shop::image-zoomer 
-                    ::attachments="attachments" 
-                    ::is-image-zooming="isImageZooming" 
+                <x-shop::image-zoomer
+                    ::attachments="attachments"
+                    ::is-image-zooming="isImageZooming"
                     ::initial-index="'file_'+activeIndex"
                 />
             </div>
@@ -406,7 +406,7 @@
 
         <!-- For Mobile View -->
         <div class="md:hidden">
-            <div class="grid gap-1.5 rounded-xl border border-zinc-200 p-4 max-md:mb-0">
+            <div class="grid gap-1.5 rounded-xl border  p-4 max-md:mb-0">
                 <div class="flex items-center gap-2.5">
                     <img
                         v-if="review.profile"
@@ -415,23 +415,23 @@
                         :alt="review.name"
                         :title="review.name"
                     >
-    
+
                     <div
                         v-else
-                        class="flex max-h-10 min-h-10 min-w-10 max-w-10 items-center justify-center rounded-full bg-zinc-100"
+                        class="flex max-h-10 min-h-10 min-w-10 max-w-10 items-center justify-center rounded-full bg-surface"
                         :title="review.name"
                     >
-                        <span class="text-xs font-semibold text-zinc-500">
+                        <span class="text-xs font-semibold text-on-background/60">
                             @{{ review.name.split(' ').map(name => name.charAt(0).toUpperCase()).join('') }}
                         </span>
                     </div>
-    
+
                     <div class="grid grid-cols-1">
                         <p class="text-base font-medium">
                             @{{ review.name }}
                         </p>
-                        
-                        <p class="text-xs text-zinc-500">
+
+                        <p class="text-xs text-on-background/60">
                             @{{ review.created_at }}
                         </p>
                     </div>
@@ -439,16 +439,16 @@
 
                 <div class="flex items-center">
                     @for ($i = 1; $i <= 5; $i++)
-                        <span class="icon-star-fill text-xl {{ $avgRatings >= $i ? 'text-amber-500' : 'text-zinc-500' }}"></span>
+                        <span class="icon-star-fill text-xl {{ $avgRatings >= $i ? 'text-accent' : 'text-on-background/60' }}"></span>
                     @endfor
                 </div>
-    
+
                 <div class="w-full">
                     <p class="text-sm font-semibold">
                         @{{ review.title }}
                     </p>
-    
-                    <p class="mt-1.5 text-sm text-zinc-500">
+
+                    <p class="mt-1.5 text-sm text-on-background/60">
                         @{{ review.comment }}
                     </p>
 
@@ -469,13 +469,13 @@
 
                             <template v-else>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" role="presentation"> <g clip-path="url(#clip0_3148_2242)"> <path fill-rule="evenodd" clip-rule="evenodd" d="M12.1484 9.31989L9.31995 12.1483L19.9265 22.7549L22.755 19.9265L12.1484 9.31989ZM12.1484 10.7341L10.7342 12.1483L13.5626 14.9767L14.9768 13.5625L12.1484 10.7341Z" fill="#060C3B"/> <path d="M11.0877 3.30949L13.5625 4.44748L16.0374 3.30949L14.8994 5.78436L16.0374 8.25924L13.5625 7.12124L11.0877 8.25924L12.2257 5.78436L11.0877 3.30949Z" fill="#060C3B"/> <path d="M2.39219 2.39217L5.78438 3.95197L9.17656 2.39217L7.61677 5.78436L9.17656 9.17655L5.78438 7.61676L2.39219 9.17655L3.95198 5.78436L2.39219 2.39217Z" fill="#060C3B"/> <path d="M3.30947 11.0877L5.78434 12.2257L8.25922 11.0877L7.12122 13.5626L8.25922 16.0374L5.78434 14.8994L3.30947 16.0374L4.44746 13.5626L3.30947 11.0877Z" fill="#060C3B"/> </g> <defs> <clipPath id="clip0_3148_2242"> <rect width="24" height="24" fill="white"/> </clipPath> </defs> </svg>
-                                
+
                                 @lang('shop::app.products.view.reviews.translate')
                             </template>
-                        </button> 
+                        </button>
                     @endif
                 </div>
-    
+
                 <!-- Review Attachments -->
                 <div
                     class="journal-scroll scrollbar-width-hidden mt-3 flex gap-2 overflow-auto"
@@ -495,7 +495,7 @@
                                 :title="review.name"
                             >
                         </a>
-    
+
                         <a
                             :href="file.url"
                             class="flex h-20 w-20"
@@ -523,7 +523,7 @@
             data() {
                 return {
                     isLoading: true,
-                    
+
                     appliedRatings: 5,
 
                     canReview: false,
@@ -544,10 +544,10 @@
 
             methods: {
                 get() {
-                    if (! this.links?.next) {
+                    if (!this.links?.next) {
                         return;
                     }
-                    
+
                     this.$axios.get(this.links.next)
                         .then(response => {
                             this.isLoading = false;
@@ -561,7 +561,10 @@
                         .catch(error => {});
                 },
 
-                store(params, { resetForm, setErrors }) {
+                store(params, {
+                    resetForm,
+                    setErrors
+                }) {
                     let selectedFiles = this.$refs.reviewImages.uploadedFiles
                         .filter(obj => obj.file instanceof File)
                         .map(obj => obj.file);
@@ -574,14 +577,19 @@
                             }
                         })
                         .then(response => {
-                            this.$emitter.emit('add-flash', { type: 'success', message: response.data.data.message });
+                            this.$emitter.emit('add-flash', {
+                                type: 'success',
+                                message: response.data.data.message
+                            });
 
                             resetForm();
 
                             this.canReview = false;
                         })
                         .catch(error => {
-                            setErrors({'attachments': ["@lang('shop::app.products.view.reviews.failed-to-upload')"]});
+                            setErrors({
+                                'attachments': ["@lang('shop::app.products.view.reviews.failed-to-upload')"]
+                            });
 
                             this.$refs.reviewImages.uploadedFiles.forEach(element => {
                                 setTimeout(() => {
@@ -592,7 +600,7 @@
                 },
             },
         });
-        
+
         app.component('v-product-review-item', {
             template: '#v-product-review-item-template',
 
@@ -625,7 +633,8 @@
                 translate() {
                     this.isLoading = true;
 
-                    this.$axios.get("{{ route('shop.api.products.reviews.translate', ['id' => $product->id, 'review_id' => ':reviewId']) }}".replace(':reviewId', this.review.id))
+                    this.$axios.get("{{ route('shop.api.products.reviews.translate', ['id' => $product->id, 'review_id' => ':reviewId']) }}".replace(':reviewId', this.review
+                            .id))
                         .then(response => {
                             this.isLoading = false;
 
@@ -634,7 +643,10 @@
                         .catch(error => {
                             this.isLoading = false;
 
-                            this.$emitter.emit('add-flash', { type: 'error', message: error.response.data.message });
+                            this.$emitter.emit('add-flash', {
+                                type: 'error',
+                                message: error.response.data.message
+                            });
                         });
                 },
             },

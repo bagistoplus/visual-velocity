@@ -32,7 +32,7 @@
                             @lang('shop::app.checkout.onepage.address.billing-address')
                         </h2>
                     </div>
-                
+
                     <!-- Billing Address Form -->
                     <v-checkout-address-form
                         control-name="billing"
@@ -55,7 +55,7 @@
                         />
 
                         <label
-                            class="cursor-pointer select-none text-base text-zinc-500 max-md:text-sm max-sm:text-xs ltr:pl-0 rtl:pr-0"
+                            class="cursor-pointer select-none text-base text-on-background/70 max-md:text-sm max-sm:text-xs ltr:pl-0 rtl:pr-0"
                             for="use_for_shipping"
                         >
                             @lang('shop::app.checkout.onepage.address.same-as-billing')
@@ -79,7 +79,7 @@
                                 @lang('shop::app.checkout.onepage.address.shipping-address')
                             </h2>
                         </div>
-                    
+
                         <!-- Shipping Address Form -->
                         <v-checkout-address-form
                             control-name="shipping"
@@ -126,7 +126,9 @@
             },
 
             methods: {
-                addAddress(params, { setErrors }) {
+                addAddress(params, {
+                    setErrors
+                }) {
                     this.isStoring = true;
 
                     params['billing']['use_for_shipping'] = this.useBillingAddressForShipping;

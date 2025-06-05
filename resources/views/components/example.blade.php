@@ -28,7 +28,7 @@
 
 <!-- basic/traditional form  -->
 <x-shop::form action="">
-     
+
     <!-- Type E-mail -->
     <x-shop::form.control-group>
         <x-shop::form.control-group.label>
@@ -54,9 +54,9 @@
         </x-shop::form.control-group.label>
 
         <x-shop::form.control-group.control
-            type="date"
             id="dob"
-            name="date_of_birth" 
+            type="date"
+            name="date_of_birth"
             value=""
             label="Date of Birth"
             placeholder="Date of Birth"
@@ -72,8 +72,8 @@
         </x-shop::form.control-group.label>
 
         <x-shop::form.control-group.control
-            type="datetime"
             id="starts_from"
+            type="datetime"
             name="starts_from"
             value=""
             label="Start Timing"
@@ -133,8 +133,8 @@
     <!--Type Checkbox -->
     <x-shop::form.control-group>
         <x-shop::form.control-group.control
-            type="checkbox"
             id="is_unique"
+            type="checkbox"
             name="is_unique"
             value="1"
             for="is_unique"
@@ -148,15 +148,15 @@
     <!--Type Radio -->
     <x-shop::form.control-group>
         <x-shop::form.control-group.control
-            type="radio"
             id="is_unique"
+            type="radio"
             name="is_unique"
             value="1"
             for="is_unique"
         />
 
         <x-shop::form.control-group.label for="is_unique" />
-            @lang('shop::app.catalog.attributes.edit.is-unique')
+        @lang('shop::app.catalog.attributes.edit.is-unique')
         </x-shop::form.control-group.label>
     </x-shop::form.control-group>
 
@@ -181,10 +181,7 @@
 </x-shop::form>
 
 <!-- customized/ajax form -->
-<x-shop::form
-    v-slot="{ meta, errors, handleSubmit }"
-    as="div"
->
+<x-shop::form v-slot="{ meta, errors, handleSubmit }" as="div">
     <form @submit="handleSubmit($event, callMethodInComponent)">
         <x-shop::form.control-group>
             <x-shop::form.control-group.label>
@@ -212,15 +209,11 @@
 
 <!-- tabs -->
 <x-shop::tabs>
-    <x-shop::tabs.item
-        title="Tab 1"
-    >
+    <x-shop::tabs.item title="Tab 1">
         Tab 1 Content
     </x-shop::tabs.item>
 
-    <x-shop::tabs.item
-        title="Tab 2"
-    >
+    <x-shop::tabs.item title="Tab 2">
         Tab 2 Content
     </x-shop::tabs.item>
 </x-shop::tabs>
@@ -289,7 +282,7 @@
 
 <!-- Image/Media -->
 <x-shop::media.images.lazy
-    class="after:content-[' '] relative min-w-[250px] bg-zinc-100 transition-all duration-300 after:block after:pb-[calc(100%+9px)] group-hover:scale-105"
+    class="after:content-[' '] relative min-w-[250px] bg-surface transition-all duration-300 after:block after:pb-[calc(100%+9px)] group-hover:scale-105"
     ::src="product.base_image.medium_image_url"
     ::key="product.id"
     ::index="product.id"
@@ -305,7 +298,7 @@
 
 <!-- Page Layout -->
 <x-shop::layouts>
-   Page Content 
+    Page Content
 </x-shop::layouts>
 
 <!-- label class -->

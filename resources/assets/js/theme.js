@@ -82,6 +82,11 @@ function createMainApp() {
 
   configureApp(app);
   setupDesignModeOverride(app);
+
+  if (window.Visual?.inDesignMode) {
+    app.config.compilerOptions.comments = true;
+  }
+
   window.app = app;
 
   return app;
@@ -156,7 +161,6 @@ document.addEventListener('visual:section:load', (event) => {
  * so we remount the main vue again
  */
 document.addEventListener('visual:page:load', () => {
-  console.log('full reload');
   mountComponent(document.querySelector('#app'));
 });
 

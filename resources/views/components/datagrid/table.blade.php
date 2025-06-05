@@ -18,7 +18,7 @@
         id="v-datagrid-table-template"
     >
         <div class="w-full overflow-x-auto rounded-xl border max-md:rounded-none max-md:border-0">
-            <div class="table-responsive box-shadow grid w-full overflow-hidden rounded bg-white">
+            <div class="table-responsive box-shadow grid w-full overflow-hidden rounded bg-background">
                 <slot
                     name="header"
                     :is-loading="isLoading"
@@ -34,7 +34,7 @@
 
                     <template v-else>
                         <div
-                            class="row grid items-center gap-2.5 border-b border-zinc-200 bg-zinc-100 px-6 py-4 text-sm font-medium text-black max-md:p-4"
+                            class="row grid items-center gap-2.5 border-b  bg-surface px-6 py-4 text-sm font-medium text-on-surface max-md:p-4"
                             :style="`grid-template-columns: repeat(${gridsCount}, minmax(0, 1fr))`"
                         >
                             <!-- Mass Actions -->
@@ -72,7 +72,7 @@
                                     @{{ column.label }}
 
                                     <i
-                                        class="align-text-bottom text-base text-gray-800"
+                                        class="align-text-bottom text-base text-on-surface/90"
                                         :class="[applied.sort.order === 'asc' ? 'icon-arrow-down': 'icon-arrow-up']"
                                         v-if="column.index == applied.sort.column"
                                     ></i>
@@ -106,7 +106,7 @@
                     <template v-else>
                         <template v-if="available.records.length">
                             <div
-                                class="row grid items-center gap-2.5 border-b bg-white px-6 py-4 font-medium text-gray-600 transition-all max-md:p-4 max-md:text-xs"
+                                class="row grid items-center gap-2.5 border-b bg-background px-6 py-4 font-medium text-on-background/80 transition-all max-md:p-4 max-md:text-xs"
                                 v-for="record in available.records"
                                 :style="`grid-template-columns: repeat(${gridsCount}, minmax(0, 1fr))`"
                             >
@@ -136,11 +136,11 @@
                                     >
                                     </p>
                                 </template>
-                                
+
                                 <!-- Actions -->
                                 <p v-if="available.actions.length">
                                     <span
-                                        class="float-right cursor-pointer rounded-md p-1.5 text-2xl transition-all hover:bg-gray-200"
+                                        class="float-right cursor-pointer rounded-md p-1.5 text-2xl transition-all hover:bg-surface-alt hover:text-on-surface-alt"
                                         :class="action.icon"
                                         v-for="action in record.actions"
                                         @click="performAction(action)"
@@ -152,7 +152,7 @@
                         </template>
 
                         <template v-else>
-                            <div class="row grid border-b border-gray-300 px-4 py-4 text-center text-gray-600">
+                            <div class="row grid border-b  px-4 py-4 text-center text-on-background/80">
                                 <p>
                                     @lang('shop::app.components.datagrid.table.no-records-available')
                                 </p>
@@ -183,14 +183,14 @@
                             <!-- Pagination -->
                             <div class="flex items-center gap-1">
                                 <div
-                                    class="inline-flex w-full max-w-max cursor-pointer appearance-none items-center justify-between gap-x-1 rounded-md border border-transparent p-1.5 text-center text-gray-600 transition-all marker:shadow hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-black active:border-gray-300"
+                                    class="inline-flex w-full max-w-max cursor-pointer appearance-none items-center justify-between gap-x-1 rounded-md border border-transparent p-1.5 text-center text-on-background/80 transition-all marker:shadow hover:bg-surface-alt hover:text-on-surface-alt focus:outline-none focus:ring-2 focus:ring-black active:border-on-background/12"
                                     @click="changePage('previous')"
                                 >
                                     <span class="icon-sort-left text-2xl"></span>
                                 </div>
 
                                 <div
-                                    class="inline-flex w-full max-w-max cursor-pointer appearance-none items-center justify-between gap-x-1 rounded-md border border-transparent p-1.5 text-center text-gray-600 transition-all marker:shadow hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-black active:border-gray-300"
+                                    class="inline-flex w-full max-w-max cursor-pointer appearance-none items-center justify-between gap-x-1 rounded-md border border-transparent p-1.5 text-center text-on-background/80 transition-all marker:shadow hover:bg-surface-alt hover:text-on-surface-alt focus:outline-none focus:ring-2 focus:ring-black active:border-on-background/12"
                                     @click="changePage('next')"
                                 >
                                     <span class="icon-sort-right text-2xl"></span>
@@ -198,11 +198,11 @@
                             </div>
 
                             <nav aria-label="@lang('shop::app.components.datagrid.table.page-navigation')">
-                                <ul class="inline-flex items-center -space-x-px rounded-lg border border-zinc-200 max-md:px-0">
+                                <ul class="inline-flex items-center -space-x-px rounded-lg border overflow-hidden  max-md:px-0">
                                     <li  @click="changePage('previous')">
                                         <a
                                             href="javascript:void(0);"
-                                            class="flex h-10 w-9 items-center justify-center font-medium leading-normal hover:bg-gray-100 max-md:h-8 max-md:w-6 max-md:justify-normal"
+                                            class="flex h-10 w-9 items-center justify-center font-medium leading-normal hover:bg-surface hover:text-on-surface max-md:h-8 max-md:w-6 max-md:justify-normal"
                                             aria-label="@lang('shop::app.components.datagrid.table.previous-page')"
                                         >
                                             <span class="icon-arrow-left rtl:icon-arrow-right text-2xl"></span>
@@ -213,7 +213,7 @@
                                         <input
                                             type="text"
                                             :value="$parent.available.meta.current_page"
-                                            class="max-w-[42px] items-center border-l border-r px-4 py-2 font-medium leading-normal text-black hover:bg-gray-100 max-md:max-w-9 max-md:justify-normal max-md:px-0 max-md:py-1 max-md:text-center"
+                                            class="max-w-[42px] items-center border-l border-r px-4 py-2 font-medium leading-normal text-on-background/90 bg-background hover:bg-surface hover:text-on-surface max-md:max-w-9 max-md:justify-normal max-md:px-0 max-md:py-1 max-md:text-center"
                                             @change="changePage(parseInt($event.target.value))"
                                             aria-label="@lang('shop::app.components.datagrid.table.page-number')"
                                         >
@@ -222,7 +222,7 @@
                                     <li @click="changePage('next')">
                                         <a
                                             href="javascript:void(0);"
-                                            class="flex h-10 w-9 items-center justify-center font-medium leading-normal hover:bg-gray-100 max-md:h-8 max-md:w-6 max-md:justify-normal"
+                                            class="flex h-10 w-9 items-center justify-center font-medium leading-normal hover:bg-surface hover:text-on-surface max-md:h-8 max-md:w-6 max-md:justify-normal"
                                             aria-label="@lang('shop::app.components.datagrid.table.next-page')"
                                         >
                                             <span class="icon-arrow-right rtl:icon-arrow-left text-2xl"></span>
@@ -273,7 +273,7 @@
                  * @param {string|integer} directionOrPageNumber
                  * @returns {void}
                  */
-                 changePage(directionOrPageNumber) {
+                changePage(directionOrPageNumber) {
                     let newPage;
 
                     if (typeof directionOrPageNumber === 'string') {
@@ -286,7 +286,7 @@
 
                             return;
                         }
-                    }  else if (typeof directionOrPageNumber === 'number') {
+                    } else if (typeof directionOrPageNumber === 'number') {
                         newPage = directionOrPageNumber;
                     } else {
                         console.warn('Invalid Input Provided: ' + directionOrPageNumber);
@@ -346,12 +346,18 @@
                                 agree: () => {
                                     this.$axios[method](action.url)
                                         .then(response => {
-                                            this.$emitter.emit('add-flash', { type: 'success', message: response.data.message });
+                                            this.$emitter.emit('add-flash', {
+                                                type: 'success',
+                                                message: response.data.message
+                                            });
 
                                             this.$emit('actionSuccess', response.data);
                                         })
                                         .catch((error) => {
-                                            this.$emitter.emit('add-flash', { type: 'error', message: error.response.data.message });
+                                            this.$emitter.emit('add-flash', {
+                                                type: 'error',
+                                                message: error.response.data.message
+                                            });
 
                                             this.$emit('actionError', error.response.data);
                                         });

@@ -2,11 +2,8 @@
     'isActive' => true,
 ])
 
-<div {{ $attributes->merge(['class' => 'border-b border-zinc-200']) }}>
-    <v-accordion
-        {{ $attributes->except('class') }}
-        is-active="{{ $isActive }}"
-    >
+<div {{ $attributes->merge(['class' => 'border-b border-on-background/8']) }}>
+    <v-accordion {{ $attributes->except('class') }} is-active="{{ $isActive }}">
         @isset($header)
             <template v-slot:header="{ toggle, isOpen }">
                 <div
@@ -29,10 +26,7 @@
 
         @isset($content)
             <template v-slot:content="{ isOpen }">
-                <div
-                    {{ $content->attributes->merge(['class' => 'z-10 rounded-lg bg-white p-1.5']) }}
-                    v-show="isOpen"
-                >
+                <div v-show="isOpen" {{ $content->attributes->merge(['class' => 'z-10 rounded-lg bg-background p-1.5']) }}>
                     {{ $content }}
                 </div>
             </template>
@@ -79,9 +73,11 @@
 
             methods: {
                 toggle() {
-                    this.isOpen = ! this.isOpen;
+                    this.isOpen = !this.isOpen;
 
-                    this.$emit('toggle', { isActive: this.isOpen });
+                    this.$emit('toggle', {
+                        isActive: this.isOpen
+                    });
                 },
             },
         });

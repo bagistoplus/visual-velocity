@@ -16,12 +16,12 @@ class ServiceProvider extends ThemeServiceProvider
     {
         parent::boot();
 
-        Blade::directive('vue', function () {
-            return "<?php if (\\ThemeEditor::inDesignMode()): ?><div data-vue><?php endif; ?>";
+        Blade::directive('style', function () {
+            return '<style>';
         });
 
-        Blade::directive('endvue', function () {
-            return "<?php if (\\ThemeEditor::inDesignMode()): ?></div><?php endif; ?>";
+        Blade::directive('endstyle', function () {
+            return '</style>';
         });
     }
 }

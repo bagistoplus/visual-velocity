@@ -1,5 +1,5 @@
 <!-- Coupon Vue Component -->
-<v-coupon 
+<v-coupon
     :cart="cart"
     @coupon-applied="getCart"
     @coupon-removed="getCart"
@@ -32,8 +32,8 @@
                         <x-shop::modal ref="couponModel">
                             <!-- Modal Toggler -->
                             <x-slot:toggle>
-                                <span 
-                                    class="cursor-pointer text-base text-blue-700 max-sm:text-sm"
+                                <span
+                                    class="cursor-pointer text-base text-info max-sm:text-sm"
                                     role="button"
                                     tabindex="0"
                                     v-if="! cart.coupon_code"
@@ -72,7 +72,7 @@
                                 <!-- Coupon Form Action Container -->
                                 <div class="flex flex-wrap items-center gap-4 max-md:justify-between">
                                     <div class="flex items-center gap-4 max-md:block">
-                                        <p class="text-sm font-medium text-zinc-500 max-md:text-left max-md:text-xs">
+                                        <p class="text-sm font-medium text-on-background/70 max-md:text-left max-md:text-xs">
                                             @lang('shop::app.checkout.coupon.subtotal')
                                         </p>
 
@@ -96,18 +96,18 @@
                 </x-shop::form>
 
                 <!-- Applied Coupon Information Container -->
-                <div 
+                <div
                     class="font-small flex items-center justify-between text-xs"
                     v-if="cart.coupon_code"
                 >
-                    <p 
+                    <p
                         class="text-base font-medium text-navyBlue max-sm:text-sm"
                         title="@lang('shop::app.checkout.coupon.applied')"
                     >
                         "@{{ cart.coupon_code }}"
                     </p>
 
-                    <span 
+                    <span
                         class="icon-cancel cursor-pointer text-2xl max-sm:text-base"
                         title="@lang('shop::app.checkout.coupon.remove')"
                         @click="destroyCoupon"
@@ -123,7 +123,7 @@
     <script type="module">
         app.component('v-coupon', {
             template: '#v-coupon-template',
-            
+
             props: ['cart'],
 
             data() {
@@ -133,7 +133,9 @@
             },
 
             methods: {
-                applyCoupon(params, { resetForm }) {
+                applyCoupon(params, {
+                    resetForm
+                }) {
                     this.isStoring = true;
 
                     this.$axios.post("{{ route('shop.api.checkout.cart.coupon.apply') }}", params)
@@ -141,8 +143,11 @@
                             this.isStoring = false;
 
                             this.$emit('coupon-applied');
-                  
-                            this.$emitter.emit('add-flash', { type: 'success', message: response.data.message });
+
+                            this.$emitter.emit('add-flash', {
+                                type: 'success',
+                                message: response.data.message
+                            });
 
                             this.$refs.couponModel.toggle();
 
@@ -154,14 +159,20 @@
                             this.$refs.couponModel.toggle();
 
                             if ([400, 422].includes(error.response.request.status)) {
-                                this.$emitter.emit('add-flash', { type: 'warning', message: error.response.data.message });
+                                this.$emitter.emit('add-flash', {
+                                    type: 'warning',
+                                    message: error.response.data.message
+                                });
 
                                 resetForm();
 
                                 return;
                             }
 
-                            this.$emitter.emit('add-flash', { type: 'error', message: error.response.data.message });
+                            this.$emitter.emit('add-flash', {
+                                type: 'error',
+                                message: error.response.data.message
+                            });
                         });
                 },
 
@@ -172,7 +183,10 @@
                         .then((response) => {
                             this.$emit('coupon-removed');
 
-                            this.$emitter.emit('add-flash', { type: 'success', message: response.data.message });
+                            this.$emitter.emit('add-flash', {
+                                type: 'success',
+                                message: response.data.message
+                            });
                         })
                         .catch(error => console.log(error));
                 },

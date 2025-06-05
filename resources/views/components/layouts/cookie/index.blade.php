@@ -12,22 +12,22 @@
         {!! view_render_event('bagisto.shop.settings.gdpr.modal.cookie.before') !!}
 
             @if (core()->getConfigData('general.gdpr.cookie.enabled'))
-                <div 
-                    class="js-cookie-consent fixed z-[999] mx-4 box-border hidden min-h-5 overflow-hidden rounded bg-black/90 p-7"
+                <div
+                    class="js-cookie-consent fixed z-[999] mx-4 box-border hidden min-h-5 overflow-hidden rounded bg-on-background/90 p-7"
                     :class="getPositionClasses(position)"
                 >
                     <div class="cookieTitle">
-                        <span class="mb-1.5 block font-sans text-xl leading-5 text-white">
+                        <span class="mb-1.5 block font-sans text-xl leading-5 text-background">
                             {{ core()->getConfigData('general.gdpr.cookie.static_block_identifier') }}
                         </span>
                     </div>
 
                     <div class="cookieDesc cookie-consent__message">
-                        <p class="mt-2.5 block font-sans text-sm leading-5 text-white">
+                        <p class="mt-2.5 block font-sans text-sm leading-5 text-background">
                             {{ core()->getConfigData('general.gdpr.cookie.description') }}
 
-                            <a 
-                                class="text-white underline" 
+                            <a
+                                class="text-background underline"
                                 href="{{ url('page/privacy-policy') }}"
                             >
                                 @lang('shop::app.components.layouts.cookie.index.privacy-policy')
@@ -37,15 +37,15 @@
 
                     <div class="cookieButton">
                         <div class="mt-2.5 flex gap-2">
-                            <a 
-                                class="box-border inline-block w-full cursor-pointer rounded bg-blue-500 px-6 py-4 text-center font-sans text-sm font-bold text-white transition-colors duration-300 ease-in-out hover:bg-blue-400 hover:text-white"
+                            <a
+                                class="box-border inline-block w-full cursor-pointer rounded bg-info px-6 py-4 text-center font-sans text-sm font-bold text-on-info transition-colors duration-300 ease-in-out hover:bg-info/90 hover:text-on-info"
                                 @click="createCookie()"
                             >
                                 @lang('shop::app.components.layouts.cookie.index.accept')
                             </a>
-                        
-                            <a 
-                                class="box-border inline-block w-full cursor-pointer rounded bg-blue-500 px-6 py-4 text-center font-sans text-sm font-bold text-white transition-colors duration-300 ease-in-out hover:bg-blue-400 hover:text-white"
+
+                            <a
+                                class="box-border inline-block w-full cursor-pointer rounded bg-info px-6 py-4 text-center font-sans text-sm font-bold text-on-info transition-colors duration-300 ease-in-out hover:bg-info/90 hover:text-on-info"
                                 @click="rejectCookie()"
                             >
                                 @lang('shop::app.components.layouts.cookie.index.reject')
@@ -53,8 +53,8 @@
 
                         </div>
 
-                        <a 
-                            class="mt-2.5 box-border inline-block w-full cursor-pointer rounded bg-blue-500 px-6 py-4 text-center font-sans text-sm font-bold text-white transition-colors duration-300 ease-in-out hover:bg-blue-400 hover:text-white"
+                        <a
+                            class="mt-2.5 box-border inline-block w-full cursor-pointer rounded bg-info px-6 py-4 text-center font-sans text-sm font-bold text-on-info transition-colors duration-300 ease-in-out hover:bg-info/90 hover:text-on-info"
                             href="{{ route('shop.customers.gdpr.cookie-consent') }}"
                         >
                             @lang('shop::app.components.layouts.cookie.index.learn-more-and-customize')
@@ -82,7 +82,7 @@
             },
 
             mounted() {
-                if (! this.cookieExists()) {
+                if (!this.cookieExists()) {
                     this.showCookieDialog();
                 }
             },

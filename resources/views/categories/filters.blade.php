@@ -3,19 +3,15 @@
 <!-- Desktop Filters Navigation -->
 <div v-if="! isMobile">
     <!-- Filters Vue Component -->
-    <v-filters
-        @filter-applied="setFilters('filter', $event)"
-        @filter-clear="clearFilters('filter', $event)"
-    >
+    <v-filters @filter-applied="setFilters('filter', $event)" @filter-clear="clearFilters('filter', $event)">
         <!-- Category Filter Shimmer Effect -->
         <x-shop::shimmer.categories.filters />
     </v-filters>
 </div>
 
 <!-- Mobile Filters Navigation -->
-<div
-    class="fixed bottom-0 z-10 grid w-full max-w-full grid-cols-[1fr_auto_1fr] items-center justify-items-center border-t border-zinc-200 bg-white px-5 ltr:left-0 rtl:right-0"
-    v-if="isMobile"
+<div v-if="isMobile"
+    class="border-on-background/8 fixed bottom-0 z-10 grid w-full max-w-full grid-cols-[1fr_auto_1fr] items-center justify-items-center border-t bg-background px-5 ltr:left-0 rtl:right-0"
 >
     <!-- Filter Drawer -->
     <x-shop::drawer
@@ -25,10 +21,7 @@
     >
         <!-- Drawer Toggler -->
         <x-slot:toggle>
-            <div
-                class="flex cursor-pointer items-center gap-x-2.5 px-2.5 py-3.5 text-base font-medium uppercase max-md:py-3"
-                @click="isDrawerActive.filter = true"
-            >
+            <div class="flex cursor-pointer items-center gap-x-2.5 px-2.5 py-3.5 text-base font-medium uppercase max-md:py-3" @click="isDrawerActive.filter = true">
                 <span class="icon-filter-1 text-2xl"></span>
 
                 @lang('shop::app.categories.filters.filter')
@@ -37,15 +30,12 @@
 
         <!-- Drawer Header -->
         <x-slot:header>
-            <div class="flex items-center justify-between">
+            <div class="flex items-center justify-between border-none">
                 <p class="text-lg font-semibold">
                     @lang('shop::app.categories.filters.filters')
                 </p>
 
-                <p
-                    class="cursor-pointer text-sm font-medium ltr:mr-[50px] rtl:ml-[50px]"
-                    @click="clearFilters('filter', '')"
-                >
+                <p class="cursor-pointer text-sm font-medium ltr:mr-[50px] rtl:ml-[50px]" @click="clearFilters('filter', '')">
                     @lang('shop::app.categories.filters.clear-all')
                 </p>
             </div>
@@ -54,10 +44,7 @@
         <!-- Drawer Content -->
         <x-slot:content>
             <!-- Filters Vue Component -->
-            <v-filters
-                @filter-applied="setFilters('filter', $event)"
-                @filter-clear="clearFilters('filter', $event)"
-            >
+            <v-filters @filter-applied="setFilters('filter', $event)" @filter-clear="clearFilters('filter', $event)">
                 <!-- Category Filter Shimmer Effect -->
                 <x-shop::shimmer.categories.filters />
             </v-filters>
@@ -65,7 +52,7 @@
     </x-shop::drawer>
 
     <!-- Separator -->
-    <span class="h-5 w-0.5 bg-zinc-200"></span>
+    <span class="h-5 w-0.5 bg-surface-alt"></span>
 
     <!-- Sort Drawer -->
     <x-shop::drawer
@@ -75,10 +62,7 @@
     >
         <!-- Drawer Toggler -->
         <x-slot:toggle>
-            <div
-                class="flex cursor-pointer items-center gap-x-2.5 px-2.5 py-3.5 text-base font-medium uppercase max-md:py-3"
-                @click="isDrawerActive.toolbar = true"
-            >
+            <div class="flex cursor-pointer items-center gap-x-2.5 px-2.5 py-3.5 text-base font-medium uppercase max-md:py-3" @click="isDrawerActive.toolbar = true">
                 <span class="icon-sort-1 text-2xl"></span>
 
                 @lang('shop::app.categories.filters.sort')
@@ -118,7 +102,7 @@
         <template v-else>
             <div class="panel-side journal-scroll grid max-h-[1320px] min-w-[342px] grid-cols-[1fr] overflow-y-auto overflow-x-hidden max-xl:min-w-[270px] md:max-w-[342px] md:ltr:pr-7 md:rtl:pl-7">
                 <!-- Filters Header Container -->
-                <div class="flex h-[50px] items-center justify-between border-b border-zinc-200 pb-2.5 max-md:hidden">
+                <div class="flex h-[50px] items-center justify-between border-b border-on-background/8 pb-2.5 max-md:hidden">
                     <p class="text-lg font-semibold max-sm:font-medium">
                         @lang('shop::app.categories.filters.filters')
                     </p>
@@ -186,7 +170,7 @@
 
                             <input
                                 type="text"
-                                class="block w-full rounded-xl border border-zinc-200 px-11 py-3.5 text-sm font-medium text-gray-900 max-md:rounded-lg max-md:px-10 max-md:py-3 max-md:font-normal max-sm:text-xs"
+                                class="block w-full rounded-xl bg-background border border-on-background/8 px-11 py-3.5 text-sm font-medium text-on-background/90 max-md:rounded-lg max-md:px-10 max-md:py-3 max-md:font-normal max-sm:text-xs"
                                 placeholder="@lang('shop::app.categories.filters.search.title')"
                                 v-model="searchQuery"
                                 v-debounce:500="searchOptions"
@@ -194,7 +178,7 @@
                         </div>
 
                         <p
-                            class="mt-1 flex flex-row-reverse text-xs text-gray-600"
+                            class="mt-1 flex flex-row-reverse text-xs text-on-background/70"
                             v-text="
                                 '@lang('shop::app.categories.filters.search.results-info', ['currentCount' => 'currentCount', 'totalCount' => 'totalCount'])'
                                     .replace('currentCount', options.length)
@@ -206,13 +190,13 @@
                     </div>
 
                     <!-- Filter Options -->
-                    <ul class="pb-3 text-base text-gray-700">
+                    <ul class="pb-3 text-base text-on-background/70">
                         <template v-if="options.length">
                             <li
                                 :key="`${filter.id}_${option.id}`"
                                 v-for="(option, optionIndex) in options"
                             >
-                                <div class="flex select-none items-center gap-x-4 rounded hover:bg-gray-100 max-sm:gap-x-1 max-sm:!p-0 ltr:pl-2 rtl:pr-2">
+                                <div class="flex select-none items-center gap-x-4 rounded hover:bg-surface max-sm:gap-x-1 max-sm:!p-0 ltr:pl-2 rtl:pr-2">
                                     <input
                                         type="checkbox"
                                         :id="`filter_${filter.id}_option_ ${option.id}`"
@@ -234,7 +218,7 @@
                                     </label>
 
                                     <label
-                                        class="w-full cursor-pointer p-2 text-base text-gray-900 max-sm:p-1 max-sm:text-sm ltr:pl-0 rtl:pr-0"
+                                        class="w-full cursor-pointer p-2 text-base text-on-background/80 max-sm:p-1 max-sm:text-sm ltr:pl-0 rtl:pr-0"
                                         :id="'label_option_' + option.id"
                                         :for="`filter_${filter.id}_option_ ${option.id}`"
                                         role="button"
@@ -262,7 +246,7 @@
                                     <div class="shimmer h-5 w-[50%] self-end rounded"></div>
                                 </div>
 
-                                <div class="z-10 grid gap-1 rounded-lg bg-white">
+                                <div class="z-10 grid gap-1 rounded-lg bg-background">
                                     <div class="flex items-center gap-x-4 ltr:pl-2 rtl:pr-2">
                                         <div class="shimmer h-5 w-5 rounded"></div>
 
@@ -295,7 +279,7 @@
                     <div class="flex justify-center pb-3" v-if="meta && meta.current_page < meta.last_page">
                         <button
                             type="button"
-                            class="rounded border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                            class="rounded border border-on-background/10 px-4 py-2 text-sm font-medium text-on-background hover:bg-surface"
                             @click="loadMoreOptions"
                             :disabled="isLoadingMore"
                         >
@@ -360,9 +344,9 @@
 
             methods: {
                 getFilters() {
-                    this.$axios.get('{{ route("shop.api.categories.attributes") }}', {
+                    this.$axios.get('{{ route('shop.api.categories.attributes') }}', {
                             params: {
-                                category_id: "{{ isset($category) ? $category->id : ''  }}",
+                                category_id: "{{ isset($category) ? $category->id : '' }}",
                             }
                         })
                         .then((response) => {
@@ -382,7 +366,7 @@
                         /**
                          * Removed all toolbar filters in order to prevent key duplication.
                          */
-                        if (! ['sort', 'limit', 'mode'].includes(filter)) {
+                        if (!['sort', 'limit', 'mode'].includes(filter)) {
                             this.filters.applied[filter] = value.split(',');
                         }
                     });
@@ -447,7 +431,7 @@
 
             watch: {
                 appliedValues() {
-                    if (this.filter.code === 'price' && ! this.appliedValues) {
+                    if (this.filter.code === 'price' && !this.appliedValues) {
                         ++this.refreshKey;
                     }
                 },
@@ -507,26 +491,25 @@
                 fetchFilterOptions(replace = true) {
                     this.isLoadingMore = true;
 
-                    const url = `{{ route("shop.api.categories.attribute_options", 'attribute_id') }}`.replace('attribute_id', this.filter.id);
+                    const url = `{{ route('shop.api.categories.attribute_options', 'attribute_id') }}`.replace('attribute_id', this.filter.id);
 
                     this.$axios.get(url, {
-                        params: {
-                            page: this.currentPage,
-                            search: this.searchQuery,
-                        }
-                    })
-                    .then(response => {
-                        this.isLoadingMore = false;
+                            params: {
+                                page: this.currentPage,
+                                search: this.searchQuery,
+                            }
+                        })
+                        .then(response => {
+                            this.isLoadingMore = false;
 
-                        this.options = replace
-                            ? response.data.data
-                            : [...this.options, ...response.data.data];
+                            this.options = replace ?
+                                response.data.data : [...this.options, ...response.data.data];
 
-                        this.meta = response.data.meta;
-                    })
-                    .catch(error => {
-                        this.isLoadingMore = false;
-                    });
+                            this.meta = response.data.meta;
+                        })
+                        .catch(error => {
+                            this.isLoadingMore = false;
+                        });
                 },
             },
         });
@@ -568,7 +551,7 @@
 
             methods: {
                 getMaxPrice() {
-                    this.$axios.get('{{ route("shop.api.categories.max_price", $category->id ?? '') }}')
+                    this.$axios.get('{{ route('shop.api.categories.max_price', $category->id ?? '') }}')
                         .then((response) => {
                             this.isLoading = false;
 
@@ -579,7 +562,7 @@
                                 this.allowedMaxPrice = response.data.data.max_price;
                             }
 
-                            if (! this.defaultPriceRange) {
+                            if (!this.defaultPriceRange) {
                                 this.priceRange = [0, this.allowedMaxPrice].join(',');
                             }
 

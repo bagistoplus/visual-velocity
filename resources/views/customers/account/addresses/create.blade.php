@@ -5,7 +5,7 @@
     </x-slot>
 
     <!-- Breadcrumbs -->
-    @if ((core()->getConfigData('general.general.breadcrumbs.shop')))
+    @if (core()->getConfigData('general.general.breadcrumbs.shop'))
         @section('breadcrumbs')
             <x-shop::breadcrumbs name="addresses.create" />
         @endSection
@@ -18,10 +18,7 @@
     <div class="mx-4 flex-auto max-md:mx-6 max-sm:mx-4">
         <div class="mb-8 flex items-center max-md:mb-5">
             <!-- Back Button -->
-            <a
-                class="grid md:hidden"
-                href="{{ route('shop.customers.account.addresses.index') }}"
-            >
+            <a class="grid md:hidden" href="{{ route('shop.customers.account.addresses.index') }}">
                 <span class="icon-arrow-left rtl:icon-arrow-right text-2xl"></span>
             </a>
 
@@ -51,7 +48,7 @@
                         <x-shop::form.control-group.label>
                             @lang('shop::app.customers.account.addresses.create.company-name')
                         </x-shop::form.control-group.label>
-            
+
                         <x-shop::form.control-group.control
                             type="text"
                             name="company_name"
@@ -59,7 +56,7 @@
                             :label="trans('shop::app.customers.account.addresses.create.company-name')"
                             :placeholder="trans('shop::app.customers.account.addresses.create.company-name')"
                         />
-            
+
                         <x-shop::form.control-group.error control-name="company_name" />
                     </x-shop::form.control-group>
 
@@ -192,7 +189,7 @@
                         <x-shop::form.control-group.label class="{{ core()->isCountryRequired() ? 'required' : '' }}">
                             @lang('shop::app.customers.account.addresses.create.country')
                         </x-shop::form.control-group.label>
-            
+
                         <x-shop::form.control-group.control
                             type="select"
                             name="country"
@@ -204,21 +201,21 @@
                             <option value="">
                                 @lang('shop::app.customers.account.addresses.create.select-country')
                             </option>
-            
+
                             @foreach (core()->countries() as $country)
                                 <option value="{{ $country->code }}">{{ $country->name }}</option>
                             @endforeach
                         </x-shop::form.control-group.control>
-            
+
                         <x-shop::form.control-group.error control-name="country" />
                     </x-shop::form.control-group>
-        
+
                     <!-- State Name -->
                     <x-shop::form.control-group>
                         <x-shop::form.control-group.label class="{{ core()->isStateRequired() ? 'required' : '' }}">
                             @lang('shop::app.customers.account.addresses.create.state')
                         </x-shop::form.control-group.label>
-        
+
                         <template v-if="haveStates()">
                             <x-shop::form.control-group.control
                                 type="select"
@@ -229,7 +226,7 @@
                                 :label="trans('shop::app.customers.account.addresses.create.state')"
                                 :placeholder="trans('shop::app.customers.account.addresses.create.state')"
                             >
-                                <option 
+                                <option
                                     v-for='(state, index) in countryStates[country]'
                                     :value="state.code"
                                 >
@@ -237,7 +234,7 @@
                                 </option>
                             </x-shop::form.control-group.control>
                         </template>
-        
+
                         <template v-else>
                             <x-shop::form.control-group.control
                                 type="text"
@@ -248,7 +245,7 @@
                                 :placeholder="trans('shop::app.customers.account.addresses.create.state')"
                             />
                         </template>
-        
+
                         <x-shop::form.control-group.error control-name="state" />
                     </x-shop::form.control-group>
 
@@ -315,7 +312,7 @@
                     {!! view_render_event('bagisto.shop.customers.account.addresses.create_form_controls.phone.after') !!}
 
                     <!-- Set As Default -->
-                    <div class="text-md mb-4 flex select-none items-center gap-x-1.5 text-zinc-500">
+                    <div class="text-md mb-4 flex select-none items-center gap-x-1.5 text-on-background/60">
                         <input
                             type="checkbox"
                             name="default_address"
@@ -330,7 +327,7 @@
                         >
                         </label>
 
-                        <label 
+                        <label
                             class="block cursor-pointer text-base max-md:text-sm"
                             for="default_address"
                         >
@@ -350,11 +347,11 @@
                 {!! view_render_event('bagisto.shop.customers.account.address.create.after') !!}
             </div>
         </script>
-    
+
         <script type="module">
             app.component('v-create-customer-address', {
                 template: '#v-create-customer-address-template',
-    
+
                 data() {
                     return {
                         country: "{{ old('country') }}",
@@ -364,14 +361,14 @@
                         countryStates: @json(core()->groupedStatesByCountries()),
                     }
                 },
-    
+
                 methods: {
                     haveStates() {
                         /*
-                        * The double negation operator is used to convert the value to a boolean.
-                        * It ensures that the final result is a boolean value,
-                        * true if the array has a length greater than 0, and otherwise false.
-                        */
+                         * The double negation operator is used to convert the value to a boolean.
+                         * It ensures that the final result is a boolean value,
+                         * true if the array has a length greater than 0, and otherwise false.
+                         */
                         return !!this.countryStates[this.country]?.length;
                     },
                 }

@@ -3,9 +3,9 @@
     <x-slot:title>
         @lang('shop::app.customers.account.gdpr.index.title')
     </x-slot>
-    
+
     <!-- Breadcrumbs -->
-    @if ((core()->getConfigData('general.general.breadcrumbs.shop')))
+    @if (core()->getConfigData('general.general.breadcrumbs.shop'))
         @section('breadcrumbs')
             <x-shop::breadcrumbs name="addresses" />
         @endSection
@@ -19,39 +19,32 @@
         <div class="flex items-center justify-between gap-4 max-md:flex-wrap">
             <div class="flex items-center">
                 <!-- Back Button -->
-                <a
-                    class="grid md:hidden"
-                    href="{{ route('shop.customers.account.index') }}"
-                >
+                <a class="grid md:hidden" href="{{ route('shop.customers.account.index') }}">
                     <span class="icon-arrow-left rtl:icon-arrow-right text-2xl"></span>
                 </a>
-    
+
                 <h2 class="text-2xl font-medium max-md:text-xl max-sm:text-base ltr:ml-2.5 md:ltr:ml-0 rtl:mr-2.5 md:rtl:mr-0">
                     @lang('shop::app.customers.account.gdpr.index.title')
                 </h2>
             </div>
 
             <div class="flex gap-4">
-                <a 
-                    href="{{ route('shop.customers.account.gdpr.pdf-view') }}"
-                    class="secondary-button border-zinc-200 px-5 py-3 font-normal max-md:rounded-lg max-md:py-2 max-sm:py-1.5 max-sm:text-sm"
+                <a href="{{ route('shop.customers.account.gdpr.pdf-view') }}"
+                    class="secondary-button px-5 py-3 font-normal max-md:rounded-lg max-md:py-2 max-sm:py-1.5 max-sm:text-sm"
                 >
-                    @lang('shop::app.customers.account.gdpr.index.pdf') 
+                    @lang('shop::app.customers.account.gdpr.index.pdf')
                 </a>
 
                 <a
                     href="{{ route('shop.customers.account.gdpr.html-view') }}"
                     target="_blank"
-                    class="secondary-button border-zinc-200 px-5 py-3 font-normal max-md:rounded-lg max-md:py-2 max-sm:py-1.5 max-sm:text-sm"
+                    class="secondary-button px-5 py-3 font-normal max-md:rounded-lg max-md:py-2 max-sm:py-1.5 max-sm:text-sm"
                 >
-                    @lang('shop::app.customers.account.gdpr.index.html') 
+                    @lang('shop::app.customers.account.gdpr.index.html')
                 </a>
-    
-                <button
-                    class="primary-button border-zinc-200 px-5 py-3 font-normal max-md:rounded-lg max-md:py-2 max-sm:py-1.5 max-sm:text-sm"
-                    @click="$refs.loginModel.open()"
-                >
-                    @lang('shop::app.customers.account.gdpr.index.create-btn') 
+
+                <button class="primary-button px-5 py-3 font-normal max-md:rounded-lg max-md:py-2 max-sm:py-1.5 max-sm:text-sm" @click="$refs.loginModel.open()">
+                    @lang('shop::app.customers.account.gdpr.index.create-btn')
                 </button>
             </div>
         </div>
@@ -67,39 +60,43 @@
         <div class="md:hidden">
             <x-shop::datagrid :src="route('shop.customers.account.gdpr.index')">
                 <!-- Datagrid Header -->
-                <template #header="{
+                <template
+                    #header="{
                     isLoading,
                     available,
                     applied,
                     selectAll,
                     sort,
                     performAction
-                }">
+                }"
+                >
                     <div class="hidden"></div>
                 </template>
 
-                <template #body="{
+                <template
+                    #body="{
                     isLoading,
                     available,
                     applied,
                     selectAll,
                     sort,
                     performAction
-                }">
+                }"
+                >
                     <template v-if="isLoading">
                         <x-shop::shimmer.datagrid.table.body />
                     </template>
-    
+
                     <template v-else>
                         <template v-for="record in available.records">
-                            <div class="w-full p-4 border rounded-md transition-all hover:bg-gray-50 [&>*]:border-0 mb-4 last:mb-0">
+                            <div class="mb-4 w-full rounded-md border p-4 transition-all last:mb-0 hover:bg-gray-50 [&>*]:border-0">
                                 <div class="flex items-center justify-between">
                                     <div class="flex flex-col gap-1">
                                         <div class="flex gap-2">
                                             <p class="text-sm text-neutral-500">
-                                                @lang('shop::app.customers.account.gdpr.index.datagrid.id'): 
+                                                @lang('shop::app.customers.account.gdpr.index.datagrid.id'):
                                             </p>
-                                            
+
                                             <p class="text-sm">
                                                 @{{ record.id }}
                                             </p>
@@ -107,9 +104,9 @@
 
                                         <div class="flex gap-2">
                                             <p class="text-sm text-neutral-500">
-                                                @lang('shop::app.customers.account.gdpr.index.datagrid.type'): 
+                                                @lang('shop::app.customers.account.gdpr.index.datagrid.type'):
                                             </p>
-                                            
+
                                             <p class="text-sm">
                                                 @{{ record.type }}
                                             </p>
@@ -117,9 +114,9 @@
 
                                         <div class="flex gap-2">
                                             <p class="text-sm text-neutral-500">
-                                                @lang('shop::app.customers.account.gdpr.index.datagrid.date'): 
+                                                @lang('shop::app.customers.account.gdpr.index.datagrid.date'):
                                             </p>
-                                            
+
                                             <p class="text-sm">
                                                 @{{ record.created_at }}
                                             </p>
@@ -127,19 +124,19 @@
 
                                         <div class="flex gap-2">
                                             <p class="text-sm text-neutral-500">
-                                                @lang('shop::app.customers.account.gdpr.index.datagrid.message'): 
+                                                @lang('shop::app.customers.account.gdpr.index.datagrid.message'):
                                             </p>
-                                            
+
                                             <p class="text-sm">
                                                 @{{ record.message }}
                                             </p>
                                         </div>
-                                        
+
                                         <div class="flex gap-2">
                                             <p class="text-sm text-neutral-500">
-                                                @lang('shop::app.customers.account.gdpr.index.datagrid.status'): 
+                                                @lang('shop::app.customers.account.gdpr.index.datagrid.status'):
                                             </p>
-                                            
+
                                             <p v-html="record.status"></p>
                                         </div>
                                     </div>

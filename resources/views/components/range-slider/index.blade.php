@@ -17,7 +17,7 @@
             </div>
 
             <div class="relative mx-auto flex h-20 w-full items-center justify-center p-2">
-                <div class="relative h-1 w-full rounded-2xl bg-gray-200">
+                <div class="relative h-1 w-full rounded-2xl bg-surface-alt">
                     <div
                         ref="progress"
                         class="absolute left-1/4 right-0 h-full rounded-xl bg-navyBlue"
@@ -30,7 +30,7 @@
                             ref="minRange"
                             type="range"
                             :value="minRange"
-                            class="pointer-events-none absolute h-1 w-full cursor-pointer appearance-none bg-transparent outline-none [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:h-[18px] [&::-moz-range-thumb]:w-[18px] [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:ring [&::-moz-range-thumb]:ring-navyBlue [&::-ms-thumb]:pointer-events-auto [&::-ms-thumb]:h-[18px] [&::-ms-thumb]:w-[18px] [&::-ms-thumb]:appearance-none [&::-ms-thumb]:rounded-full [&::-ms-thumb]:bg-white [&::-ms-thumb]:ring [&::-ms-thumb]:ring-navyBlue [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:h-[18px] [&::-webkit-slider-thumb]:w-[18px] [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:ring [&::-webkit-slider-thumb]:ring-navyBlue"
+                            class="pointer-events-none absolute h-1 w-full cursor-pointer appearance-none bg-transparent outline-none [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:h-[18px] [&::-moz-range-thumb]:w-[18px] [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-background [&::-moz-range-thumb]:ring [&::-moz-range-thumb]:ring-navyBlue [&::-ms-thumb]:pointer-events-auto [&::-ms-thumb]:h-[18px] [&::-ms-thumb]:w-[18px] [&::-ms-thumb]:appearance-none [&::-ms-thumb]:rounded-full [&::-ms-thumb]:bg-background [&::-ms-thumb]:ring [&::-ms-thumb]:ring-navyBlue [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:h-[18px] [&::-webkit-slider-thumb]:w-[18px] [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-background [&::-webkit-slider-thumb]:ring [&::-webkit-slider-thumb]:ring-navyBlue"
                             :min="allowedMinRange"
                             :max="allowedMaxRange"
                             aria-label="@lang('shop::app.components.range-slider.min-range')"
@@ -45,7 +45,7 @@
                             ref="maxRange"
                             type="range"
                             :value="maxRange"
-                            class="pointer-events-none absolute h-1 w-full cursor-pointer appearance-none bg-transparent outline-none [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:h-[18px] [&::-moz-range-thumb]:w-[18px] [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:ring [&::-moz-range-thumb]:ring-navyBlue [&::-ms-thumb]:pointer-events-auto [&::-ms-thumb]:h-[18px] [&::-ms-thumb]:w-[18px] [&::-ms-thumb]:appearance-none [&::-ms-thumb]:rounded-full [&::-ms-thumb]:bg-white [&::-ms-thumb]:ring [&::-ms-thumb]:ring-navyBlue [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:h-[18px] [&::-webkit-slider-thumb]:w-[18px] [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:ring [&::-webkit-slider-thumb]:ring-navyBlue"
+                            class="pointer-events-none absolute h-1 w-full cursor-pointer appearance-none bg-transparent outline-none [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:h-[18px] [&::-moz-range-thumb]:w-[18px] [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-background [&::-moz-range-thumb]:ring [&::-moz-range-thumb]:ring-navyBlue [&::-ms-thumb]:pointer-events-auto [&::-ms-thumb]:h-[18px] [&::-ms-thumb]:w-[18px] [&::-ms-thumb]:appearance-none [&::-ms-thumb]:rounded-full [&::-ms-thumb]:bg-background [&::-ms-thumb]:ring [&::-ms-thumb]:ring-navyBlue [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:h-[18px] [&::-webkit-slider-thumb]:w-[18px] [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-background [&::-webkit-slider-thumb]:ring [&::-webkit-slider-thumb]:ring-navyBlue"
                             :min="allowedMinRange"
                             :max="allowedMaxRange"
                             aria-label="@lang('shop::app.components.range-slider.max-range')"
@@ -88,7 +88,10 @@
 
             computed: {
                 rangeText() {
-                    let { formattedMinRange, formattedMaxRange } = this.getFormattedData();
+                    let {
+                        formattedMinRange,
+                        formattedMaxRange
+                    } = this.getFormattedData();
 
                     return `${formattedMinRange} - ${formattedMaxRange}`;
                 },
@@ -112,30 +115,30 @@
                     /**
                      * If someone is passing invalid props, this case will check first if they are valid, then continue.
                      */
-                     if (this.isTypeSupported()) {
+                    if (this.isTypeSupported()) {
                         switch (this.defaultType) {
                             case 'price':
                                 return {
                                     formattedAllowedMinRange: this.$shop.formatPrice(this.allowedMinRange),
-                                    formattedAllowedMaxRange: this.$shop.formatPrice(this.allowedMaxRange),
-                                    formattedMinRange: this.$shop.formatPrice(this.minRange),
-                                    formattedMaxRange: this.$shop.formatPrice(this.maxRange),
+                                        formattedAllowedMaxRange: this.$shop.formatPrice(this.allowedMaxRange),
+                                        formattedMinRange: this.$shop.formatPrice(this.minRange),
+                                        formattedMaxRange: this.$shop.formatPrice(this.maxRange),
                                 };
 
                             case 'float':
                                 return {
                                     formattedAllowedMinRange: parseFloat(this.allowedMinRange).toFixed(2),
-                                    formattedAllowedMaxRange: parseFloat(this.allowedMaxRange).toFixed(2),
-                                    formattedMinRange: parseFloat(this.minRange).toFixed(2),
-                                    formattedMaxRange: parseFloat(this.maxRange).toFixed(2),
+                                        formattedAllowedMaxRange: parseFloat(this.allowedMaxRange).toFixed(2),
+                                        formattedMinRange: parseFloat(this.minRange).toFixed(2),
+                                        formattedMaxRange: parseFloat(this.maxRange).toFixed(2),
                                 };
 
                             default:
                                 return {
                                     formattedAllowedMinRange: this.allowedMinRange,
-                                    formattedAllowedMaxRange: this.allowedMaxRange,
-                                    formattedMinRange: this.minRange,
-                                    formattedMaxRange: this.maxRange,
+                                        formattedAllowedMaxRange: this.allowedMaxRange,
+                                        formattedMinRange: this.minRange,
+                                        formattedMaxRange: this.maxRange,
                                 };
                         }
                     }

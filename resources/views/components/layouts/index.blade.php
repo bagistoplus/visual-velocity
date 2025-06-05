@@ -31,23 +31,17 @@
             href="{{ core()->getCurrentChannel()->favicon_url ?? bagisto_asset('images/favicon.ico') }}"
         />
 
-        @includeIf('shop::partials.colors')
+        @includeIf('shop::partials.tokens')
 
         @bagistoVite(['resources/assets/css/theme.css', 'resources/assets/js/theme.js'])
 
-        <link
-            rel="preload"
-            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
-            as="style"
-        >
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap">
+        @if ($theme->settings->default_font)
+            {{ $theme->settings->default_font->toHtml() }}
+        @endif
 
-        <link
-            rel="preload"
-            href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap"
-            as="style"
-        >
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap">
+        @if ($theme->settings->heading_font)
+            {{ $theme->settings->heading_font->toHtml() }}
+        @endif
 
         @stack('styles')
 
@@ -65,7 +59,7 @@
 
     </head>
 
-    <body>
+    <body class="bg-background text-on-background">
         {!! view_render_event('bagisto.shop.layout.body.before') !!}
 
         <a href="#main" class="skip-to-main-content-link">
@@ -87,7 +81,7 @@
             {!! view_render_event('bagisto.shop.layout.content.before') !!}
 
             <!-- Page Content Blade Component -->
-            <main id="main" class="text-on-background bg-background">
+            <main id="main">
                 <x-visual::layout-content>
                     {{ $slot }}
                 </x-visual::layout-content>

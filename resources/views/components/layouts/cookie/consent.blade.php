@@ -18,14 +18,14 @@
             {!! view_render_event('bagisto.shop.settings.gdpr.consent.form.before') !!}
 
             <div class="container mt-8 max-1180:px-5 max-md:mt-6 max-md:px-4">
-                <div class="m-auto w-full max-w-[870px] rounded-xl border border-zinc-200 p-16 px-[90px] max-md:px-8 max-md:py-8 max-sm:border-none max-sm:p-0">
+                <div class="m-auto w-full max-w-[870px] rounded-xl border p-16 px-[90px] max-md:px-8 max-md:py-8 max-sm:border-none max-sm:p-0">
                     <!-- Header -->
                     <div class="flex items-center justify-between gap-4 max-sm:flex-wrap">
                         <p class="text-xl font-bold">
                             @lang('shop::app.components.layouts.cookie.consent.your-cookie-consent-preferences')
                         </p>
-            
-                        <button 
+
+                        <button
                             type="submit"
                             class="primary-button"
                             @click="saveCookiePreferences"
@@ -33,7 +33,7 @@
                             @lang('shop::app.components.layouts.cookie.consent.save-and-continue')
                         </button>
                     </div>
-                    
+
                     <div class="mt-14 rounded max-sm:mt-8">
                         <!-- Cookie Categories -->
                         @php
@@ -67,8 +67,8 @@
                                     {!! core()->getConfigData('general.gdpr.cookie_consent.strictly_necessary') !!}
                                 </label>
                             </div>
-                        </x-shop::form.control-group> 
-                           
+                        </x-shop::form.control-group>
+
                         @foreach ($cookieConsentKeys as $key => $label)
                             <x-shop::form.control-group class="mb-4 border-b pb-4">
                                 <x-shop::form.control-group.label class="font-semibold">
@@ -89,7 +89,7 @@
                                         rules="required"
                                         for="{{ $key }}"
                                     />
-        
+
                                     <label
                                         class="cursor-pointer select-none max-sm:text-sm"
                                         for="{{ $key }}"

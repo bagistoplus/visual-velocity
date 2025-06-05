@@ -9,11 +9,11 @@
 </div>
 
 <div class="journal-scroll overflow-auto">
-    @for ($i = 0;  $i < $count; $i++)
+    @for ($i = 0; $i < $count; $i++)
         <div class="mt-8 flex flex-wrap gap-20 max-1060:flex-col max-md:my-5 max-md:last:mb-0">
             <div class="grid flex-1 gap-y-6">
                 <!-- Single card -->
-                <div class="flex justify-between gap-x-2.5 border-b border-zinc-200 pb-5">
+                <div class="flex justify-between gap-x-2.5 border-b border-surface-alt pb-5">
                     <div class="flex gap-x-5 max-md:w-full">
                         <div class="">
                             <div class="shimmer h-[110px] w-[110px] rounded-xl max-md:h-20 max-md:w-20"></div>
@@ -25,7 +25,6 @@
 
                                 <div class="shimmer hidden h-6 w-6 max-md:block"></div>
                             </div>
-
 
                             <div class="shimmer h-[21px] w-[100px] max-md:hidden"></div>
 
@@ -46,7 +45,7 @@
 
                     <div class="grid place-content-start gap-2.5 max-md:hidden">
                         <div class="shimmer h-[27px] w-[100px]"></div>
-                        
+
                         <div class="shimmer h-6 w-[100px]"></div>
                     </div>
                 </div>
@@ -54,4 +53,3 @@
         </div>
     @endfor
 </div>
-

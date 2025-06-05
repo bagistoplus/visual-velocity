@@ -5,7 +5,7 @@
     </x-slot>
 
     <!-- Breadcrumbs -->
-    @if ((core()->getConfigData('general.general.breadcrumbs.shop')))
+    @if (core()->getConfigData('general.general.breadcrumbs.shop'))
         @section('breadcrumbs')
             <x-shop::breadcrumbs name="orders" />
         @endSection
@@ -18,10 +18,7 @@
     <div class="mx-4 flex-auto max-md:mx-6 max-sm:mx-4">
         <div class="mb-8 flex items-center max-sm:mb-5">
             <!-- Back Button -->
-            <a
-                class="grid md:hidden"
-                href="{{ route('shop.customers.account.index') }}"
-            >
+            <a class="grid md:hidden" href="{{ route('shop.customers.account.index') }}">
                 <span class="icon-arrow-left rtl:icon-arrow-right text-2xl"></span>
             </a>
 
@@ -41,49 +38,53 @@
         <div class="md:hidden">
             <x-shop::datagrid :src="route('shop.customers.account.orders.index')">
                 <!-- Datagrid Header -->
-                <template #header="{
+                <template
+                    #header="{
                     isLoading,
                     available,
                     applied,
                     selectAll,
                     sort,
                     performAction
-                }">
+                }"
+                >
                     <div class="hidden"></div>
                 </template>
 
-                <template #body="{
+                <template
+                    #body="{
                     isLoading,
                     available,
                     applied,
                     selectAll,
                     sort,
                     performAction
-                }">
+                }"
+                >
                     <template v-if="isLoading">
                         <x-shop::shimmer.datagrid.table.body />
                     </template>
-    
+
                     <template v-else>
                         <template v-for="record in available.records">
-                            <div class="w-full p-4 border rounded-md transition-all hover:bg-gray-50 [&>*]:border-0 mb-4 last:mb-0">
+                            <div class="mb-4 w-full rounded-md border p-4 transition-all last:mb-0 hover:bg-surface [&>*]:border-0">
                                 <a :href="record.actions[0].url">
                                     <div class="flex justify-between">
                                         <div class="text-sm font-semibold">
                                             @lang('shop::app.customers.account.orders.order-id'): #@{{ record.id }}
-    
+
                                             <p class="text-xs font-normal text-neutral-500">
                                                 @{{ record.created_at }}
                                             </p>
                                         </div>
-    
+
                                         <p v-html="record.status"></p>
                                     </div>
-        
+
                                     <div class="mt-2.5 text-xs font-normal text-neutral-500">
                                         @lang('shop::app.customers.account.orders.subtotal')
-    
-                                        <p class="text-xl font-semibold text-black">
+
+                                        <p class="text-xl font-semibold text-on-background">
                                             @{{ record.grand_total }}
                                         </p>
                                     </div>
@@ -94,7 +95,7 @@
                 </template>
             </x-shop::datagrid>
         </div>
-    
+
         {!! view_render_event('bagisto.shop.customers.account.orders.list.after') !!}
 
     </div>

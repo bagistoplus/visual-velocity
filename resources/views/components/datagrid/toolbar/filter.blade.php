@@ -36,7 +36,7 @@
                 >
                     <x-slot:toggle>
                         <div
-                            class="flex w-full max-w-[200px] cursor-pointer items-center justify-between gap-4 rounded-lg border border-zinc-200 bg-white py-2 text-sm transition-all hover:border-gray-400 focus:border-gray-400 max-md:w-fit ltr:pl-3 ltr:pr-4 max-md:ltr:pl-2.5 max-md:ltr:pr-2.5 rtl:pl-4 rtl:pr-3 max-md:rtl:pl-2.5 max-md:rtl:pr-2.5"
+                            class="flex w-full max-w-[200px] cursor-pointer items-center justify-between gap-4 rounded-lg border bg-background py-2 text-sm transition-all hover:border-on-background/15 focus:border-on-background/15 max-md:w-fit ltr:pl-3 ltr:pr-4 max-md:ltr:pl-2.5 max-md:ltr:pr-2.5 rtl:pl-4 rtl:pr-3 max-md:rtl:pl-2.5 max-md:rtl:pr-2.5"
                             :class="{'[&>*]:text-blue-600': filters.columns.length > 0}"
                         >
                             <span class="flex items-center justify-between gap-1.5">
@@ -49,7 +49,7 @@
                         </div>
                     </x-slot>
 
-                    <x-slot:header class="border-b border-zinc-200 !px-4">
+                    <x-slot:header class="border-b  !px-4">
                         <p class="text-lg font-semibold">
                             @lang('shop::app.components.datagrid.toolbar.filter.apply-filter')
                         </p>
@@ -64,7 +64,7 @@
                                     <template v-if="column.filterable_type === 'dropdown'">
                                         <div class="flex items-center justify-between">
                                             <p
-                                                class="text-sm font-medium leading-6 text-gray-800"
+                                                class="text-sm font-medium leading-6 text-on-background/90"
                                                 v-text="column.label"
                                             >
                                             </p>
@@ -74,7 +74,7 @@
                                                 @click="removeAppliedColumnAllValues(column.index)"
                                             >
                                                 <p
-                                                    class="cursor-pointer text-xs font-medium leading-6 text-blue-600"
+                                                    class="cursor-pointer text-xs font-medium leading-6 text-info"
                                                     v-if="hasAnyAppliedColumnValues(column.index)"
                                                 >
                                                     @lang('shop::app.components.datagrid.toolbar.filter.custom-filters.clear-all')
@@ -87,7 +87,7 @@
                                                 <x-slot:toggle>
                                                     <button
                                                         type="button"
-                                                        class="flex w-full cursor-pointer items-center justify-between gap-4 rounded-lg border border-zinc-200 bg-white py-2 text-sm transition-all hover:border-gray-400 focus:border-gray-400 max-md:w-full max-md:!py-1.5 ltr:pl-4 ltr:pr-3 max-md:ltr:pl-2.5 max-md:ltr:pr-2.5 rtl:pl-3 rtl:pr-4 max-md:rtl:pl-2.5 max-md:rtl:pr-2.5"
+                                                        class="flex w-full cursor-pointer items-center justify-between gap-4 rounded-lg border bg-background  text-on-background py-2 text-sm transition-all hover:border-on-background/15 focus:border-on-background/15 max-md:w-full max-md:!py-1.5 ltr:pl-4 ltr:pr-3 max-md:ltr:pl-2.5 max-md:ltr:pr-2.5 rtl:pl-3 rtl:pr-4 max-md:rtl:pl-2.5 max-md:rtl:pr-2.5"
                                                     >
                                                         <!-- If Allow Multiple Values -->
                                                         <span
@@ -122,14 +122,14 @@
                                             <!-- If Allow Multiple Values -->
                                             <template v-if="column.allow_multiple_values">
                                                 <p
-                                                    class="flex items-center rounded bg-gray-600 px-2 py-1 font-semibold text-white"
+                                                    class="flex items-center rounded bg-on-surface-alt px-2 py-1 font-semibold text-on-surface-alt"
                                                     v-for="appliedColumnValue in getAppliedColumnValues(column.index)"
                                                 >
                                                     <!-- Retrieving the label from the options based on the applied column value. -->
                                                     <span v-text="column.filterable_options.find((option => option.value == appliedColumnValue)).label"></span>
 
                                                     <span
-                                                        class="icon-cross cursor-pointer text-lg text-white ltr:ml-1.5 rtl:mr-1.5"
+                                                        class="icon-cross cursor-pointer text-lg text-on-surface-alt ltr:ml-1.5 rtl:mr-1.5"
                                                         @click="removeAppliedColumnValue(column.index, appliedColumnValue)"
                                                     >
                                                     </span>
@@ -148,7 +148,7 @@
                                     <template v-if="column.filterable_type === 'date_range'">
                                         <div class="flex items-center justify-between">
                                             <p
-                                                class="text-sm font-medium leading-6 text-gray-800"
+                                                class="text-sm font-medium leading-6 text-on-background/80"
                                                 v-text="column.label"
                                             >
                                             </p>
@@ -158,7 +158,7 @@
                                                 @click="removeAppliedColumnAllValues(column.index)"
                                             >
                                                 <p
-                                                    class="cursor-pointer text-xs font-medium leading-6 text-blue-600"
+                                                    class="cursor-pointer text-xs font-medium leading-6 text-info"
                                                     v-if="hasAnyAppliedColumnValues(column.index)"
                                                 >
                                                     @lang('shop::app.components.datagrid.toolbar.filter.custom-filters.clear-all')
@@ -168,7 +168,7 @@
 
                                         <div class="mt-4 grid grid-cols-2 gap-1.5 max-sm:my-2">
                                             <p
-                                                class="cursor-pointer rounded-md border border-gray-300 px-2 py-1.5 text-center font-medium leading-6 text-gray-600 max-md:text-sm max-sm:font-normal"
+                                                class="cursor-pointer rounded-md border border-on-background/10 px-2 py-1.5 text-center font-medium leading-6 text-on-background/80 max-md:text-sm max-sm:font-normal"
                                                 v-for="option in column.filterable_options"
                                                 v-text="option.label"
                                                 @click="addFilter(
@@ -184,7 +184,7 @@
                                                     type="date"
                                                     :name="`${column.index}[from]`"
                                                     value=""
-                                                    class="flex min-h-10 w-full rounded-md border px-3 py-2 text-sm text-gray-600 transition-all hover:border-gray-400 max-sm:py-1.5"
+                                                    class="flex min-h-10 w-full rounded-md border bg-background px-3 py-2 text-sm text-on-background transition-all hover:border-on-background/15 max-sm:py-1.5"
                                                     :placeholder="column.label"
                                                     :ref="`${column.index}[from]`"
                                                     @change="addFilter(
@@ -200,7 +200,7 @@
                                                     type="date"
                                                     :name="`${column.index}[to]`"
                                                     value=""
-                                                    class="flex min-h-10 w-full rounded-md border px-3 py-2 text-sm text-gray-600 transition-all hover:border-gray-400 max-sm:py-1.5"
+                                                    class="flex min-h-10 w-full rounded-md border bg-background px-3 py-2 text-sm text-on-background/80 transition-all hover:border-on-background/15 max-sm:py-1.5"
                                                     :placeholder="column.label"
                                                     :ref="`${column.index}[from]`"
                                                     @change="addFilter(
@@ -213,13 +213,13 @@
 
                                             <div class="mb-4 flex flex-wrap gap-2">
                                                 <p
-                                                    class="flex items-center rounded bg-gray-600 px-2 py-1 font-semibold text-white"
+                                                    class="flex items-center rounded bg-surface-alt px-2 py-1 font-semibold text-on-surface-alt"
                                                     v-if="findAppliedColumn(column.index)"
                                                 >
                                                     @{{ getFormattedDates(findAppliedColumn(column.index)) }}
 
                                                     <span
-                                                        class="icon-cancel cursor-pointer text-lg text-white ltr:ml-1.5 rtl:mr-1.5"
+                                                        class="icon-cancel cursor-pointer text-lg text-on-surface-alt ltr:ml-1.5 rtl:mr-1.5"
                                                         @click="removeAppliedColumnValue(column.index, appliedColumnValue)"
                                                     >
                                                     </span>
@@ -232,7 +232,7 @@
                                     <template v-else>
                                         <div class="flex items-center justify-between">
                                             <p
-                                                class="text-sm font-medium leading-6 text-gray-800"
+                                                class="text-sm font-medium leading-6 text-on-background/90"
                                                 v-text="column.label"
                                             >
                                             </p>
@@ -242,7 +242,7 @@
                                                 @click="removeAppliedColumnAllValues(column.index)"
                                             >
                                                 <p
-                                                    class="cursor-pointer text-xs font-medium leading-6 text-blue-600"
+                                                    class="cursor-pointer text-xs font-medium leading-6 text-info"
                                                     v-if="hasAnyAppliedColumnValues(column.index)"
                                                 >
                                                     @lang('shop::app.components.datagrid.toolbar.filter.custom-filters.clear-all')
@@ -256,7 +256,7 @@
                                                     type="date"
                                                     :name="column.index"
                                                     value=""
-                                                    class="flex min-h-10 w-full rounded-md border px-3 py-2 text-sm text-gray-600 transition-all hover:border-gray-400 max-sm:py-1.5"
+                                                    class="flex min-h-10 w-full rounded-md border px-3 py-2 text-sm bg-background text-on-background/80 transition-all hover:border-on-background/15 max-sm:py-1.5"
                                                     :placeholder="column.label"
                                                     :ref="column.index"
                                                     @change="addFilter($event, column)"
@@ -265,13 +265,13 @@
 
                                             <div class="mb-4 flex flex-wrap gap-2">
                                                 <p
-                                                    class="flex items-center rounded bg-gray-600 px-2 py-1 font-semibold text-white"
+                                                    class="flex items-center rounded bg-surface-alt px-2 py-1 font-semibold text-on-surface-alt"
                                                     v-if="findAppliedColumn(column.index)"
                                                 >
                                                     @{{ getFormattedDates(findAppliedColumn(column.index)) }}
 
                                                     <span
-                                                        class="icon-cancel cursor-pointer text-lg text-white ltr:ml-1.5 rtl:mr-1.5"
+                                                        class="icon-cancel cursor-pointer text-lg text-on-surface-alt ltr:ml-1.5 rtl:mr-1.5"
                                                         @click="removeAppliedColumnValue(column.index, appliedColumnValue)"
                                                     >
                                                     </span>
@@ -287,7 +287,7 @@
                                     <template v-if="column.filterable_type === 'datetime_range'">
                                         <div class="flex items-center justify-between">
                                             <p
-                                                class="text-sm font-medium leading-6 text-gray-800"
+                                                class="text-sm font-medium leading-6 text-on-background/90"
                                                 v-text="column.label"
                                             >
                                             </p>
@@ -297,7 +297,7 @@
                                                 @click="removeAppliedColumnAllValues(column.index)"
                                             >
                                                 <p
-                                                    class="cursor-pointer text-xs font-medium leading-6 text-blue-600"
+                                                    class="cursor-pointer text-xs font-medium leading-6 text-info"
                                                     v-if="hasAnyAppliedColumnValues(column.index)"
                                                 >
                                                     @lang('shop::app.components.datagrid.toolbar.filter.custom-filters.clear-all')
@@ -307,7 +307,7 @@
 
                                         <div class="my-4 grid grid-cols-2 gap-1.5">
                                             <p
-                                                class="cursor-pointer rounded-md border border-gray-300 px-2 py-1.5 text-center font-medium leading-6 text-gray-600 max-md:text-sm max-sm:font-normal"
+                                                class="cursor-pointer rounded-md border border-on-background/10 px-2 py-1.5 text-center font-medium leading-6 text-on-background/80 max-md:text-sm max-sm:font-normal"
                                                 v-for="option in column.filterable_options"
                                                 v-text="option.label"
                                                 @click="addFilter(
@@ -323,7 +323,7 @@
                                                     type="datetime-local"
                                                     :name="`${column.index}[from]`"
                                                     value=""
-                                                    class="flex min-h-10 w-full rounded-md border px-3 py-2 text-sm text-gray-600 transition-all hover:border-gray-400"
+                                                    class="flex min-h-10 w-full rounded-md border px-3 py-2 text-sm bg-background text-on-background/80 transition-all hover:border-on-background/15"
                                                     :placeholder="column.label"
                                                     :ref="`${column.index}[from]`"
                                                     @change="addFilter(
@@ -339,7 +339,7 @@
                                                     type="datetime-local"
                                                     :name="`${column.index}[to]`"
                                                     value=""
-                                                    class="flex min-h-10 w-full rounded-md border px-3 py-2 text-sm text-gray-600 transition-all hover:border-gray-400"
+                                                    class="flex min-h-10 w-full rounded-md border px-3 py-2 text-sm bg-background text-on-background/80 transition-all hover:border-on-background/15"
                                                     :placeholder="column.label"
                                                     :ref="`${column.index}[from]`"
                                                     @change="addFilter(
@@ -352,13 +352,13 @@
 
                                             <div class="mb-4 flex flex-wrap gap-2">
                                                 <p
-                                                    class="flex items-center rounded bg-gray-600 px-2 py-1 font-semibold text-white"
+                                                    class="flex items-center rounded bg-surface-alt px-2 py-1 font-semibold text-on-surface-alt"
                                                     v-if="findAppliedColumn(column.index)"
                                                 >
                                                     @{{ getFormattedDates(findAppliedColumn(column.index)) }}
 
                                                     <span
-                                                        class="icon-cancel cursor-pointer text-lg text-white ltr:ml-1.5 rtl:mr-1.5"
+                                                        class="icon-cancel cursor-pointer text-lg text-on-surface-alt ltr:ml-1.5 rtl:mr-1.5"
                                                         @click="removeAppliedColumnValue(column.index, appliedColumnValue)"
                                                     >
                                                     </span>
@@ -371,7 +371,7 @@
                                     <template v-else>
                                         <div class="flex items-center justify-between">
                                             <p
-                                                class="text-sm font-medium leading-6 text-gray-800"
+                                                class="text-sm font-medium leading-6 text-on-background/90"
                                                 v-text="column.label"
                                             >
                                             </p>
@@ -381,7 +381,7 @@
                                                 @click="removeAppliedColumnAllValues(column.index)"
                                             >
                                                 <p
-                                                    class="cursor-pointer text-xs font-medium leading-6 text-blue-600"
+                                                    class="cursor-pointer text-xs font-medium leading-6 text-info"
                                                     v-if="hasAnyAppliedColumnValues(column.index)"
                                                 >
                                                     @lang('shop::app.components.datagrid.toolbar.filter.custom-filters.clear-all')
@@ -395,7 +395,7 @@
                                                     :type="datetime-local"
                                                     :name="column.index"
                                                     value=""
-                                                    class="flex min-h-10 w-full rounded-md border px-3 py-2 text-sm text-gray-600 transition-all hover:border-gray-400"
+                                                    class="flex min-h-10 w-full rounded-md border px-3 py-2 text-sm bg-background text-on-background/80 transition-all hover:border-on-background/15"
                                                     :placeholder="column.label"
                                                     :ref="column.index"
                                                     @change="addFilter($event, column)"
@@ -404,13 +404,13 @@
 
                                             <div class="mb-4 flex flex-wrap gap-2">
                                                 <p
-                                                    class="flex items-center rounded bg-gray-600 px-2 py-1 font-semibold text-white"
+                                                    class="flex items-center rounded bg-surface-alt px-2 py-1 font-semibold text-on-surface-alt"
                                                     v-if="findAppliedColumn(column.index)"
                                                 >
                                                     @{{ getFormattedDates(findAppliedColumn(column.index)) }}
 
                                                     <span
-                                                        class="icon-cancel cursor-pointer text-lg text-white ltr:ml-1.5 rtl:mr-1.5"
+                                                        class="icon-cancel cursor-pointer text-lg text-on-surface-alt ltr:ml-1.5 rtl:mr-1.5"
                                                         @click="removeAppliedColumnValue(column.index, appliedColumnValue)"
                                                     >
                                                     </span>
@@ -436,7 +436,7 @@
                                                 @click="removeAppliedColumnAllValues(column.index)"
                                             >
                                                 <p
-                                                    class="cursor-pointer text-xs font-medium leading-6 text-blue-600"
+                                                    class="cursor-pointer text-xs font-medium leading-6 text-info"
                                                     v-if="hasAnyAppliedColumnValues(column.index)"
                                                 >
                                                     @lang('shop::app.components.datagrid.toolbar.filter.custom-filters.clear-all')
@@ -449,7 +449,7 @@
                                                 <x-slot:toggle>
                                                     <button
                                                         type="button"
-                                                        class="flex w-full cursor-pointer items-center justify-between gap-4 rounded-lg border border-zinc-200 bg-white py-2 text-sm transition-all hover:border-gray-400 focus:border-gray-400 max-md:w-full max-md:py-1.5 ltr:pl-4 ltr:pr-3 max-md:ltr:pl-2.5 max-md:ltr:pr-2.5 rtl:pl-3 rtl:pr-4 max-md:rtl:pl-2.5 max-md:rtl:pr-2.5"
+                                                        class="flex w-full cursor-pointer items-center justify-between gap-4 rounded-lg border  bg-background py-2 text-sm transition-all hover:border-on-background/15 focus:border-on-background/15 max-md:w-full max-md:py-1.5 ltr:pl-4 ltr:pr-3 max-md:ltr:pl-2.5 max-md:ltr:pr-2.5 rtl:pl-3 rtl:pr-4 max-md:rtl:pl-2.5 max-md:rtl:pr-2.5"
                                                     >
                                                         <!-- If Allow Multiple Values -->
                                                         <span
@@ -484,14 +484,14 @@
                                             <!-- If Allow Multiple Values -->
                                             <template v-if="column.allow_multiple_values">
                                                 <p
-                                                    class="flex items-center rounded bg-gray-600 px-2 py-1 font-semibold text-white"
+                                                    class="flex items-center rounded bg-surface-alt px-2 py-1 font-semibold text-on-surface-alt"
                                                     v-for="appliedColumnValue in getAppliedColumnValues(column.index)"
                                                 >
                                                     <!-- Retrieving the label from the options based on the applied column value. -->
                                                     <span v-text="column.filterable_options.find((option => option.value == appliedColumnValue)).label"></span>
 
                                                     <span
-                                                        class="icon-cancel cursor-pointer text-lg text-white ltr:ml-1.5 rtl:mr-1.5"
+                                                        class="icon-cancel cursor-pointer text-lg text-on-surface-alt ltr:ml-1.5 rtl:mr-1.5"
                                                         @click="removeAppliedColumnValue(column.index, appliedColumnValue)"
                                                     >
                                                     </span>
@@ -504,7 +504,7 @@
                                     <template v-else>
                                         <div class="flex items-center justify-between">
                                             <p
-                                                class="text-sm font-medium leading-6 text-gray-800"
+                                                class="text-sm font-medium leading-6 text-on-background/90"
                                                 v-text="column.label"
                                             >
                                             </p>
@@ -514,7 +514,7 @@
                                                 @click="removeAppliedColumnAllValues(column.index)"
                                             >
                                                 <p
-                                                    class="cursor-pointer text-xs font-medium leading-6 text-blue-600"
+                                                    class="cursor-pointer text-xs font-medium leading-6 text-info"
                                                     v-if="hasAnyAppliedColumnValues(column.index)"
                                                 >
                                                     @lang('shop::app.components.datagrid.toolbar.filter.custom-filters.clear-all')
@@ -525,7 +525,7 @@
                                         <div class="mb-2 mt-1.5 grid">
                                             <input
                                                 type="text"
-                                                class="w-full rounded-lg border px-3 py-2 text-sm text-gray-600 transition-all hover:border-gray-400 focus:border-gray-400 max-sm:mb-0"
+                                                class="w-full rounded-lg border px-3 py-2 text-sm bg-background text-on-background/80 transition-all hover:border-on-background/15 focus:border-on-background/15 max-sm:mb-0"
                                                 :name="column.index"
                                                 :placeholder="column.label"
                                                 @keyup.enter="addFilter($event, column)"
@@ -536,13 +536,13 @@
                                             <!-- If Allow Multiple Values -->
                                             <template v-if="column.allow_multiple_values">
                                                 <p
-                                                    class="flex items-center rounded bg-gray-600 px-2 py-1 font-semibold text-white"
+                                                    class="flex items-center rounded bg-surface-alt px-2 py-1 font-semibold text-on-surface-alt"
                                                     v-for="appliedColumnValue in getAppliedColumnValues(column.index)"
                                                 >
                                                     <span v-text="appliedColumnValue"></span>
 
                                                     <span
-                                                        class="icon-cancel cursor-pointer text-lg text-white ltr:ml-1.5 rtl:mr-1.5"
+                                                        class="icon-cancel cursor-pointer text-lg text-on-surface-alt ltr:ml-1.5 rtl:mr-1.5"
                                                         @click="removeAppliedColumnValue(column.index, appliedColumnValue)"
                                                     >
                                                     </span>
@@ -552,13 +552,13 @@
                                             <!-- If Allow Single Value -->
                                             <template v-else>
                                                 <p
-                                                    class="flex items-center rounded bg-gray-600 px-2 py-1 font-semibold text-white"
+                                                    class="flex items-center rounded bg-surface-alt px-2 py-1 font-semibold text-on-surface-alt"
                                                     v-if="getAppliedColumnValues(column.index) !== ''"
                                                 >
                                                     <span v-text="getAppliedColumnValues(column.index)"></span>
 
                                                     <span
-                                                        class="icon-cancel cursor-pointer text-lg text-white ltr:ml-1.5 rtl:mr-1.5"
+                                                        class="icon-cancel cursor-pointer text-lg text-on-surface-alt ltr:ml-1.5 rtl:mr-1.5"
                                                         @click="removeAppliedColumnValue(column.index, getAppliedColumnValues(column.index))"
                                                     >
                                                     </span>
@@ -681,7 +681,7 @@
                         requestedValue === undefined ||
                         requestedValue === '' ||
                         (appliedColumn?.allow_multiple_values && appliedColumn?.value.includes(requestedValue)) ||
-                        (! appliedColumn?.allow_multiple_values && appliedColumn?.value === requestedValue)
+                        (!appliedColumn?.allow_multiple_values && appliedColumn?.value === requestedValue)
                     ) {
                         return;
                     }
@@ -689,7 +689,9 @@
                     switch (column.type) {
                         case 'date':
                         case 'datetime':
-                            let { range } = additional;
+                            let {
+                                range
+                            } = additional;
 
                             if (appliedColumn) {
                                 if (range) {
@@ -770,9 +772,8 @@
                  * @param {object} appliedColumn
                  * @returns {string}
                  */
-                getFormattedDates(appliedColumn)
-                {
-                    if (! appliedColumn) {
+                getFormattedDates(appliedColumn) {
+                    if (!appliedColumn) {
                         return '';
                     }
 
@@ -788,7 +789,7 @@
                         return appliedColumn.value;
                     }
 
-                    if (! appliedColumn.value.length) {
+                    if (!appliedColumn.value.length) {
                         return '';
                     }
 
@@ -828,7 +829,7 @@
                 hasAnyAppliedColumnValues(columnIndex) {
                     let appliedColumn = this.findAppliedColumn(columnIndex);
 
-                    if (! appliedColumn) {
+                    if (!appliedColumn) {
                         return false;
                     }
 
@@ -874,7 +875,7 @@
                     /**
                      * Clean up is done here. If there are no applied values present, there is no point in including the applied column as well.
                      */
-                    if (! appliedColumn.value.length) {
+                    if (!appliedColumn.value.length) {
                         this.filters.columns = this.filters.columns.filter(column => column.index !== columnIndex);
                     }
 

@@ -29,11 +29,15 @@ export default {
 
     extend: {
       fontFamily: {
-        poppins: ['Poppins', 'sans-serif'],
-        dmserif: ['DM Serif Display', 'serif'],
+        body: 'var(--default-font-family)',
+        poppins: 'var(--default-font-family)',
+
+        heading: 'var(--heading-font-family)',
+        dmserif: 'var(--heading-font-family)',
       },
+
       colors: {
-        navyBlue: 'var(--color-primary)',
+        navyBlue: 'rgb(var(--color-primary))',
         lightOrange: '#F6F2EB',
         darkGreen: '#40994A',
         darkBlue: '#0044F2',
@@ -51,17 +55,21 @@ export default {
         danger: createColorVars('danger'),
         info: createColorVars('info'),
 
-        'on-background:': 'var(--on-background)',
-        'on-surface': 'var(--on-surface)',
-        'on-surface-alt': 'var(--on-surface-alt)',
-        'on-primary': 'var(--on-primary)',
-        'on-secondary': 'var(--on-secondary)',
-        'on-accent': 'var(--on-accent)',
-        'on-neutral': 'var(--on-neutral)',
-        'on-success': 'var(--on-success)',
-        'on-warning': 'var(--on-warning)',
-        'on-danger': 'var(--on-danger)',
-        'on-info': 'var(--on-info)',
+        'on-background': 'rgb(var(--color-on-background))',
+        'on-surface': 'rgb(var(--color-on-surface))',
+        'on-surface-alt': 'rgb(var(--color-on-surface-alt))',
+        'on-primary': 'rgb(var(--color-on-primary))',
+        'on-secondary': 'rgb(var(--color-on-secondary))',
+        'on-accent': 'rgb(var(--color-on-accent))',
+        'on-neutral': 'rgb(var(--color-on-neutral))',
+        'on-success': 'rgb(var(--color-on-success))',
+        'on-warning': 'rgb(var(--color-on-warning))',
+        'on-danger': 'rgb(var(--color-on-danger))',
+        'on-info': 'rgb(var(--color-on-info))',
+      },
+
+      borderColor: {
+        DEFAULT: 'rgb(var(--color-on-background) / 0.08)',
       },
     },
   },
@@ -71,8 +79,8 @@ function createColorVars(name) {
   const shades = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950'];
   const colors = {};
   for (const shade of shades) {
-    colors[shade] = `var(--color-${name}-${shade})`;
+    colors[shade] = `rgb(var(--color-${name}-${shade}))`;
   }
-  colors.DEFAULT = `var(--color-${name})`;
+  colors.DEFAULT = `rgb(var(--color-${name}))`;
   return colors;
 }

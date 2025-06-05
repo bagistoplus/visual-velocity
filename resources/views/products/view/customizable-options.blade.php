@@ -1,17 +1,15 @@
 @if ($product->getTypeInstance()->isCustomizable())
     @php
-        $options = $product->customizable_options()->with([
-            'product',
-            'customizable_option_prices',
-        ])->get();
+        $options = $product
+            ->customizable_options()
+            ->with(['product', 'customizable_option_prices'])
+            ->get();
     @endphp
 
     @if ($options->isNotEmpty())
         {!! view_render_event('bagisto.shop.products.view.customizable-options.before', ['product' => $product]) !!}
 
-        <v-product-customizable-options
-            :initial-price="{{ $product->getTypeInstance()->getMinimalPrice() }}"
-        >
+        <v-product-customizable-options :initial-price="{{ $product->getTypeInstance()->getMinimalPrice() }}">
         </v-product-customizable-options>
 
         {!! view_render_event('bagisto.shop.products.view.customizable-options.after', ['product' => $product]) !!}
@@ -47,7 +45,7 @@
                 type="text/x-template"
                 id="v-product-customizable-option-item-template"
             >
-                <div class="mt-8 border-b border-zinc-200 pb-4 max-sm:mt-4 max-sm:pb-0">
+                <div class="mt-8 border-b  pb-4 max-sm:mt-4 max-sm:pb-0">
                     <x-shop::form.control-group>
                         <!-- Text Field -->
                         <template v-if="option.type == 'text'">
@@ -57,7 +55,7 @@
                             >
                                 @{{ option.label }}
 
-                                <span class="text-black">
+                                <span class="text-on-background">
                                     @{{ '+ ' + $shop.formatPrice(option.price) }}
                                 </span>
                             </x-shop::form.control-group.label>
@@ -80,7 +78,7 @@
                             >
                                 @{{ option.label }}
 
-                                <span class="text-black">
+                                <span class="text-on-background">
                                     @{{ '+ ' + $shop.formatPrice(option.price) }}
                                 </span>
                             </x-shop::form.control-group.label>
@@ -121,12 +119,12 @@
                                     />
 
                                     <label
-                                        class="cursor-pointer text-zinc-500 max-sm:text-sm"
+                                        class="cursor-pointer text-on-background/60 max-sm:text-sm"
                                         :for="'customizable_options[' + option.id + '][' + index + ']'"
                                     >
                                         @{{ item.label }}
 
-                                        <span class="text-black">
+                                        <span class="text-on-background">
                                             @{{ '+ ' + $shop.formatPrice(item.price) }}
                                         </span>
                                     </label>
@@ -162,7 +160,7 @@
                                     />
 
                                     <label
-                                        class="cursor-pointer text-zinc-500 max-sm:text-sm"
+                                        class="cursor-pointer text-on-background/60 max-sm:text-sm"
                                         :for="'customizable_options[' + option.id + '][' + index + ']'"
                                     >
                                         @lang('shop::app.products.view.type.simple.customizable-options.none')
@@ -186,12 +184,12 @@
                                     />
 
                                     <label
-                                        class="cursor-pointer text-zinc-500 max-sm:text-sm"
+                                        class="cursor-pointer text-on-background/60 max-sm:text-sm"
                                         :for="'customizable_options[' + option.id + '][' + index + ']'"
                                     >
                                         @{{ item.label }}
 
-                                        <span class="text-black">
+                                        <span class="text-on-background">
                                             @{{ '+ ' + $shop.formatPrice(item.price) }}
                                         </span>
                                     </label>
@@ -266,7 +264,7 @@
                             >
                                 @{{ option.label }}
 
-                                <span class="text-black">
+                                <span class="text-on-background">
                                     @{{ '+ ' + $shop.formatPrice(option.price) }}
                                 </span>
                             </x-shop::form.control-group.label>
@@ -289,7 +287,7 @@
                             >
                                 @{{ option.label }}
 
-                                <span class="text-black">
+                                <span class="text-on-background">
                                     @{{ '+ ' + $shop.formatPrice(option.price) }}
                                 </span>
                             </x-shop::form.control-group.label>
@@ -312,7 +310,7 @@
                             >
                                 @{{ option.label }}
 
-                                <span class="text-black">
+                                <span class="text-on-background">
                                     @{{ '+ ' + $shop.formatPrice(option.price) }}
                                 </span>
                             </x-shop::form.control-group.label>
@@ -335,7 +333,7 @@
                             >
                                 @{{ option.label }}
 
-                                <span class="text-black">
+                                <span class="text-on-background">
                                     @{{ '+ ' + $shop.formatPrice(option.price) }}
                                 </span>
                             </x-shop::form.control-group.label>
@@ -377,7 +375,7 @@
 
                     mounted() {
                         this.options = this.options.map((option) => {
-                            if (! this.canHaveMultiplePriceOptions(option.type)) {
+                            if (!this.canHaveMultiplePriceOptions(option.type)) {
                                 return {
                                     id: option.id,
                                     label: option.label,
@@ -422,7 +420,10 @@
                     },
 
                     methods: {
-                        priceUpdated({ option, totalPrice }) {
+                        priceUpdated({
+                            option,
+                            totalPrice
+                        }) {
                             let price = this.prices.find(price => price.option_id === option.id);
 
                             price.price = totalPrice;
@@ -445,12 +446,12 @@
                         return {
                             optionItems: [],
 
-                            selectedItems: this.canHaveMultiplePrices()  ? [] : null,
+                            selectedItems: this.canHaveMultiplePrices() ? [] : null,
                         };
                     },
 
                     mounted() {
-                        if (! this.option.customizable_option_prices) {
+                        if (!this.option.customizable_option_prices) {
                             return;
                         }
 
@@ -464,7 +465,7 @@
                     },
 
                     watch: {
-                        selectedItems: function (value) {
+                        selectedItems: function(value) {
                             let selectedItemValues = Array.isArray(value) ? value : [value];
 
                             let totalPrice = 0;
