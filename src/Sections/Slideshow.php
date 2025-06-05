@@ -9,6 +9,7 @@ use BagistoPlus\Visual\Settings\Image;
 
 use function BagistoPlus\VisualVelocity\_t;
 use BagistoPlus\Visual\Sections\BladeSection;
+use Webkul\Theme\Repositories\ThemeCustomizationRepository;
 
 class Slideshow extends BladeSection
 {
@@ -51,7 +52,13 @@ class Slideshow extends BladeSection
             ];
         }
 
-        $imageCarousel = $this->context['customizations']->firstWhere('type', 'image_carousel');
+        $themeCustomizationRepository = app(ThemeCustomizationRepository::class);
+        $imageCarousel = $themeCustomizationRepository->orderBy('sort_order')
+            ->findOneWhere([
+                'status' => 1,
+                'channel_id' => core()->getCurrentChannel()->id,
+                'theme_code' => 'default'
+            ]);
 
         if ($imageCarousel) {
             return $imageCarousel->options;

@@ -60,8 +60,8 @@ class Footer extends BladeSection
         $footerLinks = $themeCustomizationRepository->findOneWhere([
             'type'       => 'footer_links',
             'status'     => 1,
-            'theme_code' => $channel->theme,
-            'channel_id' => $channel->id,
+            'channel_id' => core()->getCurrentChannel()->id,
+            'theme_code' => 'default',
         ]);
 
         if (!$footerLinks) {
