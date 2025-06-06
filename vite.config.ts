@@ -40,7 +40,7 @@ export default defineConfig({
   plugins: [
     vue(),
     laravel({
-      input: ['resources/assets/css/theme.css', 'resources/assets/js/theme.js'],
+      input: ['resources/assets/css/shop.css', 'resources/assets/js/shop.js'],
       refresh: true,
       buildDirectory: 'themes/shop/visual-velocity',
       hotFile: 'public/themes/shop/visual-velocity/visual-velocity-vite.hot',

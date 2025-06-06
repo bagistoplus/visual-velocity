@@ -1,7 +1,7 @@
 {
-  "resources/assets/css/theme.css": {
-    "file": "assets/theme-Dan2yqgO.css",
-    "src": "resources/assets/css/theme.css",
+  "resources/assets/css/shop.css": {
+    "file": "assets/shop-Dan2yqgO.css",
+    "src": "resources/assets/css/shop.css",
     "isEntry": true
   },
   "resources/assets/fonts/bagisto-shop.woff": {
@@ -124,13 +124,13 @@
     "file": "assets/wishlist-DPRG46v-.png",
     "src": "resources/assets/images/wishlist.png"
   },
-  "resources/assets/js/theme.js": {
-    "file": "assets/theme-DITDf1Ht.js",
-    "name": "theme",
-    "src": "resources/assets/js/theme.js",
+  "resources/assets/js/shop.js": {
+    "file": "assets/shop-Bs4X2dET.js",
+    "name": "shop",
+    "src": "resources/assets/js/shop.js",
     "isEntry": true,
     "css": [
-      "assets/theme-DsP8OK1c.css"
+      "assets/shop-DsP8OK1c.css"
     ]
   }
 }

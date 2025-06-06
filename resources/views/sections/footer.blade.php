@@ -73,7 +73,7 @@
                             <x-shop::form.control-group.error control-name="email" />
 
                             <button type="submit"
-                                class="absolute top-1.5 flex w-max items-center rounded-xl bg-background px-7 py-2.5 font-medium hover:bg-surface max-md:top-1 max-md:px-5 max-md:text-xs max-sm:mt-0 max-sm:rounded-lg max-sm:px-4 max-sm:py-2 ltr:right-2 rtl:left-2"
+                                class="absolute top-1.5 flex w-max items-center rounded-xl bg-background px-7 py-2.5 font-medium text-on-background hover:bg-surface max-md:top-1 max-md:px-5 max-md:text-xs max-sm:mt-0 max-sm:rounded-lg max-sm:px-4 max-sm:py-2 ltr:right-2 rtl:left-2"
                             >
                                 @lang('shop::app.components.layouts.footer.subscribe')
                             </button>

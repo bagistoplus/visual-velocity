@@ -150,7 +150,7 @@ document.addEventListener('visual:section:load', (event) => {
   if (shouldMountVue(el)) {
     // Add little delay to ensure new scripts (vue templates) are executed before mounting
     // The delay works, but we should refactorize to make sur new scripts are executed
-    setTimeout(() => mountComponent(el), 100);
+    setTimeout(() => mountComponent(el), 50);
   }
 });
 

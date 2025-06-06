@@ -33,7 +33,7 @@
 
         @includeIf('shop::partials.tokens')
 
-        @bagistoVite(['resources/assets/css/theme.css', 'resources/assets/js/theme.js'])
+        @bagistoVite(['resources/assets/css/shop.css', 'resources/assets/js/shop.js'])
 
         @if ($theme->settings->default_font)
             {{ $theme->settings->default_font->toHtml() }}

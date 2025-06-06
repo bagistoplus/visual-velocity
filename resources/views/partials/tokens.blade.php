@@ -1,8 +1,8 @@
 {{-- blade-formatter-disable --}}
 @style
     :root {
-        --default-font-family: {{ $theme->settings->default_font }};
-        --heading-font-family: {{ $theme->settings->heading_font }};
+        --default-font-family: '{{ $theme->settings->default_font }}';
+        --heading-font-family: '{{ $theme->settings->heading_font }}';
     }
 
     @foreach ($theme->settings->color_schemes as $scheme)
