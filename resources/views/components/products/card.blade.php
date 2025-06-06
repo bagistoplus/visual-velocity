@@ -6,7 +6,7 @@
         type="text/x-template"
         id="v-product-card-template"
     >
-        <!-- Grid Card -->
+        {{-- Grid Card --}}
         <div
             class="1180:transtion-all group w-full rounded-md 1180:relative 1180:grid 1180:content-start 1180:overflow-hidden 1180:duration-300 1180:hover:shadow-[0_5px_10px_rgba(0,0,0,0.1)]"
             v-if="mode != 'list'"
@@ -181,7 +181,7 @@
             </div>
         </div>
 
-        <!-- List Card -->
+        {{-- List Card --}}
         <div
             class="relative flex max-w-max grid-cols-2 gap-4 overflow-hidden rounded max-sm:flex-wrap"
             v-else

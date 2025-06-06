@@ -83,10 +83,6 @@ function createMainApp() {
   configureApp(app);
   setupDesignModeOverride(app);
 
-  if (window.Visual?.inDesignMode) {
-    app.config.compilerOptions.comments = true;
-  }
-
   window.app = app;
 
   return app;
