@@ -120,10 +120,27 @@ return [
             'slide' => [
                 'name' => 'Slide',
                 'settings' => [
-                    'title_label' => 'Title',
-                    'link_label' => 'Link',
+                    'heading_label' => 'Heading',
+                    'heading_size_label' => 'Heading size',
+
+                    'subheading_label' => 'Subheading',
+                    'subheading_size_label' => 'Subheading size',
+
+                    'size_small'    => 'Small',
+                    'size_medium'   => 'Medium',
+                    'size_large'    => 'Large',
+                    'size_xlarge'   => 'Extra Large',
+                    'size_2xlarge'  => '2x Extra Large',
+
+                    'button_text_label' => 'Button text',
+                    'button_link_label' => 'Button link',
                     'image_label' => 'Image',
                     'image_info' => 'Recommended size: 1920x700px',
+
+                    'content_placement_label' => 'Content Placement',
+                    'placement_center' => 'Center',
+                    'placement_left'   => 'Left',
+                    'placement_right'  => 'Right',
                 ],
             ],
         ],

@@ -62,15 +62,19 @@ function sharedAppOptions() {
  * Component templates may have changed.
  */
 function setupDesignModeOverride(app) {
-  if (window.Visual?.inDesignMode) {
-    const originalComponent = app.component.bind(app);
-    app.component = (name, definition) => {
-      if (Object.prototype.hasOwnProperty.call(app._context.components, name)) {
-        delete app._context.components[name];
-      }
-      return originalComponent(name, definition);
-    };
-  }
+  const originalComponent = app.component.bind(app);
+
+  app.component = (name, definition) => {
+    if (Object.prototype.hasOwnProperty.call(app._context.components, name)) {
+      delete app._context.components[name];
+    }
+
+    if (definition.template?.startsWith('#v-')) {
+      definition.template = document.querySelector(definition.template).textContent;
+    }
+
+    return originalComponent(name, definition);
+  };
 }
 
 /**
@@ -81,7 +85,6 @@ function createMainApp() {
   const app = createApp(sharedAppOptions());
 
   configureApp(app);
-  setupDesignModeOverride(app);
 
   window.app = app;
 
@@ -111,6 +114,7 @@ function mountComponent(el) {
   });
 
   localApp.mount(targetEl);
+
   el.replaceWith(targetEl);
 }
 
@@ -146,7 +150,9 @@ document.addEventListener('visual:section:load', (event) => {
   if (shouldMountVue(el)) {
     // Add little delay to ensure new scripts (vue templates) are executed before mounting
     // The delay works, but we should refactorize to make sur new scripts are executed
-    setTimeout(() => mountComponent(el), 50);
+    setTimeout(() => {
+      mountComponent(el);
+    }, 100);
   }
 });
 
@@ -164,6 +170,7 @@ const app = createMainApp();
 
 window.setupApp = () => {
   if (window.Visual?.inDesignMode) {
+    setupDesignModeOverride(app);
     app.config.compilerOptions.comments = true;
   }
 
