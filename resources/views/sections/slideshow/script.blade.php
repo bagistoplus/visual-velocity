@@ -38,6 +38,7 @@
 
             document.addEventListener('visual:block:select', (event) => {
                 const index = Array.from(this.slides).findIndex(node => node.dataset.slideId === event.detail.blockId);
+                console.log(index);
                 this.currentIndex = index;
                 this.setPositionByIndex();
                 this.stop();
@@ -54,7 +55,9 @@
 
                 if (event.detail.block) {
                     const slideIndex = Array.from(this.slides).findIndex(node => node.dataset.slideId === event.detail.block.id);
-                    sessionStorage.setItem(`section:${this.sliderId}:current-slide`, slideIndex);
+                    if (slideIndex !== -1) {
+                        sessionStorage.setItem(`section:${this.sliderId}:current-slide`, slideIndex);
+                    }
                 }
             });
 

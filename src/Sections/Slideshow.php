@@ -66,7 +66,7 @@ class Slideshow extends BladeSection
                             'start'   => _t('slideshow.blocks.slide.settings.placement_left'),
                             'end'  => _t('slideshow.blocks.slide.settings.placement_right'),
                         ])
-                        ->default('center')
+                        ->default('start')
                 ]),
         ];
     }

@@ -3,7 +3,7 @@
 return [
     'code' => 'visual-velocity',
     'name' => 'Visual Velocity',
-    'version' => '1.0.0',
+    'version' => '0.1.0',
     'author' => 'Bagisto Plus',
     'assets_path' => 'public/themes/shop/visual-velocity',
     'views_path' => 'resources/themes/visual-velocity/views',
