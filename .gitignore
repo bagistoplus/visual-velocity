@@ -1,6 +1,8 @@
 .idea
 .phpunit.cache
 build
+composer.lock
+package-lock.json
 coverage
 vendor
 node_modules

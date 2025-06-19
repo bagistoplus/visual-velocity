@@ -37,19 +37,26 @@
             }
 
             document.addEventListener('visual:block:select', (event) => {
+                if (event.detail.sectionId !== this.sliderId) {
+                    return;
+                }
+
                 const index = Array.from(this.slides).findIndex(node => node.dataset.slideId === event.detail.blockId);
-                console.log(index);
                 this.currentIndex = index;
                 this.setPositionByIndex();
                 this.stop();
             });
 
             document.addEventListener('visual:block:deselect', (event) => {
+                if (event.detail.sectionId !== this.sliderId) {
+                    return;
+                }
+
                 this.play();
             });
 
             document.addEventListener('visual:section:unload', (event) => {
-                if (event.detail.section.type !== 'visual-velocity::slideshow') {
+                if (event.detail.section.id !== this.sliderId) {
                     return;
                 }
 
