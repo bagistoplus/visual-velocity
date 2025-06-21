@@ -1,4 +1,4 @@
-<div class="flex flex-wrap gap-4 px-4 pb-4 pt-6 shadow-sm lg:hidden">
+<div class="flex flex-wrap gap-4 bg-background p-4 text-on-background shadow-sm lg:hidden" {{ $section->settings->scheme?->attributes() }}>
     <div class="flex w-full items-center justify-between">
         <!-- Left Navigation -->
         <div class="flex items-center gap-x-1.5">
@@ -23,12 +23,6 @@
                         alt="{{ $section->settings->logo_text ?: config('app.name') }}"
                         {{ $section->liveUpdate()->attr('logo', 'src') }}
                     >
-                @elseif($logo = core()->getCurrentChannel()->logo_url)
-                    <img
-                        src="{{ $logo }}"
-                        class="max-h-12 min-h-8 w-auto"
-                        alt="{{ $section->settings->logo_text ?: config('app.name') }}"
-                    >
                 @else
                     <span class="text-xl" {{ $section->liveUpdate()->text('logo_text') }}>
                         {{ $section->settings->logo_text ?: config('app.name') }}
@@ -42,142 +36,71 @@
         <!-- Right Navigation -->
         <div>
             <div class="flex items-center gap-x-5 max-md:gap-x-4">
-                {!! view_render_event('bagisto.shop.components.layouts.header.mobile.compare.before') !!}
-
-                @if ($showCompare)
-                    <a href="{{ route('shop.compare.index') }}" aria-label="@lang('shop::app.components.layouts.header.mobile.compare')">
-                        <span class="icon-compare cursor-pointer text-2xl"></span>
-                    </a>
-                @endif
-
-                {!! view_render_event('bagisto.shop.components.layouts.header.mobile.compare.after') !!}
-
-                {!! view_render_event('bagisto.shop.components.layouts.header.mobile.mini_cart.before') !!}
-
-                @if (core()->getConfigData('sales.checkout.shopping_cart.cart_page'))
-                    @include('shop::checkout.cart.mini-cart')
-                @endif
-
-                {!! view_render_event('bagisto.shop.components.layouts.header.mobile.mini_cart.after') !!}
-
-                <!-- For Large screens -->
-                <div class="max-md:hidden">
-                    <x-shop::dropdown position="bottom-{{ core()->getCurrentLocale()->direction === 'ltr' ? 'right' : 'left' }}">
-                        <x-slot:toggle>
-                            <span class="icon-users cursor-pointer text-2xl"></span>
-                        </x-slot>
-
-                        <!-- Guest Dropdown -->
-                        @guest('customer')
-                            <x-slot:content>
-                                <div class="grid gap-2.5">
-                                    <p class="font-dmserif text-xl">
-                                        @lang('shop::app.components.layouts.header.mobile.welcome-guest')
-                                    </p>
-
-                                    <p class="text-sm">
-                                        @lang('shop::app.components.layouts.header.mobile.dropdown-text')
-                                    </p>
-                                </div>
-
-                                <p class="mt-3 w-full border"></p>
-
-                                {!! view_render_event('bagisto.shop.components.layouts.header.mobile.index.customers_action.before') !!}
-
-                                <div class="mt-6 flex gap-4">
-                                    {!! view_render_event('bagisto.shop.components.layouts.header.mobile.index.sign_in_button.before') !!}
-
-                                    <a href="{{ route('shop.customer.session.create') }}"
-                                        class="m-0 mx-auto block w-max cursor-pointer rounded-2xl bg-primary px-7 py-4 text-center text-base font-medium text-on-primary ltr:ml-0 rtl:mr-0"
-                                    >
-                                        @lang('shop::app.components.layouts.header.mobile.sign-in')
-                                    </a>
-
-                                    <a href="{{ route('shop.customers.register.index') }}"
-                                        class="m-0 mx-auto block w-max cursor-pointer rounded-2xl border-2 border-primary bg-background px-7 py-3.5 text-center text-base font-medium text-navyBlue ltr:ml-0 rtl:mr-0"
-                                    >
-                                        @lang('shop::app.components.layouts.header.mobile.sign-up')
-                                    </a>
-
-                                    {!! view_render_event('bagisto.shop.components.layouts.header.mobile.index.sign_in_button.after') !!}
-                                </div>
-
-                                {!! view_render_event('bagisto.shop.components.layouts.header.mobile.index.customers_action.after') !!}
-                            </x-slot>
-                        @endguest
-
-                        <!-- Customers Dropdown -->
-                        @auth('customer')
-                            <x-slot:content class="!p-0">
-                                <div class="grid gap-2.5 p-5 pb-0">
-                                    <p class="font-dmserif text-xl">
-                                        @lang('shop::app.components.layouts.header.mobile.welcome')’
-                                        {{ auth()->guard('customer')->user()->first_name }}
-                                    </p>
-
-                                    <p class="text-sm">
-                                        @lang('shop::app.components.layouts.header.mobile.dropdown-text')
-                                    </p>
-                                </div>
-
-                                <p class="mt-3 w-full border"></p>
-
-                                <div class="mt-2.5 grid gap-1 pb-2.5">
-                                    {!! view_render_event('bagisto.shop.components.layouts.header.mobile.index.profile_dropdown.links.before') !!}
-
-                                    <a class="cursor-pointer px-5 py-2 text-base" href="{{ route('shop.customers.account.profile.index') }}">
-                                        @lang('shop::app.components.layouts.header.mobile.profile')
-                                    </a>
-
-                                    <a class="cursor-pointer px-5 py-2 text-base" href="{{ route('shop.customers.account.orders.index') }}">
-                                        @lang('shop::app.components.layouts.header.mobile.orders')
-                                    </a>
-
-                                    @if ($showWishlist)
-                                        <a class="cursor-pointer px-5 py-2 text-base" href="{{ route('shop.customers.account.wishlist.index') }}">
-                                            @lang('shop::app.components.layouts.header.mobile.wishlist')
-                                        </a>
+                @foreach ($section->blocks as $block)
+                    @switch($block->type)
+                        @case('compare')
+                            {!! view_render_event('bagisto.shop.components.layouts.header.mobile.compare.before') !!}
+                            @if ($showCompare)
+                                <a
+                                    href="{{ route('shop.compare.index') }}"
+                                    aria-label="@lang('shop::app.components.layouts.header.mobile.compare')"
+                                    class="flex"
+                                >
+                                    @if ($block->settings->icon)
+                                        {{ $block->settings->icon->render('h-5 w-5') }}
+                                    @else
+                                        <span class="icon-compare cursor-pointer text-2xl"></span>
                                     @endif
+                                </a>
+                            @endif
+                            {!! view_render_event('bagisto.shop.components.layouts.header.mobile.compare.after') !!}
+                        @break
 
-                                    <!--Customers logout-->
-                                    @auth('customer')
-                                        <x-shop::form
-                                            id="customerLogout"
-                                            method="DELETE"
-                                            action="{{ route('shop.customer.session.destroy') }}"
-                                        />
+                        @case('minicart')
+                            {!! view_render_event('bagisto.shop.components.layouts.header.mobile.mini_cart.before') !!}
 
-                                        <a
-                                            class="cursor-pointer px-5 py-2 text-base"
-                                            href="{{ route('shop.customer.session.destroy') }}"
-                                            onclick="event.preventDefault(); document.getElementById('customerLogout').submit();"
-                                        >
-                                            @lang('shop::app.components.layouts.header.mobile.logout')
-                                        </a>
-                                    @endauth
+                            @if (core()->getConfigData('sales.checkout.shopping_cart.cart_page'))
+                                @include('shop::checkout.cart.mini-cart', ['block' => $block])
+                            @endif
 
-                                    {!! view_render_event('bagisto.shop.components.layouts.header.mobile.index.profile_dropdown.links.after') !!}
-                                </div>
-                            </x-slot>
-                        @endauth
-                    </x-shop::dropdown>
-                </div>
+                            {!! view_render_event('bagisto.shop.components.layouts.header.mobile.mini_cart.after') !!}
+                        @break
 
-                <!-- For Medium and small screen -->
-                <div class="md:hidden">
-                    @guest('customer')
-                        <a href="{{ route('shop.customer.session.create') }}" aria-label="@lang('shop::app.components.layouts.header.mobile.account')">
-                            <span class="icon-users cursor-pointer text-2xl"></span>
-                        </a>
-                    @endguest
+                        @case('user')
+                            <div>
+                                @guest('customer')
+                                    <a
+                                        class="flex"
+                                        href="{{ route('shop.customer.session.create') }}"
+                                        aria-label="@lang('shop::app.components.layouts.header.mobile.account')"
+                                    >
+                                        @if ($block->settings->icon)
+                                            {{ $block->settings->icon->render('h-5 w-5') }}
+                                        @else
+                                            <span class="icon-users cursor-pointer text-2xl"></span>
+                                        @endif
+                                    </a>
+                                @endguest
 
-                    <!-- Customers Dropdown -->
-                    @auth('customer')
-                        <a href="{{ route('shop.customers.account.index') }}" aria-label="@lang('shop::app.components.layouts.header.mobile.account')">
-                            <span class="icon-users cursor-pointer text-2xl"></span>
-                        </a>
-                    @endauth
-                </div>
+                                <!-- Customers Dropdown -->
+                                @auth('customer')
+                                    <a
+                                        class="flex"
+                                        href="{{ route('shop.customers.account.index') }}"
+                                        aria-label="@lang('shop::app.components.layouts.header.mobile.account')"
+                                    >
+                                        @if ($block->settings->icon)
+                                            {{ $block->settings->icon->render('h-5 w-5') }}
+                                        @else
+                                            <span class="icon-users cursor-pointer text-2xl"></span>
+                                        @endif
+                                    </a>
+                                @endauth
+                            </div>
+                        @break
+                    @endswitch
+                @endforeach
+
             </div>
         </div>
     </div>

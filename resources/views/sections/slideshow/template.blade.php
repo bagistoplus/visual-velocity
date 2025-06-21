@@ -14,7 +14,7 @@
     ];
 @endphp
 
-<div class="relative m-auto flex w-full overflow-hidden">
+<div class="relative m-auto flex w-full overflow-hidden bg-background text-on-background" {{ $section->settings->scheme?->attributes() }}>
     <!-- Slider -->
     <div ref="sliderContainer" class="inline-flex translate-x-0 cursor-pointer transition-transform duration-700 ease-out will-change-transform">
         @foreach ($slides as $slide)

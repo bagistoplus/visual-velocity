@@ -53,6 +53,9 @@ class CollectionTiles extends BladeSection
                     'center' => _t('collection-tiles.settings.text_alignment.center'),
                     'end'    => _t('collection-tiles.settings.text_alignment.end'),
                 ])->default('center'),
+
+            Settings\ColorScheme::make('scheme', _t('common.scheme_label'))
+                ->info(_t('common.scheme_info'))
         ];
     }
 

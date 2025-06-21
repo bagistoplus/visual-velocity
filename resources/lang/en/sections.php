@@ -1,6 +1,11 @@
 <?php
 
 return [
+    'common' => [
+        'scheme_label' => 'Color Scheme',
+        'scheme_info' => 'This overrides the global theme color scheme. Changes to the main theme scheme will not affect this section.'
+    ],
+
     'top-bar' => [
         'settings' => [
             'announcement_label' => 'Announcement text',
@@ -13,6 +18,8 @@ return [
 
             'show_currency_switcher_label' => 'Show currency switcher',
             'show_locale_switcher_label' => 'Show locale switcher',
+
+            'variant_label'   => 'Background Variant',
         ]
     ],
 

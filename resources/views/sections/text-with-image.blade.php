@@ -34,7 +34,7 @@
 
 @endphp
 
-<div class="container py-12 max-lg:px-8 max-md:mt-8 max-sm:mt-7 max-sm:!px-4">
+<div class="container py-6 max-lg:px-8 max-sm:!px-4 md:py-8 lg:py-10">
     <div class="{{ $reverse ? 'md:flex-row-reverse' : '' }} {{ $contentPositionClass }} wrapper flex flex-col gap-4 md:flex-row md:gap-6 lg:gap-12"
         {{ $section->liveUpdate()->toggleClass('image_position', 'md:flex-row-reverse') }}
     >

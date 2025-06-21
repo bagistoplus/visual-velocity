@@ -13,12 +13,11 @@
             6 => 'md:grid-cols-6',
         ][$columns] ?? 'md:grid-cols-4';
 @endphp
-<div class="container mt-20 max-lg:px-8 max-md:mt-10 max-md:px-4">
+<div class="container bg-background py-6 text-on-background max-lg:px-8 max-md:px-4 md:py-8 lg:py-10" {{ $section->settings->scheme?->attributes() }}>
 
     <div class="{{ $gridClass }} grid grid-cols-1 gap-6 md:gap-10">
         @foreach ($features as $feature)
             <div class="flex flex-row items-start gap-4 text-left text-sm">
-
                 <div class="flex flex-none items-center justify-center rounded-full border border-primary p-3">
                     @svg($feature['icon'] ?? 'lucide-tag', [
                         'class' => 'text-primary',

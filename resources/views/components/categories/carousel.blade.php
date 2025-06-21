@@ -15,7 +15,7 @@
         id="v-categories-carousel-template"
     >
         <div
-            class="container mt-14 max-lg:px-8 max-md:mt-7 max-md:!px-0 max-sm:mt-5"
+            class="container py-8 max-lg:px-8  max-md:py-6 max-md:!px-0  max-sm:py-4"
             v-if="! isLoading && categories?.length"
         >
             <div class="relative">

@@ -4,7 +4,7 @@
     });
 @endphp
 
-<div class="flex flex-wrap max-lg:hidden">
+<div class="flex flex-wrap bg-background text-on-background max-lg:hidden" {{ $section->settings->scheme?->attributes() }}>
     {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.before') !!}
 
     <div class="flex min-h-[78px] w-full justify-between border border-b border-l-0 border-r-0 border-t-0 px-[60px] max-1180:px-8">
@@ -25,12 +25,6 @@
                                     class="max-h-12 min-h-8 w-auto"
                                     alt="{{ $block->settings->logo_text ?: config('app.name') }}"
                                     {{ $block->liveUpdate()->attr('logo', 'src') }}
-                                >
-                            @elseif($logo = core()->getCurrentChannel()->logo_url)
-                                <img
-                                    src="{{ $logo }}"
-                                    class="max-h-12 min-h-8 w-auto"
-                                    alt="{{ $block->settings->logo_text ?: config('app.name') }}"
                                 >
                             @else
                                 <span class="text-xl" {{ $block->liveUpdate()->text('logo_text') }}>

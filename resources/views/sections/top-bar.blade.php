@@ -1,5 +1,15 @@
 {!! view_render_event('bagisto.shop.components.layouts.header.desktop.top.before') !!}
 
+@php
+    $variant = $section->settings->variant ?? 'default';
+    $classes = [
+        'default' => 'bg-background text-on-background',
+        'primary' => 'bg-primary text-on-primary',
+        'secondary' => 'bg-secondary text-on-secondary',
+        'accent' => 'bg-accent text-on-accent',
+    ][$section->settings->variant];
+@endphp
+
 <v-topbar class="max-lg:hidden">
     <!-- Shimmer Effect -->
     <div class="flex items-center justify-between border border-b border-l-0 border-r-0 border-t-0 px-16">
@@ -34,7 +44,7 @@
 
 @pushOnce('scripts')
     <script type="text/x-template" id="v-topbar-template">
-    <div class="flex w-full items-center justify-between border border-b border-l-0 border-r-0 border-t-0 px-16">
+    <div {{ $section->settings->scheme?->attributes() }} class="flex w-full items-center justify-between border border-b border-l-0 border-r-0 border-t-0 px-16 {{ $classes }}">
         {!! view_render_event('bagisto.shop.components.layouts.header.desktop.top.currency_switcher.before') !!}
 
         <!-- Currency Switcher -->

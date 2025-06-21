@@ -11,6 +11,7 @@ use BagistoPlus\Visual\Settings\Image;
 use BagistoPlus\Visual\Settings\Number;
 use function BagistoPlus\VisualVelocity\_t;
 use BagistoPlus\Visual\Sections\BladeSection;
+use BagistoPlus\Visual\Settings\ColorScheme;
 use BagistoPlus\Visual\Settings\Select;
 use BagistoPlus\Visual\Settings\Support\ImageValue;
 use Webkul\Theme\Repositories\ThemeCustomizationRepository;
@@ -21,8 +22,10 @@ class Slideshow extends BladeSection
 
     public static function settings(): array
     {
-        // section settings
-        return [];
+        return [
+            ColorScheme::make('scheme', _t('common.scheme_label'))
+                ->info(_t('common.scheme_info'))
+        ];
     }
 
     public static function blocks(): array

@@ -6,6 +6,7 @@ use BagistoPlus\Visual\Settings\Image;
 use BagistoPlus\Visual\Sections\BladeSection;
 use BagistoPlus\Visual\Sections\Block;
 use BagistoPlus\Visual\Settings\Checkbox;
+use BagistoPlus\Visual\Settings\ColorScheme;
 use BagistoPlus\Visual\Settings\Icon;
 use BagistoPlus\Visual\Settings\Number;
 use BagistoPlus\Visual\Settings\RichText;
@@ -19,6 +20,14 @@ class Header extends BladeSection
     protected static string $view = 'shop::sections.header';
 
     protected static array $disabledOn = ['*'];
+
+    public static function settings(): array
+    {
+        return [
+            ColorScheme::make('scheme', _t('common.scheme_label'))
+                ->info(_t('common.scheme_info'))
+        ];
+    }
 
     public static function blocks(): array
     {

@@ -4,7 +4,9 @@ namespace BagistoPlus\VisualVelocity\Sections;
 
 use BagistoPlus\Visual\Sections\BladeSection;
 use BagistoPlus\Visual\Settings\Checkbox;
+use BagistoPlus\Visual\Settings\ColorScheme;
 use BagistoPlus\Visual\Settings\Link;
+use BagistoPlus\Visual\Settings\Select;
 use BagistoPlus\Visual\Settings\Text;
 
 use function BagistoPlus\VisualVelocity\_t;
@@ -35,6 +37,17 @@ class TopBar extends BladeSection
 
             Checkbox::make('show_locale_switcher', _t('top-bar.settings.show_locale_switcher_label'))
                 ->default(true),
+
+            Select::make('variant', _t('top-bar.settings.variant_label'))
+                ->options([
+                    'default'   => 'Default',
+                    'primary'   => 'Primary',
+                    'secondary' => 'Secondary',
+                    'accent'    => 'Accent',
+                ])->default('default'),
+
+            ColorScheme::make('scheme', _t('common.scheme_label'))
+                ->info(_t('common.scheme_info'))
         ];
     }
 

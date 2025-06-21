@@ -77,6 +77,9 @@ class TextWithImage extends BladeSection
                     'end'    => _t('text-with-image.settings.align_end'),
                 ])
                 ->default('center'),
+
+            Settings\ColorScheme::make('scheme', _t('common.scheme_label'))
+                ->info(_t('common.scheme_info'))
         ];
     }
 

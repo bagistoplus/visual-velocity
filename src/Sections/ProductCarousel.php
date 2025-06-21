@@ -6,6 +6,7 @@ use BagistoPlus\Visual\Sections\BladeSection;
 use BagistoPlus\Visual\Sections\Block;
 use BagistoPlus\Visual\Settings\Category;
 use BagistoPlus\Visual\Settings\Checkbox;
+use BagistoPlus\Visual\Settings\ColorScheme;
 use BagistoPlus\Visual\Settings\Icon;
 use BagistoPlus\Visual\Settings\Number;
 use BagistoPlus\Visual\Settings\Product;
@@ -59,6 +60,9 @@ class ProductCarousel extends BladeSection
 
             Icon::make('prev_icon', 'Previous icon'),
             Icon::make('next_icon', 'Next icon'),
+
+            ColorScheme::make('scheme', _t('common.scheme_label'))
+                ->info(_t('common.scheme_info'))
         ];
     }
 

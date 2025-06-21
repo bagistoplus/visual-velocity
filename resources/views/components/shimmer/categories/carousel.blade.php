@@ -1,6 +1,6 @@
 @props(['count' => 0])
 
-<div class="container mt-14 max-lg:px-8 max-md:mt-7 max-md:!px-0 max-sm:mt-5">
+<div class="container py-8 max-lg:px-8 max-md:!px-0 max-md:py-6 max-sm:py-4">
     <div class="relative">
         <div class="scrollbar-hide flex gap-10 overflow-auto max-lg:gap-4">
             @for ($i = 0; $i < $count; $i++)

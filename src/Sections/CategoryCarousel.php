@@ -6,6 +6,7 @@ use BagistoPlus\Visual\Sections\BladeSection;
 use BagistoPlus\Visual\Sections\Block;
 use BagistoPlus\Visual\Settings\Category;
 use BagistoPlus\Visual\Settings\Checkbox;
+use BagistoPlus\Visual\Settings\ColorScheme;
 use BagistoPlus\Visual\Settings\Number;
 use BagistoPlus\Visual\Settings\Select;
 use BagistoPlus\Visual\Settings\Text;
@@ -46,6 +47,9 @@ class CategoryCarousel extends BladeSection
 
             Checkbox::make('status', _t('category-carousel.settings.status_label'))
                 ->default(true),
+
+            ColorScheme::make('scheme', _t('common.scheme_label'))
+                ->info(_t('common.scheme_info'))
         ];
     }
 

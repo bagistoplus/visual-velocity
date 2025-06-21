@@ -3,6 +3,7 @@
 namespace BagistoPlus\VisualVelocity\Sections;
 
 use BagistoPlus\Visual\Sections\BladeSection;
+use BagistoPlus\Visual\Settings\ColorScheme;
 use BagistoPlus\Visual\Settings\Link;
 use BagistoPlus\Visual\Settings\Text;
 
@@ -22,6 +23,9 @@ class PromoBanner extends BladeSection
 
             Link::make('link', _t('promo-banner.settings.link_label'))
                 ->default('/'),
+
+            ColorScheme::make('scheme', _t('common.scheme_label'))
+                ->info(_t('common.scheme_info'))
         ];
     }
 }

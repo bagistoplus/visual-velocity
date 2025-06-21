@@ -11,6 +11,7 @@ use BagistoPlus\Visual\Settings\Textarea;
 
 use function BagistoPlus\VisualVelocity\_t;
 use BagistoPlus\Visual\Sections\BladeSection;
+use BagistoPlus\Visual\Settings\ColorScheme;
 
 class FeatureIcons extends BladeSection
 {
@@ -34,6 +35,9 @@ class FeatureIcons extends BladeSection
 
             Range::make('columns', _t('feature-icons.settings.columns_label'))
                 ->min(3)->max(6)->step(1)->default(4),
+
+            ColorScheme::make('scheme', _t('common.scheme_label'))
+                ->info(_t('common.scheme_info'))
         ];
     }
 

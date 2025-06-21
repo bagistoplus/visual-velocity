@@ -5,6 +5,7 @@ namespace BagistoPlus\VisualVelocity\Sections;
 use BagistoPlus\Visual\Sections\BladeSection;
 use BagistoPlus\Visual\Sections\Block;
 use BagistoPlus\Visual\Settings\Checkbox;
+use BagistoPlus\Visual\Settings\ColorScheme;
 use BagistoPlus\Visual\Settings\Link;
 use BagistoPlus\Visual\Settings\RichText;
 use BagistoPlus\Visual\Settings\Text;
@@ -107,7 +108,10 @@ class Footer extends BladeSection
     {
         return [
             RichText::make('copyright', _t('footer.settings.copyright_label'))
-                ->default(_t('footer.settings.copyright_default'))
+                ->default(_t('footer.settings.copyright_default')),
+
+            ColorScheme::make('scheme', _t('common.scheme_label'))
+                ->info(_t('common.scheme_info'))
         ];
     }
 

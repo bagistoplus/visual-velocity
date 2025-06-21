@@ -54,7 +54,7 @@
     >
         <div>
             <!-- Toggler -->
-            <div @click="open">
+            <div @click="open" class="flex">
                 <slot name="toggle"></slot>
             </div>
 

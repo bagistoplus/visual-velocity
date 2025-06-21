@@ -1,20 +1,20 @@
 @props(['title', 'src', 'navigationLink', 'selectedProducts', 'liveUpdate', 'prevIcon', 'nextIcon'])
 <v-products-carousel
-  src="{{ $src }}"
-  title="{{ $title }}"
-  navigation-link="{{ $navigationLink ?? '' }}"
-  :selected-products="@js($selectedProducts ?? [])"
+    src="{{ $src }}"
+    title="{{ $title }}"
+    navigation-link="{{ $navigationLink ?? '' }}"
+    :selected-products="@js($selectedProducts ?? [])"
 >
-  <x-shop::shimmer.products.carousel :navigation-link="$navigationLink ?? false" />
+    <x-shop::shimmer.products.carousel :navigation-link="$navigationLink ?? false" />
 </v-products-carousel>
 
 @pushOnce('scripts')
-  <script
+    <script
         type="text/x-template"
         id="v-products-carousel-template"
     >
         <div
-            class="container mt-20 max-lg:px-8 max-md:mt-8 max-sm:mt-7 max-sm:!px-4"
+            class="container py-10 max-lg:px-8 max-md:py-6 max-sm:py-4 max-sm:!px-4"
             v-if="! isLoading && products.length"
         >
             <div class="flex justify-between">
@@ -95,81 +95,81 @@
         </template>
     </script>
 
-  <script type="module">
-    app.component('v-products-carousel', {
-      template: '#v-products-carousel-template',
+    <script type="module">
+        app.component('v-products-carousel', {
+            template: '#v-products-carousel-template',
 
-      props: [
-        'src',
-        'title',
-        'navigationLink',
-        'selectedProducts'
-      ],
+            props: [
+                'src',
+                'title',
+                'navigationLink',
+                'selectedProducts'
+            ],
 
-      data() {
-        return {
-          isLoading: true,
+            data() {
+                return {
+                    isLoading: true,
 
-          products: [],
+                    products: [],
 
-          offset: 323,
+                    offset: 323,
 
-          isScreenMax2xl: window.innerWidth <= 1440,
-        };
-      },
+                    isScreenMax2xl: window.innerWidth <= 1440,
+                };
+            },
 
-      mounted() {
-        if (this.selectedProducts.length > 0) {
-          this.isLoading = false;
-          this.products = this.selectedProducts;
-        } else {
-          this.getProducts();
-        }
-      },
+            mounted() {
+                if (this.selectedProducts.length > 0) {
+                    this.isLoading = false;
+                    this.products = this.selectedProducts;
+                } else {
+                    this.getProducts();
+                }
+            },
 
-      created() {
-        window.addEventListener('resize', this.updateScreenSize);
-      },
+            created() {
+                window.addEventListener('resize', this.updateScreenSize);
+            },
 
-      beforeDestroy() {
-        window.removeEventListener('resize', this.updateScreenSize);
-      },
+            beforeDestroy() {
+                window.removeEventListener('resize', this.updateScreenSize);
+            },
 
-      methods: {
-        getProducts() {
-          this.$axios.get(this.src)
-            .then(response => {
-              this.isLoading = false;
+            methods: {
+                getProducts() {
+                    this.$axios.get(this.src)
+                        .then(response => {
+                            this.isLoading = false;
 
-              this.products = response.data.data;
-            }).catch(error => {
-              console.log(error);
-            });
-        },
+                            this.products = response.data.data;
+                        }).catch(error => {
+                            console.log(error);
+                        });
+                },
 
-        updateScreenSize() {
-          this.isScreenMax2xl = window.innerWidth <= 1440;
-        },
+                updateScreenSize() {
+                    this.isScreenMax2xl = window.innerWidth <= 1440;
+                },
 
-        swipeLeft() {
-          const container = this.$refs.swiperContainer;
+                swipeLeft() {
+                    const container = this.$refs.swiperContainer;
 
-          container.scrollLeft -= this.offset;
-        },
+                    container.scrollLeft -= this.offset;
+                },
 
-        swipeRight() {
-          const container = this.$refs.swiperContainer;
+                swipeRight() {
+                    const container = this.$refs.swiperContainer;
 
-          // Check if scroll reaches the end
-          if (container.scrollLeft + container.clientWidth >= container.scrollWidth) {
-            // Reset scroll to the beginning
-            container.scrollLeft = 0;
-          } else {
-            // Scroll to the right
-            container.scrollLeft += this.offset;
-          }
-        },
-      },
-    });
-  </script>
+                    // Check if scroll reaches the end
+                    if (container.scrollLeft + container.clientWidth >= container.scrollWidth) {
+                        // Reset scroll to the beginning
+                        container.scrollLeft = 0;
+                    } else {
+                        // Scroll to the right
+                        container.scrollLeft += this.offset;
+                    }
+                },
+            },
+        });
+    </script>
 @endPushOnce

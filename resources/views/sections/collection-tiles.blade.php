@@ -1,4 +1,4 @@
-<div class="overflow-hidden pb-4 pt-8 md:pt-12 lg:pt-16">
+<div class="overflow-hidden bg-background py-4 text-on-background md:py-7 lg:py-10" {{ $section->settings->scheme?->attributes() }}>
     @if ($section->settings->heading)
         <h2 class="mx-auto mb-6 w-full max-w-2xl px-4 text-center font-dmserif text-3xl leading-snug text-primary sm:px-6 sm:text-4xl md:text-5xl md:leading-normal lg:mb-16 lg:text-7xl lg:leading-tight"
             {{ $section->liveUpdate()->text('heading') }}
