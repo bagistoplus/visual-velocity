@@ -15,13 +15,5 @@ class ServiceProvider extends ThemeServiceProvider
     public function boot(): void
     {
         parent::boot();
-
-        Blade::directive('style', function () {
-            return '<style>';
-        });
-
-        Blade::directive('endstyle', function () {
-            return '</style>';
-        });
     }
 }
